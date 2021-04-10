@@ -1,0 +1,174 @@
+CREATE DATABASE Projectfirst;
+
+USE Projectfirst;
+
+
+CREATE TABLE USERS (
+
+	username           VARCHAR(20)   NOT NULL,
+    user_password      VARCHAR(30)   NOT NULL,
+    email              VARCHAR(50)   NOT NULL,
+
+
+PRIMARY KEY (username));
+
+CREATE TABLE CUSTOMERREP(
+	crepusername           VARCHAR(20)   NOT NULL,
+    
+ PRIMARY KEY(crepusername), 
+ FOREIGN KEY (crepusername) REFERENCES USERS(username) );
+ 
+
+ 
+ CREATE TABLE ADMIN(
+	adminusername           VARCHAR(20)   NOT NULL,
+    
+ PRIMARY KEY(adminusername), 
+ FOREIGN KEY (adminusername) REFERENCES USERS(username) );
+ 
+ 
+INSERT INTO USERS
+VALUES      ('amallick','sunshine','amallick@gmail.com'),
+			('jsmith','dragon','jsmith@gmail.com'), 
+            ('wjohnson','google23','wjohnson@gmail.com'), 
+            ('kbrown','blue57','kbrown@gmail.com'), 
+            ('dgarcia','ducky52','dgarcia@gmail.com'), 
+            ('tmedina','turtle!','tmedina@gmail.com');
+            
+            
+SELECT * FROM USERS;
+            
+INSERT INTO CUSTOMERREP
+VALUES 		('amallick'),
+			('jsmith');
+            
+            
+SELECT * FROM CUSTOMERREP;
+
+INSERT INTO ADMIN
+VALUES		('tmedina');
+
+SELECT * FROM ADMIN;
+            
+            
+INSERT INTO USERS(username, user_password, email) VALUES ('smallick', 'honey', 'smallick@aol.com' );
+
+
+ CREATE TABLE BUYERS(
+
+	username           VARCHAR(20)   NOT NULL,
+
+
+PRIMARY KEY (username), 
+FOREIGN KEY (username) REFERENCES USERS(username) );
+ 
+ CREATE TABLE SELLERS (
+
+	username           VARCHAR(20)   NOT NULL,
+
+
+PRIMARY KEY (username), 
+FOREIGN KEY (username) REFERENCES USERS(username) );
+
+CREATE TABLE FOOTWEAR_ITEMS (
+
+	footwear_item_id    INT 	     NOT NULL,
+    size 		    	DOUBLE  	 NOT NULL,
+    color 				VARCHAR(15)  NOT NULL,
+	material			VARCHAR(20)  NOT NULL,
+
+PRIMARY KEY (footwear_item_id)); 
+
+CREATE TABLE ALERTS (
+
+	footwear_item_id    	INT 	    NOT NULL,
+    alert_username 		    VARCHAR(20) NOT NULL,
+    
+
+PRIMARY KEY (alert_username, footwear_item_id), 
+FOREIGN KEY (footwear_item_id) REFERENCES FOOTWEAR_ITEMS(footwear_item_id),
+FOREIGN KEY (alert_username) REFERENCES USERS(username) );
+ 
+CREATE TABLE SELLS (
+
+	closing_date         date    NOT NULL,
+    closing_time 		VARCHAR(5) NOT NULL,
+    minimum_price 		double     NOT NULL, 
+
+
+PRIMARY KEY (closing_date, closing_time));
+
+
+CREATE TABLE ANSWERS (
+
+	question_id         VARCHAR(5)    NOT NULL,
+    username 		    VARCHAR(20)   NOT NULL,
+    keywords 		    VARCHAR(25)   NOT NULL, 
+
+
+PRIMARY KEY (username, question_id), 
+FOREIGN KEY (question_id) REFERENCES QUESTIONS(question_id),
+FOREIGN KEY (username) REFERENCES USERS(username) );
+
+CREATE TABLE QUESTIONS (
+
+	keywords             VARCHAR(30)    NOT NULL,
+    question_id 		 VARCHAR(5)     NOT NULL,
+
+
+PRIMARY KEY (question_id));
+
+
+
+
+CREATE TABLE BIDSFOR (
+
+	footwear_item_id    INT 	     NOT NULL,
+    username 		    VARCHAR(20)  NOT NULL,
+    bid_increment 		DOUBLE 		 NOT NULL,
+	isAutomatic			bool	     NOT NULL,
+	upper_limit 		DOUBLE 		 NOT NULL,
+    
+PRIMARY KEY (username, footwear_item_id),
+FOREIGN KEY (username) REFERENCES USERS(username), 
+FOREIGN KEY (footwear_item_id) REFERENCES FOOTWEAR_ITEMS(footwear_item_id));
+
+CREATE TABLE SNEAKERS (
+
+	footwear_item_id    INT 	    NOT NULL,
+    
+
+PRIMARY KEY (footwear_item_id)); 
+
+CREATE TABLE BOOTS (
+
+	footwear_item_id    INT 	    NOT NULL,
+    
+
+PRIMARY KEY (footwear_item_id)); 
+
+CREATE TABLE SHOES (
+
+	footwear_item_id    INT 	    NOT NULL,
+    
+
+PRIMARY KEY (footwear_item_id)); 
+
+CREATE TABLE SANDALS (
+
+	footwear_item_id    INT 	    NOT NULL,
+    
+
+PRIMARY KEY (footwear_item_id)); 
+ 
+
+
+
+
+
+
+            
+ 
+ 
+ 
+    
