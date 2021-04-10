@@ -41,7 +41,7 @@
 		<td>Condition</td><td><input type="text" name="condition"></td>
 		</tr>
 		<tr>    
-		<td>Initial Price</td><td><input type="text" name="initial price"></td>
+		<td>Initial Price</td><td><input type="text" name="initialprice"></td>
 		</tr>
 		</table>
 		<input type="submit" value="Submit!">
