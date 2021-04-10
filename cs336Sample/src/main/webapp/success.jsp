@@ -18,7 +18,22 @@ You are not logged in<br/>
 <%} else {
 %>
 Welcome <%=session.getAttribute("user")%>  
+<div  style='text-align:right'>
 <a href='logout.jsp'>Log out</a>
+</div>
+
+<div  style='text-align:center'>
+<a href='Sellers.jsp'>Sell</a>
+</div>
+
+<br>
+<br>
+
+<div class="topnav;"  style='text-align:center'>
+  <input type="text" placeholder="Search..">
+</div>
+
+
 <%
     }
 %>
