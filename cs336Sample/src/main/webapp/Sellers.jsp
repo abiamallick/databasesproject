@@ -29,7 +29,7 @@
 		<td>Brand</td><td><select name="brand" size=1>
 				<option value="nike">Nike</option>
 				<option value="adidas">Adidas</option>
-				<option value="reebox">Reebox</option>
+				<option value="reebok">Reebok</option>
 				<option value="under armour">Under Armour</option>
 				<option value="vans">Vans</option>
 				<option value="converse">Converse</option>
