@@ -53,6 +53,7 @@
 			while (result.next()) { %>
 				<tr>    
 					<td><%= result.getString("title") %></td>
+					<td><a href="searchResults.jsp">View this item here!</a></td>
 				</tr>
 				
 
