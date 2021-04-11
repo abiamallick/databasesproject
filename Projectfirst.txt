@@ -12,19 +12,29 @@ CREATE TABLE USERS (
 
 PRIMARY KEY (username));
 
+drop table USERS;
+
+
+
 CREATE TABLE CUSTOMERREP(
 	crepusername           VARCHAR(20)   NOT NULL,
     
  PRIMARY KEY(crepusername), 
  FOREIGN KEY (crepusername) REFERENCES USERS(username) );
  
-
+ALTER table CUSTOMERREP drop constraint customerrep_ibfk_1;
+ALTER table CUSTOMERREP add constraint foreign key (crepusername) references USERS(username);
  
  CREATE TABLE ADMIN(
 	adminusername           VARCHAR(20)   NOT NULL,
     
  PRIMARY KEY(adminusername), 
  FOREIGN KEY (adminusername) REFERENCES USERS(username) );
+ 
+ 
+ 
+ ALTER table ADMIN drop constraint admin_ibfk_1;
+ ALTER table ADMIN add constraint foreign key (adminusername) references USERS(username);
  
  
 INSERT INTO USERS
@@ -63,21 +73,30 @@ PRIMARY KEY (username),
 FOREIGN KEY (username) REFERENCES USERS(username) );
  
  CREATE TABLE SELLERS (
-
+	sid					int			Not null,
 	username           VARCHAR(20)   NOT NULL,
-
-
 PRIMARY KEY (username), 
 FOREIGN KEY (username) REFERENCES USERS(username) );
 
+
+
 CREATE TABLE FOOTWEAR_ITEMS (
 
-	footwear_item_id    INT 	     NOT NULL,
-    size 		    	DOUBLE  	 NOT NULL,
-    color 				VARCHAR(15)  NOT NULL,
-	material			VARCHAR(20)  NOT NULL,
+	footwear_item_id    INT 	     	NOT NULL,
+    Brand 		    	Varchar(30)  	 NOT NULL,
+    Size 				float  			NOT NULL,
+    Color				VARCHAR(40)  	NOT NULL,
+	item_Type			VARCHAR(40)  	NOT NULL,
+    item_Condition		VARCHAR(40)  	NOT NULL,
+    initial_price		float  			NOT NULL,
 
 PRIMARY KEY (footwear_item_id)); 
+
+SELECT * FROM FOOTWEAR_ITEMS;
+
+
+
+
 
 CREATE TABLE ALERTS (
 
@@ -88,6 +107,8 @@ CREATE TABLE ALERTS (
 PRIMARY KEY (alert_username, footwear_item_id), 
 FOREIGN KEY (footwear_item_id) REFERENCES FOOTWEAR_ITEMS(footwear_item_id),
 FOREIGN KEY (alert_username) REFERENCES USERS(username) );
+
+
  
 CREATE TABLE SELLS (
 
@@ -133,42 +154,6 @@ PRIMARY KEY (username, footwear_item_id),
 FOREIGN KEY (username) REFERENCES USERS(username), 
 FOREIGN KEY (footwear_item_id) REFERENCES FOOTWEAR_ITEMS(footwear_item_id));
 
-CREATE TABLE SNEAKERS (
-
-	footwear_item_id    INT 	    NOT NULL,
-    
-
-PRIMARY KEY (footwear_item_id)); 
-
-CREATE TABLE BOOTS (
-
-	footwear_item_id    INT 	    NOT NULL,
-    
-
-PRIMARY KEY (footwear_item_id)); 
-
-CREATE TABLE SHOES (
-
-	footwear_item_id    INT 	    NOT NULL,
-    
-
-PRIMARY KEY (footwear_item_id)); 
-
-CREATE TABLE SANDALS (
-
-	footwear_item_id    INT 	    NOT NULL,
-    
-
-PRIMARY KEY (footwear_item_id)); 
- 
 
 
 
-
-
-
-            
- 
- 
- 
-    
