@@ -83,10 +83,14 @@ int n = rand.nextInt(5000);
 		out.print("Your new item has been added to the auction");
 		
 		
-	} catch (Exception ex) {
+	} 
+	catch (NumberFormatException e) {
+		out.print("input a numerical value");
+	}catch (Exception ex) {
 		out.print(ex);
 		out.print("insert failed");
 	}
+
 %>
 </body>
 </html>
