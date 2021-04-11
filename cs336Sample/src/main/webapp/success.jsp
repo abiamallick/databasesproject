@@ -27,12 +27,18 @@ Welcome <%=session.getAttribute("user")%>
 </div>
 
 <br>
+<form action= "itemSearch.jsp" action="search">
+      <table border="0" width="300" align="center" bgcolor="white">
+        <tr><td colspan=2 style="font-size:12pt;" align="center">
+        <h3>Hi! Are you looking for heels, sandals, or sneakers?</h3></td></tr>
+        <tr><td ><b>Search:</b></td>
+          <td>: <input  type="text" name="searchItem" id="searchItem">
+        </td></tr>      
+        <tr><td colspan=2 align="center">
+        <input  type="submit" value="Search" ></td></tr>
+      </table>
+    </form>
 <br>
-
-<div class="topnav;"  style='text-align:center'>
-  <input type="text" placeholder="Search..">
-</div>
-
 
 <%
     }
