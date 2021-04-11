@@ -90,10 +90,11 @@ FOREIGN KEY (footwear_item_id) REFERENCES FOOTWEAR_ITEMS,
 FOREIGN KEY (username) REFERENCES USERS(username) );
 
 
+
 CREATE TABLE FOOTWEAR_ITEMS (
 
 	footwear_item_id    INT              NOT NULL,
-    item_type 			VARCHAR(40)  	 NOT NULL,
+    shoe_type 			VARCHAR(40)  	 NOT NULL,
     size                float           NOT NULL,
     color               VARCHAR(40)  	 NOT NULL,
 	item_condition     	VARCHAR(40)  	 NOT NULL,
@@ -101,6 +102,7 @@ CREATE TABLE FOOTWEAR_ITEMS (
     heel_size 			DOUBLE			 NOT NULL,
     initial_price		float 			 NOT NULL,
     brand 				VARCHAR(30)		 NOT NULL,
+    title 				VARCHAR(75) 	NOT NULL,
 
 PRIMARY KEY (footwear_item_id));
 
@@ -108,17 +110,18 @@ SELECT * FROM FOOTWEAR_ITEMS;
 
 
 INSERT INTO FOOTWEAR_ITEMS
-VALUES      ('1000001','sneakers','9','Grey','New','athletic','0.5','15','Adidas'),
-	    ('1000002','sandals','8.5','Blue','Slightly Used','casual','0','35','Crocs'),
-            ('1000003','heels','6','Red','Slightly Used','fancy','3','50','Sperry'),
-            ('1000004','sandals','10.5','Black','New','casual','0','51','Doc Martens'),
-            ('1000005','heels','5','Pink','New','fancy','3','35','Sperry'),
-	    ('1000006','sneakers','6','White','Very Used','athletic','0.5','100','Converse'),
-	    ('1000007','sneakers','6','Blue','New','athletic','0','88','Hunter'),
-            ('1000008','heels','8','Orange','New','fancy','2','60','Vans'),
-            ('1000009','sandals','9','Blue','Slightly Used','casual','0','50','Converse'),
-            ('1000010','sandals','5','Yellow','Very Used','casual','1','75','Under Armour'),
-            ('1000011','sandals','6','White','Slightly Used','casual','0.5','20','Reebok');
+VALUES      ('1000001','sneakers','9','Grey','New','athletic','0.5','15','Adidas','Nike Men Sneakers'),
+		('1000002','sandals','8.5','Blue','Slightly Used','casual','0','35','Crocs','Cute Summer Sandals'),
+            ('1000003','heels','6','Red','Slightly Used','fancy','3','50','Sperry','Funky Heels Perfect For Wedding'),
+            ('1000004','sandals','10.5','Black','New','casual','0','51','Doc Martens','Unique Vintage Sandals'),
+            ('1000005','heels','5','Pink','New','fancy','3','35','Sperry','Prom Heels Pink and Fun'),
+	('1000006','sneakers','6','White','Very Used','athletic','0.5','100','Converse','Super Comfortable Converse Everyday Shoes'),
+	('1000007','sneakers','6','Blue','New','athletic','0','88','Hunter','Perfect Running Shoes for Women'),
+            ('1000008','heels','8','Orange','New','fancy','2','60','Vans','Trendy Heels Perfect For Any Occasion'),
+            ('1000009','sandals','9','Blue','Slightly Used','casual','0','50','Converse','Barely Worn Converse For Teen Boys'),
+            ('1000010','sandals','5','Yellow','Very Used','casual','1','75','Under Armour','Everyday Shoes In Decent Shape'),
+            ('1000011','sandals','6','White','Slightly Used','casual','0.5','20','Reebok','One of a Kind Shoes For Women');
+
 
 CREATE TABLE BIDSFOR (
 
