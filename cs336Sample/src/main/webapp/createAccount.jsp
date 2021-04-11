@@ -29,7 +29,7 @@
 		String insert = "INSERT INTO USERS(username, user_password, email)"
 				+ " VALUES ('" + input_username + "', '" + input_password + "', '" + input_email + "' )";
 		
-		out.println(insert);
+		
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		PreparedStatement ps = con.prepareStatement(insert);
 		ps = con.prepareStatement(insert); 

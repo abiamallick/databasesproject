@@ -18,7 +18,7 @@
     rs = st.executeQuery("select * from USERS where username='" + userid + "' and user_password='" + pwd + "'");
     if (rs.next()) {
         session.setAttribute("user", userid); // the username will be stored in the session
-        out.println("welcome " + userid   + "                 _                 ");
+        out.println("welcome " + userid );
         out.println("<a href='logout.jsp'>  Log out</a>");
         response.sendRedirect("success.jsp");
     } else {
