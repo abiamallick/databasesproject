@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <!--Import some libraries that have classes that we need -->
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+<%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
 <%@page import="java.util.*" %>
 <%
 Random rand = new Random();
