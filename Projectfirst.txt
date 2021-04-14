@@ -154,13 +154,14 @@ WHERE a.alert_username= 'amallick' And f.footwear_item_id =1001;
 /* SELLS TABLE */
  
 CREATE TABLE SELLS (
-	footwear_sells_id	int		Not Null,
+	footwear_sells_id	int		Not Null	AUTO_INCREMENT,
 	starting_date		date	Not Null,
 	closing_date         date    NOT NULL,
     initial_price_sells		float     NOT NULL, 
 
 Foreign key(footwear_sells_id) references footwear_items(footwear_item_id),
 PRIMARY KEY (closing_date));
+ALTER TABLE SELLS AUTO_INCREMENT=1000;
 
 
 
