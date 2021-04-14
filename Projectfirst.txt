@@ -5,88 +5,77 @@ USE Projectfirst;
 
 CREATE TABLE USERS (
 
-        username           VARCHAR(20)   NOT NULL,
-    user_password           VARCHAR(30)   NOT NULL,
+	username           VARCHAR(20)   NOT NULL,
+    user_password      VARCHAR(30)   NOT NULL,
     email              VARCHAR(50)   NOT NULL,
 
 
 PRIMARY KEY (username));
 
+drop table USERS;
+
+
 
 CREATE TABLE CUSTOMERREP(
-        crepusername           VARCHAR(20)   NOT NULL,
-
- PRIMARY KEY(crepusername),
+	crepusername           VARCHAR(20)   NOT NULL,
+    
+ PRIMARY KEY(crepusername), 
  FOREIGN KEY (crepusername) REFERENCES USERS(username) );
-
-
-
+ 
+ALTER table CUSTOMERREP drop constraint customerrep_ibfk_1;
+ALTER table CUSTOMERREP add constraint foreign key (crepusername) references USERS(username);
+ 
  CREATE TABLE ADMIN(
-        adminusername           VARCHAR(20)   NOT NULL,
-
- PRIMARY KEY(adminusername),
+	adminusername           VARCHAR(20)   NOT NULL,
+    
+ PRIMARY KEY(adminusername), 
  FOREIGN KEY (adminusername) REFERENCES USERS(username) );
+ 
+ 
+ 
+ ALTER table ADMIN drop constraint admin_ibfk_1;
+ ALTER table ADMIN add constraint foreign key (adminusername) references USERS(username);
+ 
+ 
+INSERT INTO USERS
+VALUES      ('amallick','sunshine','amallick@gmail.com'),
+			('jsmith','dragon','jsmith@gmail.com'), 
+            ('wjohnson','google23','wjohnson@gmail.com'), 
+            ('kbrown','blue57','kbrown@gmail.com'), 
+            ('dgarcia','ducky52','dgarcia@gmail.com'), 
+            ('tmedina','turtle!','tmedina@gmail.com');
+            
+            
+SELECT * FROM USERS;
+            
+INSERT INTO CUSTOMERREP
+VALUES 		('amallick'),
+			('jsmith');
+            
+            
+SELECT * FROM CUSTOMERREP;
 
+INSERT INTO ADMIN
+VALUES		('tmedina');
+
+SELECT * FROM ADMIN;
+            
+            
+INSERT INTO USERS(username, user_password, email) VALUES ('smallick', 'honey', 'smallick@aol.com' );
 
 
  CREATE TABLE BUYERS(
 
-        username           VARCHAR(20)   NOT NULL,
+	username           VARCHAR(20)   NOT NULL,
 
 
-PRIMARY KEY (username),
+PRIMARY KEY (username), 
 FOREIGN KEY (username) REFERENCES USERS(username) );
-
-
+ 
  CREATE TABLE SELLERS (
-
-        username           VARCHAR(20)   NOT NULL,
-
-
-PRIMARY KEY (username),
-FOREIGN KEY (username) REFERENCES USERS(username) );
-
-
-CREATE TABLE SELLS (
-
-        closing_date           date    NOT NULL,
-    closing_time                VARCHAR(5) NOT NULL,
-    minimum_price               double     NOT NULL,
-
-
-PRIMARY KEY (footwear_item_id, username),
-FOREIGN KEY (footwear_item_id) REFERENCES FOOTWEAR_ITEMS,
-FOREIGN KEY (username) REFERENCES USERS(username) );
-
-
-CREATE TABLE ANSWERS (
-
-        question_id         VARCHAR(5)    NOT NULL,
-    username                VARCHAR(20)   NOT NULL,
-    keywords                VARCHAR(25)   NOT NULL,
-
-
-PRIMARY KEY (username, question_id),
-FOREIGN KEY (question_id) REFERENCES QUESTIONS,
-FOREIGN KEY (username) REFERENCES USERS(username) );
-
-
-CREATE TABLE QUESTIONS (
-
-        keywords             VARCHAR(30)    NOT NULL,
-    question_id                  VARCHAR(5)     NOT NULL,
-
-
-PRIMARY KEY (question_id));
-
-CREATE TABLE ALERTS (
-
-        footwear_item_id    INT             NOT NULL,
-    username                VARCHAR(20) NOT NULL,
-
-
-PRIMARY KEY (username, footwear_item_id),
-FOREIGN KEY (footwear_item_id) REFERENCES FOOTWEAR_ITEMS,
+	sid					int			Not null,
+	username           VARCHAR(20)   NOT NULL,
+PRIMARY KEY (username), 
 FOREIGN KEY (username) REFERENCES USERS(username) );
 
 
@@ -96,10 +85,8 @@ CREATE TABLE FOOTWEAR_ITEMS (
 	footwear_item_id    INT              NOT NULL,
     shoe_type 			VARCHAR(40)  	 NOT NULL,
     size                float           NOT NULL,
-    color               VARCHAR(40)  	 NOT NULL,
 	item_condition     	VARCHAR(40)  	 NOT NULL,
     style 				VARCHAR(30)		NOT NULL,
-    heel_size 			DOUBLE			 NOT NULL,
     initial_price		float 			 NOT NULL,
     brand 				VARCHAR(30)		 NOT NULL,
     title 				VARCHAR(75) 	NOT NULL,
@@ -109,84 +96,84 @@ PRIMARY KEY (footwear_item_id));
 SELECT * FROM FOOTWEAR_ITEMS;
 
 
+
+
 INSERT INTO FOOTWEAR_ITEMS
-VALUES      ('1000001','sneakers','9','Grey','New','athletic','0.5','15','Adidas','Nike Men Sneakers'),
-		('1000002','sandals','8.5','Blue','Slightly Used','casual','0','35','Crocs','Cute Summer Sandals'),
-            ('1000003','heels','6','Red','Slightly Used','fancy','3','50','Sperry','Funky Heels Perfect For Wedding'),
-            ('1000004','sandals','10.5','Black','New','casual','0','51','Doc Martens','Unique Vintage Sandals'),
-            ('1000005','heels','5','Pink','New','fancy','3','35','Sperry','Prom Heels Pink and Fun'),
-	('1000006','sneakers','6','White','Very Used','athletic','0.5','100','Converse','Super Comfortable Converse Everyday Shoes'),
-	('1000007','sneakers','6','Blue','New','athletic','0','88','Hunter','Perfect Running Shoes for Women'),
-            ('1000008','heels','8','Orange','New','fancy','2','60','Vans','Trendy Heels Perfect For Any Occasion'),
-            ('1000009','sandals','9','Blue','Slightly Used','casual','0','50','Converse','Barely Worn Converse For Teen Boys'),
-            ('1000010','sandals','5','Yellow','Very Used','casual','1','75','Under Armour','Everyday Shoes In Decent Shape'),
-            ('1000011','sandals','6','White','Slightly Used','casual','0.5','20','Reebok','One of a Kind Shoes For Women');
+VALUES      ('1235','sneakers','9','New','athletic','15','Adidas','Nike Men Sneakers'),
+			('8689','sandals','8.5','Slightly Used','casual','35','Crocs','Cute Summer Sandals'),
+            ('4893','heels','6','Slightly Used','fancy','50','Sperry','Funky Heels Perfect For Wedding'),
+            ('1893','sandals','10.5','New','casual','51','Doc Martens','Unique Vintage Sandals'),
+            ('1793','heels','5','New','fancy','35','Sperry','Prom Heels Pink and Fun'),
+			('4789','sneakers','6','Very Used','athletic','100','Converse','Super Comfortable Converse Everyday Shoes'),
+			('9823','sneakers','6','New','athletic','88','Hunter','Perfect Running Shoes for Women'),
+            ('0827','heels','8','New','fancy','60','Vans','Trendy Heels Perfect For Any Occasion'),
+            ('6892','sandals','9','Slightly Used','casual','50','Converse','Barely Worn Converse For Teen Boys'),
+            ('1674','sandals','5','Very Used','casual','75','Under Armour','Everyday Shoes In Decent Shape'),
+            ('4353','sandals','6','Slightly Used','casual','20','Reebok','One of a Kind Shoes For Women');
+
+
+CREATE TABLE BIDS(
+	
+)
+
+
+
+
+CREATE TABLE ALERTS (
+
+	footwear_item_id    	INT 	    NOT NULL,
+    alert_username 		    VARCHAR(20) NOT NULL,
+    
+
+PRIMARY KEY (alert_username, footwear_item_id), 
+FOREIGN KEY (footwear_item_id) REFERENCES FOOTWEAR_ITEMS(footwear_item_id),
+FOREIGN KEY (alert_username) REFERENCES USERS(username) );
+
+
+ 
+CREATE TABLE SELLS (
+
+	closing_date         date    NOT NULL,
+    closing_time 		VARCHAR(5) NOT NULL,
+    minimum_price 		double     NOT NULL, 
+
+
+PRIMARY KEY (closing_date, closing_time));
+
+
+CREATE TABLE ANSWERS (
+
+	question_id         VARCHAR(5)    NOT NULL,
+    username 		    VARCHAR(20)   NOT NULL,
+    keywords 		    VARCHAR(25)   NOT NULL, 
+
+
+PRIMARY KEY (username, question_id), 
+FOREIGN KEY (question_id) REFERENCES QUESTIONS(question_id),
+FOREIGN KEY (username) REFERENCES USERS(username) );
+
+CREATE TABLE QUESTIONS (
+
+	keywords             VARCHAR(30)    NOT NULL,
+    question_id 		 VARCHAR(5)     NOT NULL,
+
+
+PRIMARY KEY (question_id));
+
+
 
 
 CREATE TABLE BIDSFOR (
 
-        footwear_item_id    INT              NOT NULL,
-    username                VARCHAR(20)  NOT NULL,
-    bid_increment               DOUBLE           NOT NULL,
-        isAutomatic                     bool         NOT NULL,
-        upper_limit             DOUBLE           NOT NULL,
-
+	footwear_item_id    INT 	     NOT NULL,
+    username 		    VARCHAR(20)  NOT NULL,
+    bid_increment 		DOUBLE 		 NOT NULL,
+	isAutomatic			bool	     NOT NULL,
+	upper_limit 		DOUBLE 		 NOT NULL,
+    
 PRIMARY KEY (username, footwear_item_id),
-FOREIGN KEY (username) REFERENCES USERS(username),
-FOREIGN KEY (footwear_item_id) REFERENCES FOOTWEAR_ITEMS);
-
-CREATE TABLE SNEAKERS (
-
-        footwear_item_id    INT             NOT NULL,
-
-
-PRIMARY KEY (footwear_item_id));
-
-CREATE TABLE BOOTS (
-
-        footwear_item_id    INT             NOT NULL,
-
-
-PRIMARY KEY (footwear_item_id));
-
-CREATE TABLE SHOES (
-
-        footwear_item_id    INT             NOT NULL,
-
-
-PRIMARY KEY (footwear_item_id));
-
-CREATE TABLE SANDALS (
-
-        footwear_item_id    INT             NOT NULL,
-
-
-PRIMARY KEY (footwear_item_id));
-
-INSERT INTO USERS
-VALUES      ('amallick','sunshine','amallick@gmail.com'),
-                        ('jsmith','dragon','jsmith@gmail.com'),
-            ('wjohnson','google23','wjohnson@gmail.com'),
-            ('kbrown','blue57','kbrown@gmail.com'),
-            ('dgarcia','ducky52','dgarcia@gmail.com'),
-            ('tmedina','turtle!','tmedina@gmail.com');
-            
-	
- 
- 
-SELECT * FROM USERS;
-
-INSERT INTO CUSTOMERREP
-VALUES          ('amallick'),
-                        ('jsmith');
-
-
-SELECT * FROM CUSTOMERREP;
-
-INSERT INTO ADMIN
-VALUES          ('kbrown'),
-                        ('tmedina');
-
+FOREIGN KEY (username) REFERENCES USERS(username), 
+FOREIGN KEY (footwear_item_id) REFERENCES FOOTWEAR_ITEMS(footwear_item_id));
 
 
 
