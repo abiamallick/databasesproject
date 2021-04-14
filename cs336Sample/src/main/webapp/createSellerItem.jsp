@@ -31,16 +31,17 @@ int n = rand.nextInt(5000);
 		
 		//Get parameters from the HTML form at the index.jsp
 		//int n = 1234;
-		String input_Brand = request.getParameter("brand");
+		String shoe_type = request.getParameter("shoeType");
 		Float input_Size = Float.valueOf(request.getParameter("size"));
-		String input_Color = request.getParameter("color");
-		String input_Type = request.getParameter("type");
-		String input_Condition = request.getParameter("condition");
+		String input_itemCondition = request.getParameter("itemCondition");
+		String style = request.getParameter("style");
 		Float input_InitialPrice = Float.valueOf(request.getParameter("initialprice"));
+		String input_Brand = request.getParameter("brand");
+		String input_Title = request.getParameter("title");
 		
 		
- 		String insert = "INSERT INTO FOOTWEAR_ITEMS(footwear_item_id, Brand, Size, Color, item_Type, item_Condition, initial_price)"
-				+ " VALUES ('" + n + "', '" + input_Brand + "', '" + input_Size + "', '" + input_Color + "', '" + input_Type + "', '" + input_Condition + "', '" + input_InitialPrice + "' )";
+ 		String insert = "INSERT INTO FOOTWEAR_ITEMS(footwear_item_id, shoe_type, Size, item_condition, style, initial_price, brand, title)"
+				+ " VALUES ('" + n + "', '" + shoe_type + "', '" + input_Size + "', '" + input_itemCondition + "', '" + style + "', '" + input_InitialPrice + "', '" + input_Brand + "', '" + input_Title + "' )";
 		PreparedStatement ps = con.prepareStatement(insert);
 		ps = con.prepareStatement(insert); 
 		ps.executeUpdate();
