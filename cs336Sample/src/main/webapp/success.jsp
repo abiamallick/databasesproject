@@ -24,23 +24,6 @@ Welcome <%=session.getAttribute("user")%>
 
 
 
-<br>
-<br>
-<% 
-%>
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div  style='text-align:right'>
 <a href='logout.jsp'>Log out</a>
 </div>
@@ -48,6 +31,14 @@ Welcome <%=session.getAttribute("user")%>
 <div  style='text-align:center'>
 <a href='Sellers.jsp'>Sell</a>
 </div>
+
+<br>
+
+<div  style='text-align:right'>
+<a href='Alerts.jsp'>View Alerts Here</a>
+</div>
+
+
 
 <br>
 <form action= "itemSearch.jsp" action="search">

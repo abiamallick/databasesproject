@@ -6,7 +6,7 @@
 
 <%
 	    		    Class.forName("com.mysql.jdbc.Driver");
-	    		    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/buyMe","root", "mint12");
+	    		    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Projectfirst","root", "luv2love");
 				
 					String user = session.getAttribute("user").toString();
 					int footwear_item_id = Integer.parseInt(request.getParameter("footwear_item_id"));
