@@ -12,29 +12,6 @@ CREATE TABLE USERS (
 
 PRIMARY KEY (username));
 
-
-
-
-CREATE TABLE CUSTOMERREP(
-	crepusername           VARCHAR(20)   NOT NULL,
-    
- PRIMARY KEY(crepusername), 
- FOREIGN KEY (crepusername) REFERENCES USERS(username) );
- 
-ALTER table CUSTOMERREP drop constraint customerrep_ibfk_1;
-ALTER table CUSTOMERREP add constraint foreign key (crepusername) references USERS(username);
- 
- CREATE TABLE ADMIN(
-	adminusername           VARCHAR(20)   NOT NULL,
-    
- PRIMARY KEY(adminusername), 
- FOREIGN KEY (adminusername) REFERENCES USERS(username) );
- 
- 
- 
- ALTER table ADMIN drop constraint admin_ibfk_1;
- ALTER table ADMIN add constraint foreign key (adminusername) references USERS(username);
- 
  
 INSERT INTO USERS
 VALUES      ('amallick','sunshine','amallick@gmail.com'),
@@ -46,6 +23,33 @@ VALUES      ('amallick','sunshine','amallick@gmail.com'),
             
             
 SELECT * FROM USERS;
+
+
+CREATE TABLE CUSTOMERREP(
+	crepusername           VARCHAR(20)   NOT NULL,
+    
+ PRIMARY KEY(crepusername), 
+ FOREIGN KEY (crepusername) REFERENCES USERS(username) );
+ 
+ALTER table CUSTOMERREP drop constraint customerrep_ibfk_1;
+ALTER table CUSTOMERREP add constraint foreign key (crepusername) references USERS(username);
+
+/* --------------------------------------------------------------------------------------------- */
+ 
+ CREATE TABLE ADMIN(
+	adminusername           VARCHAR(20)   NOT NULL,
+    
+ PRIMARY KEY(adminusername), 
+ FOREIGN KEY (adminusername) REFERENCES USERS(username) );
+
+ 
+INSERT INTO ADMIN_USER
+VALUES		('tmedina');
+
+SELECT * FROM ADMIN_USER;
+
+/* --------------------------------------------------------------------------------------------- */
+
             
 INSERT INTO CUSTOMERREP
 VALUES 		('amallick'),
@@ -54,13 +58,8 @@ VALUES 		('amallick'),
             
 SELECT * FROM CUSTOMERREP;
 
-INSERT INTO ADMIN
-VALUES		('tmedina');
+/* --------------------------------------------------------------------------------------------- */
 
-SELECT * FROM ADMIN;
-            
-            
-INSERT INTO USERS(username, user_password, email) VALUES ('smallick', 'honey', 'smallick@aol.com' );
 
 
  CREATE TABLE BUYERS(
@@ -70,12 +69,16 @@ INSERT INTO USERS(username, user_password, email) VALUES ('smallick', 'honey', '
 
 PRIMARY KEY (username), 
 FOREIGN KEY (username) REFERENCES USERS(username) );
+
+/* --------------------------------------------------------------------------------------------- */
  
  CREATE TABLE SELLERS (
 	sid					int			Not null,
 	username           VARCHAR(20)   NOT NULL,
 PRIMARY KEY (username), 
 FOREIGN KEY (username) REFERENCES USERS(username) );
+
+/* --------------------------------------------------------------------------------------------- */
 
 
 CREATE TABLE FOOTWEAR_ITEMS (
@@ -189,6 +192,8 @@ PRIMARY KEY (username, question_id),
 FOREIGN KEY (question_id) REFERENCES QUESTIONS(question_id),
 FOREIGN KEY (username) REFERENCES USERS(username) );
 
+/* --------------------------------------------------------------------------------------------- */
+
 CREATE TABLE QUESTIONS (
 
 	keywords             VARCHAR(30)    NOT NULL,
@@ -197,7 +202,7 @@ CREATE TABLE QUESTIONS (
 
 PRIMARY KEY (question_id));
 
-
+/* --------------------------------------------------------------------------------------------- */
 
 
 CREATE TABLE BIDSFOR (
