@@ -27,11 +27,6 @@ Welcome <%=session.getAttribute("user")%>
 <br>
 <br>
 <% 
-String practice = (String)session.getAttribute("user");
-if (practice.equals("amallick")){
-	out.println(practice + "is hungry");
-}
-
 %>
 
 
