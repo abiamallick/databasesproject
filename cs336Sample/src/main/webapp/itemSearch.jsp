@@ -52,8 +52,7 @@
 			//parse out the results
 			while (result.next()) { %>
 				<tr>    
-					<td><%= result.getString("title") %></td>
-					<td><a href="searchResults.jsp">View this item here!</a></td>
+					<td><a href="searchResults.jsp"><%= result.getString("title") %></a></td>
 				</tr>
 				
 

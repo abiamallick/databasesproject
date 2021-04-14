@@ -15,9 +15,37 @@
 %>
 You are not logged in<br/>
 <a href="login.jsp">Please Login</a>
-<%} else {
+<%} 
+    
+    else {
 %>
 Welcome <%=session.getAttribute("user")%>  
+
+
+
+
+<br>
+<br>
+<% 
+String practice = (String)session.getAttribute("user");
+if (practice.equals("amallick")){
+	out.println(practice + "is hungry");
+}
+
+%>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div  style='text-align:right'>
 <a href='logout.jsp'>Log out</a>
 </div>
@@ -43,3 +71,16 @@ Welcome <%=session.getAttribute("user")%>
 <%
     }
 %>
+
+
+
+
+
+
+
+
+
+
+
+
+
