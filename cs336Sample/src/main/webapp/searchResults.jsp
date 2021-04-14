@@ -13,6 +13,8 @@
 					//int access_level = (Integer) session.getAttribute("access_level");
 					String productQuery = "SELECT * FROM footwear_items WHERE footwear_item_id= " + "'" + footwear_item_id + "'";
 					System.out.println(footwear_item_id);
+					
+					
 					//ps1 = conn.prepareStatement(productQuery);
 					//ps1.setInt(1, productId);
 					
