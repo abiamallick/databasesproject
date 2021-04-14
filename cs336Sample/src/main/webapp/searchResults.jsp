@@ -11,7 +11,7 @@
 </head>
 <body>
 	<%
-	    
+	
 		try {
 	
 			//Get the database connection

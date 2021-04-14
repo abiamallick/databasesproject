@@ -3,14 +3,37 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Insert title here</title>
-	</head>
-	<body>
-		<% try {
+<body>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+}
+th, td {
+padding: 30px;
+}
+</style>
+
+<%
+	ArrayList<String> paramList = new ArrayList<String>();
+	Map<String, String> searchParams = new HashMap<String, String>();
+	String paramValue = "";
+		int index = 0;
+	for (Enumeration<String> params = request.getParameterNames(); params.hasMoreElements();) {
+		//paramList.add(params.nextElement());
+		String paramName = params.nextElement();
+		paramValue = request.getParameter(paramName);
+		if (!paramValue.isEmpty() && paramValue != null) {
+			paramList.add(paramName);
+			//System.out.println(paramList.get(index));
+			//System.out.println(paramValue);				
+			searchParams.put(paramList.get(index), paramValue);
+			index++;
+		}
+	}
+		 try {
 	
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
@@ -18,53 +41,63 @@
 
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
+			StringBuilder searchQuery = new StringBuilder("");
 			//Get the selected search item
-			String entity = (request.getParameter("searchItem")).trim();
-			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-			String str = "SELECT * FROM footwear_items WHERE shoe_type like " + "'" + entity + "'";
-            if(entity==null || entity.equals("")){
-                str = "SELECT * FROM footwear_items";
-            }
-            //System.out.println(str);
-			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(str);
-		%>
+				if (paramValue.isEmpty() || paramValue == null) {
+					ResultSet result = stmt.executeQuery("SELECT * FROM footwear_items");
+				}
+				else {
+					searchQuery = new StringBuilder("SELECT * FROM footwear_items WHERE ");
+					String condition = null;
+					for (int i = 0; i < searchParams.size(); i++) {
+						// Check for numeric parameter so we can format the SQL query correctly
+						if ((paramList.get(i)).equals("size")) {
+							condition = paramList.get(i) + " = " + searchParams.get(paramList.get(i));
+						} else if ((paramList.get(i)).equals("brand")) {
+							condition = paramList.get(i) + " LIKE \'" + searchParams.get(paramList.get(i)) + "\'";
+						} else {
+							condition = paramList.get(i) + " LIKE \'" + searchParams.get(paramList.get(i)) + "\'";	
+						}
+						// Only want to include AND when we have more than one parameter
+						if (i == 0) {
+							searchQuery.append(condition);	
+						} else if (i > 0) {
+							searchQuery.append(" AND " + condition);
+						}	
+					}
+					//System.out.println(searchQuery);
+				}
+			ResultSet result = stmt.executeQuery(searchQuery.toString()); %>
 			
-		<!--  Make an HTML table to show the results in: -->
-	<table>
-		<tr>    
-			<td>
-				<%if (entity.equals("heels"))
-					out.print("Heels Available:");
-				else if (entity.equals("sneakers"))
-					out.print("Sneakers Available:");
-				else if (entity.equals("sandals"))
-					out.print("Sandals Available:");
-            	else if ((entity==null || entity.equals("")))
-            		out.print("All listings of footwear items.");
-   	            else 
-   	            	out.print("Please enter correct type of footwear item.");
-	            
-				%>
-			</td>
-		</tr>
-			<%
-			//parse out the results
-			while (result.next()) { %>
+			<div>
+			  <tr>
+			    <th>Title</th>
+			    <th>Brand</th> 
+			    <th>Size</th>
+			    <th>Initial Price</th>
+			  </tr>
+			  </div>
+			  
+			<% while (result.next()) { %>
+			<table>
+			<div>
 				<tr>    
 					<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>"><%= result.getString("title") %></a></td>
-					<td><%= result.getString("footwear_item_id") %></td>
+					<td><%= result.getString("brand") %></td>
+					<td><%= result.getString("size") %></td>
+					<td><%= result.getString("initial_price") %></td>
 				</tr>
+				</div>
+			</table>
+			 	<% 	}
 				
-
-			<% }
 			//close the connection.
 			db.closeConnection(con);
-			%>
-		</table>
+			
 
 			
-		<%} catch (Exception e) {
+		
+		 }catch (Exception e) {
 			out.print(e);
 		}%>
 	
