@@ -63,7 +63,17 @@
 			out.print(result.getString("brand"));				
 			out.print("<br>");
 
-		
+			out.print("Condition: ");
+			out.print(result.getString("item_condition"));				
+			out.print("<br>");
+			
+			out.print("Style: ");
+			out.print(result.getString("style"));				
+			out.print("<br>");
+			
+			out.print("Shoe Type: ");
+			out.print(result.getString("shoe_type"));				
+			out.print("<br>");
 			}
 			out.print("</table>");
 
