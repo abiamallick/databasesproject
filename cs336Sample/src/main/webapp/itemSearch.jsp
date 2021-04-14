@@ -52,8 +52,11 @@
 			//parse out the results
 			while (result.next()) { %>
 				<tr>    
-					<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>"><%= result.getString("title") %></a></td>
-					<td><%= result.getString("footwear_item_id") %></td>
+					<td>
+						<a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>"><%= result.getString("title") %></a></td>
+							<td><%= "  Size: " + result.getString("size") + "	Initial Price: $" + result.getFloat("initial_price") %></td>
+						
+				
 				</tr>
 				
 
