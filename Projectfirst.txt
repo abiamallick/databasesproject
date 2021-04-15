@@ -119,6 +119,22 @@ VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Nike Men Sneakers'),
 /* --------------------------------------------------------------------------------------------- */
 
 
+create table practice(
+	weddate		date	NOT NULL,
+PRIMARY KEY (weddate)
+);
+
+select * from practice;
+
+insert into practice
+values ('2001-08-19');
+
+
+
+
+
+
+
 CREATE TABLE ALERTS (
 	alertID					int			NOT NULL AUTO_INCREMENT, 
 	alert_message		Varchar(400)	Not NULL,
@@ -163,7 +179,22 @@ Foreign key(footwear_sells_id) references footwear_items(footwear_item_id),
 PRIMARY KEY (closing_date));
 ALTER TABLE SELLS AUTO_INCREMENT=1000;
 
-
+INSERT INTO SELLS (starting_date, closing_date, initial_price_sells)
+VALUES      ('2021-02-19','2021-04-26',15.75),
+			('2021-02-03','2021-03-10',35.90),
+            ('2021-01-31','2021-02-28',50.00),
+			('2021-03-02','2021-05-20',51.35),
+            ('2021-03-11','2021-04-07',35.10),
+			('2021-02-23','2021-05-28',100.00),
+			('2021-01-26','2021-05-09',88.70),
+            ('2021-03-05','2021-05-01',60.00),
+            ('2021-01-11','2021-04-29',50.50),
+            ('2021-02-20','2021-04-27',75.79),
+            ('2021-03-06','2021-06-21',20.00);
+            
+            
+            
+Select * from sells;
 
 
 /* --------------------------------------------------------------------------------------------- */
