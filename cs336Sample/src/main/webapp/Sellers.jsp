@@ -91,13 +91,13 @@
 		<td>Title</td><td><input type="text" name="title"></td>
 		</tr> 				
 		<tr> 
-		<td>Starting Date
-			<input type="date"  data-date-inline-picker="true"/></td>
+		<td>Starting Date like "YYYY-DD-MM"
+			<input type="date"  data-date-inline-picker="true" name="startdate"/></td>
 		</tr>
 		<tr>
 		<tr> 
-		<td>Closing Date
-			<input type="date"  data-date-inline-picker="true"/></td>
+		<td>Closing Date like "YYYY-DD-MM"
+			<input type="date"  data-date-inline-picker="true"name="enddate"/></td>
 		</tr> 
 		</table>
 		<input type="submit" value="Submit!">

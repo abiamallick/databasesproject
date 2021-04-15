@@ -4,10 +4,7 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
 <%@page import="java.util.*" %>
-<%
-Random rand = new Random();
-int n = rand.nextInt(5000);
-%>
+<%@page import="java.text.SimpleDateFormat.*" %>
 
 
 
@@ -31,20 +28,50 @@ int n = rand.nextInt(5000);
 		
 		//Get parameters from the HTML form at the index.jsp
 		//int n = 1234;
-		String shoe_type = request.getParameter("shoeType");
+		String input_ShoeType = request.getParameter("type");
 		Float input_Size = Float.valueOf(request.getParameter("size"));
-		String input_itemCondition = request.getParameter("itemCondition");
-		String style = request.getParameter("style");
+		String input_Condition = request.getParameter("condition");
+		String input_Style = request.getParameter("style");
 		Float input_InitialPrice = Float.valueOf(request.getParameter("initialprice"));
 		String input_Brand = request.getParameter("brand");
 		String input_Title = request.getParameter("title");
 		
 		
- 		String insert = "INSERT INTO FOOTWEAR_ITEMS(footwear_item_id, shoe_type, Size, item_condition, style, initial_price, brand, title)"
-				+ " VALUES ('" + n + "', '" + shoe_type + "', '" + input_Size + "', '" + input_itemCondition + "', '" + style + "', '" + input_InitialPrice + "', '" + input_Brand + "', '" + input_Title + "' )";
-		PreparedStatement ps = con.prepareStatement(insert);
-		ps = con.prepareStatement(insert); 
-		ps.executeUpdate();
+ 		String insert1 = "INSERT INTO FOOTWEAR_ITEMS(shoe_type,size,item_condition,style,initial_price,brand,title)"
+				+ " VALUES ('" + input_ShoeType + "', '" + input_Size + "', '" + input_Condition + "', '" + input_Style + "', '" + input_InitialPrice + "', '" + input_Brand + "', '" + input_Title + "' )";
+		PreparedStatement ps1 = con.prepareStatement(insert1);
+		ps1 = con.prepareStatement(insert1); 
+		ps1.executeUpdate();
+		
+		
+		
+//////////////FOR SELLS TABLE NOW //////////////////////////
+		
+	
+		
+		String input_startDate = request.getParameter("startdate");
+		String input_closeDate = request.getParameter("enddate");
+		//we use initial price from earlier
+		
+		//we turn MM/DD/YYYY to YYYY-DD-MM
+		String input_sd = (input_startDate.toString()).substring(0, 4) + "-"
+        + (input_startDate.toString()).substring(8) + "-"
+        + (input_startDate.toString()).substring(5, 7);
+		
+		String input_cd = (input_closeDate.toString()).substring(0, 4) + "-"
+		        + (input_closeDate.toString()).substring(8) + "-"
+		        + (input_closeDate.toString()).substring(5, 7);
+		
+		//out.println(input_sd);
+		//out.println(input_cd);
+		
+ 		String insert2 = "INSERT INTO SELLS(starting_date, closing_date, initial_price_sells)"
+				+ " VALUES ('" + input_sd + "', '" + input_cd + "', " + input_InitialPrice + ")";
+		//out.println(insert2);
+ 		PreparedStatement ps2 = con.prepareStatement(insert2);
+		ps2 = con.prepareStatement(insert2); 
+		ps2.executeUpdate();
+		
 		
 		
 
