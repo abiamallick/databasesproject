@@ -20,7 +20,14 @@ VALUES      ('amallick','sunshine','amallick@gmail.com'),
             ('kbrown','blue57','kbrown@gmail.com'), 
             ('dgarcia','ducky52','dgarcia@gmail.com'), 
             ('tmedina','turtle!','tmedina@gmail.com');
-            
+     
+INSERT INTO USERS
+VALUES		('twilliams','pineapple','twilliams@gmail.com'),
+            ('smartinez','watercup','smartinez@yahoo.com'),
+            ('ntaylor','password','ntaylor@aol.com'),
+            ('whernandez','basket','whernandez@gmail.com'),
+            ('ylopez','lysol','ylopez@aol.com'),
+            ('bwilson','lamp','bwilson@gmail.com');
             
 SELECT * FROM USERS;
 
@@ -119,20 +126,6 @@ VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Nike Men Sneakers'),
 /* --------------------------------------------------------------------------------------------- */
 
 
-create table practice(
-	weddate		date	NOT NULL,
-PRIMARY KEY (weddate)
-);
-
-select * from practice;
-
-insert into practice
-values ('2001-08-19');
-
-
-
-
-
 
 
 CREATE TABLE ALERTS (
@@ -167,48 +160,40 @@ WHERE a.alert_username= 'amallick' And f.footwear_item_id =1001;
 
 
 /* --------------------------------------------------------------------------------------------- */
-/* SELLS TABLE */
+/* AUCTIONS TABLE */
  
-CREATE TABLE SELLS (
+CREATE TABLE Auctions (
 	footwear_sells_id	int		Not Null	AUTO_INCREMENT,
+	auction_id			int		Not NULL,
+    auction_user		varchar(20)		NOT NULL,
 	starting_date		date	Not Null,
 	closing_date         date    NOT NULL,
     initial_price_sells		float     NOT NULL, 
 
 Foreign key(footwear_sells_id) references footwear_items(footwear_item_id),
-PRIMARY KEY (closing_date));
-ALTER TABLE SELLS AUTO_INCREMENT=1000;
+Foreign key(auction_user) references USERS(username),
+PRIMARY KEY (auction_id));
+ALTER TABLE Auctions AUTO_INCREMENT=1000;
 
-INSERT INTO SELLS (starting_date, closing_date, initial_price_sells)
-VALUES      ('2021-02-19','2021-04-26',15.75),
-			('2021-02-03','2021-03-10',35.90),
-            ('2021-01-31','2021-02-28',50.00),
-			('2021-03-02','2021-05-20',51.35),
-            ('2021-03-11','2021-04-07',35.10),
-			('2021-02-23','2021-05-28',100.00),
-			('2021-01-26','2021-05-09',88.70),
-            ('2021-03-05','2021-05-01',60.00),
-            ('2021-01-11','2021-04-29',50.50),
-            ('2021-02-20','2021-04-27',75.79),
-            ('2021-03-06','2021-06-21',20.00);
+INSERT INTO Auctions (auction_id, auction_user,starting_date, closing_date, initial_price_sells)
+VALUES      (3844, 'annag', '2021-02-19','2021-04-26',15.75),
+			(9880, 'frank','2021-02-03','2021-03-10',35.90),
+            (9683, 'rgeorge','2021-01-31','2021-02-28',50.00),
+			(1606, 'jsmith','2021-03-02','2021-05-20',51.35),
+            (8451, 'annag','2021-03-11','2021-04-07',35.10),
+			(8260, 'harrystyles','2021-02-23','2021-05-28',100.00),
+			(0978, 'harrystyles', '2021-01-26','2021-05-09',88.70),
+            (3892, 'rgeorge','2021-03-05','2021-05-01',60.00),
+            (1893, 'sam', '2021-01-11','2021-04-29',50.50),
+            (2932, 'annag','2021-02-20','2021-04-27',75.79),
+            (8562, 'rgeorge','2021-03-06','2021-06-21',20.00);
             
             
             
-Select * from sells;
+Select * from Auctions;
 
 
 /* --------------------------------------------------------------------------------------------- */
-/* AUCTIONS TABLE */
-
-CREATE TABLE AUCTION(
-	
-    auction_id    		INT          NOT NULL AUTO_INCREMENT,
-    starting_date	    date		 NOT NULL,
-	ending_date 		date 		 NOT NULL,
-    
-PRIMARY KEY(auction_id),
-FOREIGN KEY(ending_date) REFERENCES SELLS(closing_date));
-ALTER TABLE auction AUTO_INCREMENT=1;
 
 /* --------------------------------------------------------------------------------------------- */
 
