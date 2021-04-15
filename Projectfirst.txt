@@ -27,7 +27,7 @@ VALUES		('twilliams','pineapple','twilliams@gmail.com'),
             ('ntaylor','password','ntaylor@aol.com'),
             ('whernandez','basket','whernandez@gmail.com'),
             ('ylopez','lysol','ylopez@aol.com'),
-            ('bwilson','lamp','bwilson@gmail.com');
+            ('bwilson','lamp','bwilson@gmail.com'),
 	    ('annag','poptart','annag@gmail.com');
             
 SELECT * FROM USERS;
