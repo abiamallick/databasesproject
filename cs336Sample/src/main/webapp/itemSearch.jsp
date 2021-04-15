@@ -6,6 +6,13 @@
 <html>
 <body>
 <style>
+
+.tab1{
+tab-size=50;
+}
+
+
+
 table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
@@ -71,10 +78,10 @@ padding: 30px;
 			
 			<div>
 			  <tr>
-			    <th>Title</th>
-			    <th>Brand</th> 
-			    <th>Size</th>
-			    <th>Initial Price</th>
+			    <th>&emsp;&emsp;&emsp;&emsp;Title&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+			    <th>Brand&emsp;&emsp;&emsp;</th> 
+			    <th>Size&emsp;&emsp;</th>
+			    <th>Initial Price&emsp;&emsp;&emsp;&emsp;&emsp;</th>
 			  </tr>
 			  </div>
 			  
