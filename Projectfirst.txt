@@ -27,8 +27,8 @@ VALUES		('twilliams','pineapple','twilliams@gmail.com'),
             ('ntaylor','password','ntaylor@aol.com'),
             ('whernandez','basket','whernandez@gmail.com'),
             ('ylopez','lysol','ylopez@aol.com'),
-            ('bwilson','lamp','bwilson@gmail.com'),
-	    ('annag','poptart','annag@gmail.com');
+            ('annag','poptart','annag@gmail.com'),
+            ('bwilson','lamp','bwilson@gmail.com');
             
 SELECT * FROM USERS;
 
@@ -176,22 +176,28 @@ Foreign key(auction_user) references USERS(username),
 PRIMARY KEY (auction_id));
 ALTER TABLE Auctions AUTO_INCREMENT=1000;
 
+
+
 INSERT INTO Auctions (auction_id, auction_user,starting_date, closing_date, initial_price_sells)
 VALUES      (3844, 'annag', '2021-02-19','2021-04-26',15.75),
 			(9880, 'ylopez','2021-02-03','2021-03-10',35.90),
             (9683, 'bwilson','2021-01-31','2021-02-28',50.00),
-		(1606, 'jsmith','2021-03-02','2021-05-20',51.35),
+			(1606, 'bwilson','2021-03-02','2021-05-20',51.35),
             (8451, 'annag','2021-03-11','2021-04-07',35.10),
 			(8260, 'smartinez','2021-02-23','2021-05-28',100.00),
 			(0978, 'smartinez', '2021-01-26','2021-05-09',88.70),
-            (3892, 'rgeorge','2021-03-05','2021-05-01',60.00),
-            (1893, 'twilliams', '2021-01-11','2021-04-29',50.50),
+            (3892, 'ylopez','2021-03-05','2021-05-01',60.00),
+            (1893, 'bwilson', '2021-01-11','2021-04-29',50.50),
             (2932, 'annag','2021-02-20','2021-04-27',75.79),
             (8562, 'bwilson','2021-03-06','2021-06-21',20.00);
             
             
             
 Select * from Auctions;
+
+
+
+
 
 
 /* --------------------------------------------------------------------------------------------- */
@@ -223,17 +229,34 @@ PRIMARY KEY (question_id));
 /* --------------------------------------------------------------------------------------------- */
 
 
-CREATE TABLE BIDSFOR (
-
-	footwear_item_id    INT 	     NOT NULL,
-    username 		    VARCHAR(20)  NOT NULL,
-    bid_increment 		DOUBLE 		 NOT NULL,
-	isAutomatic			bool	     NOT NULL,
-	upper_limit 		DOUBLE 		 NOT NULL,
+CREATE TABLE BIDS (
+	Bid_ID				INT			Not Null AUTO_INCREMENT,
+    bid_username 		    VARCHAR(20)  NOT NULL,
+	bid_footwear_item_id    INT 	     NOT NULL,
+    bid_amount			double			Not Null,
+	isAutomatic			tinyint	     NOT NULL,
+	upper_limit 		DOUBLE 		,
     
-PRIMARY KEY (username, footwear_item_id),
-FOREIGN KEY (username) REFERENCES USERS(username), 
-FOREIGN KEY (footwear_item_id) REFERENCES FOOTWEAR_ITEMS(footwear_item_id));
+PRIMARY KEY (Bid_ID),
+FOREIGN KEY (bid_username) REFERENCES USERS(username), 
+FOREIGN KEY (bid_footwear_item_id) REFERENCES FOOTWEAR_ITEMS(footwear_item_id));
+ALTER TABLE BIDS AUTO_INCREMENT=500;
+
+INSERT INTO BIDS (bid_username, bid_footwear_item_id, bid_amount, isAutomatic)
+VALUES      ('amallick', 1001, 37.00,false),
+			('ntaylor', 1001,49.20 , false),
+            ('jsmith', 1005, 111.11 ,false),
+			('amallick', 1004,40.50,false),
+            ('twilliams', 1002,75.00, false),
+            ('dgarcia', 1009,83.20 ,false),
+            ('dgarcia', 1001, 60.50,false);
+            
+select * from bids;
+            
+
+
+            
+
 
 
 
