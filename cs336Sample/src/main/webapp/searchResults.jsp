@@ -3,6 +3,9 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
 
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -83,6 +86,97 @@
 			out.print(e);
 		}
 	%>
+
+
+
+
+<%
+try {
+
+	//Get the database connection
+	ApplicationDB db = new ApplicationDB();	
+	Connection con = db.getConnection();	
+	
+	//Create a SQL statement
+	Statement stmt = con.createStatement();
+	String entity = request.getParameter("footwear_item_id");
+	String str2 = "SELECT * FROM bids WHERE bid_footwear_item_id = " + "'" + entity + "'";
+	
+	//out.println(str);
+	//Run the query against the database.
+	ResultSet result = stmt.executeQuery(str2);
+	%>
+<table>	
+ <tr><td colspan=2 style="font-size:12pt;" align="center">
+<h3>Bids</h3></td></tr>
+
+</table>
+<br>
+
+
+			<div>
+			  <tr>
+			  	<th><b>Title&emsp;&ensp;</b></th>
+			 
+			    <th><b>Brand</b></th> 
+			  
+			  	</tr>
+			  </div>
+<table style= ""width:50%">
+	<%
+	//parse out the results
+	while (result.next()) { %>
+
+	<tr>
+		<td><%= result.getString("bid_username") %> <td>
+		$
+		<td><%= result.getString("bid_amount") %> <td>
+	</tr>	
+
+	<% }
+	//close the connection.
+	db.closeConnection(con);
+	%>
+
+</table>
+
+
+<p>How would you like to bid?</p>
+
+      <script type="text/javascript">
+        function manual() { 
+        	document.getElementById('area').style.display = 'block'; 
+        	}
+        function automatic() { 
+        	document.getElementById('area2').style.display = 'block'; 
+        	}
+        function isautomatic(){
+        	if onclick=="manual();"
+        }
+       
+      </script>       
+     
+      
+      <form name="radios">
+        <INPUT TYPE=RADIO NAME="X" VALUE="H" onclick="manual();"/>Manual 
+        <INPUT TYPE=RADIO NAME="X" VALUE="L" onclick="automatic();"/>Automatic 
+        <TEXTAREA id="area" style="display: none;" NAME="data" ROWS=10 COLS=50></TEXTAREA>   
+        <TEXTAREA id="area2" style="display: none;" NAME="data" ROWS=15 COLS=30></TEXTAREA> 
+      </form>
+      
+      
+      
+      
+      
+ 
+<%} catch (Exception e) {
+	out.print(e);
+}%>
+
+
+
+
+
 
 </body>
 </html>
