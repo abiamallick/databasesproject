@@ -21,7 +21,7 @@
 			Statement stmt = con.createStatement();
 			StringBuilder searchQuery = new StringBuilder("");
 		
-					ResultSet result = stmt.executeQuery("SELECT * FROM footwear_items");
+					ResultSet result = stmt.executeQuery("SELECT * FROM questions");
 			
 			 %>
 			
@@ -39,7 +39,7 @@
 			<table>
 			<div>
 				<tr>    
-					<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>"><%= result.getString("title") %></a></td>
+					<td>result.getString("title")</td>
 					<td><%= result.getString("brand") %></td>
 					<td><%= result.getString("size") %></td>
 					<td><%= result.getString("initial_price") %></td>
