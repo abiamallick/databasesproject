@@ -3,8 +3,7 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,45 +14,37 @@
 <%  try {
 	
 			ApplicationDB db = new ApplicationDB();	
-			Connection con = db.getConnection();		
-
+			Connection con = db.getConnection();
+		
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			StringBuilder searchQuery = new StringBuilder("");
-		
+	
+			//Create a SQL statement
+
+			String entity = request.getParameter("question_id");
 					ResultSet result = stmt.executeQuery("SELECT * FROM questions");
 			
 			 %>
 			
-			<div>
-			  <tr>
-			    <th>&emsp;&emsp;&emsp;&emsp;Title&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
-			    <th>Brand&emsp;&emsp;&emsp;</th> 
-			    <th>Size&emsp;&emsp;</th>
-			    <th>Initial Price&emsp;&emsp;&emsp;&emsp;&emsp;</th>
-			  </tr>
-			  </div>
 			  
 			  
 			<% while (result.next()) { %>
 			<table>
 			<div>
 				<tr>    
-					<td>result.getString("title")</td>
-					<td><%= result.getString("brand") %></td>
-					<td><%= result.getString("size") %></td>
-					<td><%= result.getString("initial_price") %></td>
+					<b><%= result.getString("question") %></b>
+					<%= result.getString("answer") %>
 				</tr>
 				</div>
 			</table>
-			 	<% 	}
+			 	<% 	} %>
 				
-			//close the connection.
+			
+			
+			<a href="Questions.jsp"><%= "Return back to questions page"%></a>
+			
+		<% //close the connection.
 			db.closeConnection(con);
-			
-
-			
-		
 		 }catch (Exception e) {
 			out.print(e);
 		}%>

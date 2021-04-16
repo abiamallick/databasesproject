@@ -5,7 +5,7 @@
 
 
 
-
+< %--
 
 
 <%
@@ -30,4 +30,4 @@ else {
 	out.print("Please enter a valid question.");
 	 response.sendRedirect("success.jsp");
 } 
-%>
+%> --%> 
