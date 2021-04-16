@@ -25,6 +25,7 @@
 			Statement stmt = con.createStatement();
 			//Get the selected radio button from the index.jsp
 			String entity = request.getParameter("footwear_item_id");
+			
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 			String str = "SELECT * FROM footwear_items WHERE footwear_item_id like " + "'" + entity + "'";
 			//Run the query against the database.
@@ -79,8 +80,10 @@
 			out.print("<br>");
 			}
 			out.print("</table>");
+			
 
-			//close the connection.
+	
+		//close the connection.
 			db.closeConnection(con);
 		} catch (Exception e) {
 			out.print(e);
@@ -101,6 +104,8 @@ try {
 	Statement stmt = con.createStatement();
 	String entity = request.getParameter("footwear_item_id");
 	String str2 = "SELECT * FROM bids WHERE bid_footwear_item_id = " + "'" + entity + "'";
+	
+	int hi = Integer.parseInt(entity);
 	
 	//out.println(str);
 	//Run the query against the database.
@@ -135,94 +140,61 @@ try {
 
 	<% }
 	//close the connection.
-	db.closeConnection(con);
 	%>
 
 </table>
 
 
-<p>How would you like to bid?</p>
 
-      <script type="text/javascript">
-        function manual() { 
-        	document.getElementById('area').style.display = 'block'; 
-        	}
-        function automatic() { 
-        	document.getElementById('area2').style.display = 'block'; 
-        	}
-        function isautomatic(){
-        	if onclick=="manual();"
-        }
-       
-      </script>       
-     
+<p>How would you like to bid:</p>
+
+<div>
+  <input type="radio" id="huey" name="manual" value="huey"
+         checked>
+  <label for="huey">Manual</label>
+</div>
+
+	<br>
+		<form method="post" action="manualBid.jsp">
+		<table>
+		<tr>    
+		<td>Bid Amount $</td><td><input type="text" name="manualbidamount"></td>
+		</tr>
+		</table>
+		<input type="hidden" name="footwearid" value=<%=hi%>>
+		<input type="submit" value="Place Bid!">
+		</form>
+	<br>
+<div>
+  <input type="radio" id="dewey" name="automatic" value="dewey">
+  <label for="dewey">Automatic</label>
+</div>
+
+	<br>
+		<form method="post" action="automaticBid.jsp">
+		<table>
+		<tr>    
+		<td>Bid Increment $</td><td><input type="text" name="autobidincr"></td>
+		</tr>
+		<tr>    
+		<td>Upper Limit $</td><td><input type="text" name="auto_upperlimit"></td>
+		</tr>
+		</table>
+		<input type="submit" value="Place Bid!">
+		</form>
+	<br>
+
       
-      <form name="radios">
-        <INPUT TYPE=RADIO NAME="X" VALUE="H" onclick="manual();"/>Manual 
-        <INPUT TYPE=RADIO NAME="X" VALUE="L" onclick="automatic();"/>Automatic 
-        <TEXTAREA id="area" style="display: none;" NAME="data" ROWS=10 COLS=50></TEXTAREA>   
-        <TEXTAREA id="area2" style="display: none;" NAME="data" ROWS=15 COLS=30></TEXTAREA> 
-      </form>
       
-     <br>
-      <br>
-      
-      
-      
+ <%    db.closeConnection(con);  %>
  
 <%} catch (Exception e) {
 	out.print(e);
 }%>
 
 
-<%
-try {
-	//Get the database connection
-	ApplicationDB db = new ApplicationDB();	
-	Connection con = db.getConnection();	
-	
-	//Create a SQL statement
-	Statement stmt = con.createStatement();
-	String entity = request.getParameter("footwear_item_id");
-	
-	String str2 = "SELECT * FROM footwear_items WHERE footwear_item_id != " + "'" + entity + "'";
-	
-	//out.println(str);
-	//Run the query against the database.
-	ResultSet result = stmt.executeQuery(str2);
-
-	
-	%>
-
-<table>	
- <tr><td colspan=2 style="font-size:12pt;" align="center">
-<h3>Similar Items</h3></td></tr>
-
-</table>
-<br>
 
 
-			
-<table style= ""width:50%">
-	<%
-	//parse out the results
-	while (result.next()) { %>
-	<tr>
-	
-		<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>"><%= result.getString("title") %></a></td>
-		
-		<td>Size: <%= result.getString("size") %> <td>
-	</tr>	
-	<% }
-	
-	//close the connection.
-	db.closeConnection(con);
-	%>
-</table>
-<%} catch (Exception e) {
-	out.print(e);
-}
-%>
 
 
 
