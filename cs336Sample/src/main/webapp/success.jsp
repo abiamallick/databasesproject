@@ -38,10 +38,14 @@ Welcome <%=session.getAttribute("user")%>
 <a href='Alerts.jsp'>View Alerts Here</a>
 </div>
 
+<div  style='text-align:right'>
+<a href='Questions.jsp'>Have Questions?</a>
+</div>
+
 <div id="searchbar">
    <h2>Hi! Select at least one search parameter</h2>
 		<form action="itemSearch.jsp" method="GET">
-		<label for="model">Are you looking for sneakers, boots, or heels?</label>
+		<label for="type">Are you looking for sneakers, boots, or heels?</label>
 				<input type="text" name="shoe_type" id="shoe_type" placeholder="Enter shoe type"> <br>
 				<input type="submit" value="Search">
 			<label for="brand">Brand</label>
