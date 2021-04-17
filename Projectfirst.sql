@@ -108,19 +108,18 @@ SELECT * FROM FOOTWEAR_ITEMS;
 
 
 
-            
-INSERT INTO FOOTWEAR_ITEMS (shoe_type,size,item_condition,style,initial_price,brand,title)
+            INSERT INTO FOOTWEAR_ITEMS (shoe_type,size,item_condition,style,initial_price,brand,title)
 VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Nike Men Sneakers'),
-			('sandals',8.5,'Slightly Used','casual',35.90,'Crocs','Cute Summer Sandals'),
-            ('boots',6,'Slightly Used','fancy',50.00,'Sperry','Funky Boots Perfect For Wedding'),
-			('sandals',10.5,'New','casual',51.35,'Doc Martens','Unique Vintage Sandals'),
-            ('sandals',5,'New','fancy',35.10,'Sperry','Prom Heels Pink and Fun'),
-			('sneakers',6,'Very Used','athletic',100.00,'Converse','Super Comfortable Converse Everyday Shoes'),
+			('sandals',8.5,'Slightly Used','casual',35.90,'Converse','Cute Summer Sandals'),
+            ('boots',6,'Slightly Used','casual',50.00,'Sperry','Funky Boots Perfect For Wedding'),
+			('sandals',10.5,'New','fancy',51.35,'Doc Martens','Unique Vintage Sandals'),
+            ('sandals',5,'New','fancy',35.10,'Sperry','Colorful and Comfy Blue Sandals'),
+			('sneakers',6,'Very Used','athletic',100.00,'Converse','Super Comfortable Sneakers for Everyday'),
 			('sneakers',6,'New','athletic',88.70,'Hunter','Perfect Running Shoes for Women'),
             ('boots',8,'New','fancy',60.00,'Vans','Trendy Boots Perfect For Any Occasion'),
-            ('sandals',9,'Slightly Used','casual',50.50,'Converse','Barely Worn Converse For Teen Boys'),
-            ('sandals',5,'Very Used','casual',75.79,'Under Armour','Everyday Shoes In Decent Shape'),
-            ('sandals',6,'Slightly Used','casual',20.00,'Reebok','One of a Kind Shoes For Women');
+            ('sandals',9,'Slightly Used','casual',50.50,'Converse','Barely Worn Beach Sandals For Teen Boys'),
+            ('sandals',5,'Very Used','casual',75.79,'Under Armour','Everyday Orange Sandals In Decent Shape'),
+            ('sandals',6,'Slightly Used','casual',20.00,'Reebok','One of a Kind Retro Sandals For Women');
             
 
 
