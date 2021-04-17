@@ -32,12 +32,20 @@ VALUES		('twilliams','pineapple','twilliams@gmail.com'),
             
 SELECT * FROM USERS;
 
-
 CREATE TABLE CUSTOMERREP(
 	crepusername           VARCHAR(20)   NOT NULL,
+    creppassword			VARCHAR(30) NOT NULL,
+    crepemail 				VARCHAR(50)	NOT NULL,
     
  PRIMARY KEY(crepusername), 
- FOREIGN KEY (crepusername) REFERENCES USERS(username) );
+ FOREIGN KEY (crepusername) REFERENCES USERS(username));
+    
+INSERT INTO CUSTOMERREP
+VALUES 		('amallick','turtle!','tmedina@gmail.com'),
+		('jsmith','dragon','jsmith@gmail.com');
+            
+            
+SELECT * FROM CUSTOMERREP;
  
 ALTER table CUSTOMERREP drop constraint customerrep_ibfk_1;
 ALTER table CUSTOMERREP add constraint foreign key (crepusername) references USERS(username);
@@ -58,13 +66,7 @@ SELECT * FROM ADMIN_USER;
 
 /* --------------------------------------------------------------------------------------------- */
 
-            
-INSERT INTO CUSTOMERREP
-VALUES 		('amallick'),
-			('jsmith');
-            
-            
-SELECT * FROM CUSTOMERREP;
+         
 
 /* --------------------------------------------------------------------------------------------- */
 
