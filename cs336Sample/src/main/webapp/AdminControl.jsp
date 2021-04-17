@@ -22,6 +22,12 @@ Below are your options as an admin.
 </ul>
 </div>
 
+
+<div  style='text-align:right'>
+<a href='logout.jsp'>Log out</a>
+</div>
+
+
 <br>
 <br>
 </body>
