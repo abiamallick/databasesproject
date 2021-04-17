@@ -20,9 +20,12 @@
         session.setAttribute("user", userid); // the username will be stored in the session
         out.println("welcome " + userid );
         out.println("<a href='logout.jsp'>  Log out</a>");
+        if (userid.equals("tmedina")) { 				//if the user is the admin
+            response.sendRedirect("AdminControl.jsp");
+        } else if (!userid.equals("tmedina")) {			//if not the admin (just regular customer)
         response.sendRedirect("success.jsp");
-    } else {
+   	    } else {										//wrong password
         out.println("Invalid password <a href='login.jsp'>try again</a>");
     }
+    }
 %>
-
