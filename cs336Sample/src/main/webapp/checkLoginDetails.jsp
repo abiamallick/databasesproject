@@ -7,25 +7,34 @@
 
 
 
-
 <%
-    String userid = request.getParameter("username");   
-    String pwd = request.getParameter("password");
+
+//IF CUSTOMER REP IS LOGGING IN 
+    String userid2 = request.getParameter("username");   
+    String pwd2 = request.getParameter("password");
     Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Projectfirst","root", "luv2love");
-    Statement st = con.createStatement();
-    ResultSet rs;
-    rs = st.executeQuery("select * from USERS where username='" + userid + "' and user_password='" + pwd + "'");
-    if (rs.next()) {
-        session.setAttribute("user", userid); // the username will be stored in the session
-        out.println("welcome " + userid );
+    Connection con2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/Projectfirst","root", "Aniagutowska1");
+    Statement st2 = con2.createStatement();
+    ResultSet rs2;
+    rs2 = st2.executeQuery("select * from CUSTOMERREP where crepusername='" + userid2 + "' and creppassword='" + pwd2 + "'");
+    if (rs2.next()) {
+        session.setAttribute("user", userid2); // the username will be stored in the session
+        out.println("welcome " + userid2);
         out.println("<a href='logout.jsp'>  Log out</a>");
-        if (userid.equals("tmedina")) { 				//if the user is the admin
-            response.sendRedirect("AdminControl.jsp");
-        } else if (!userid.equals("tmedina")) {			//if not the admin (just regular customer)
-        response.sendRedirect("success.jsp");
-   	    } else {										//wrong password
-        out.println("Invalid password <a href='login.jsp'>try again</a>");
+        response.sendRedirect("CRepHome.jsp");
+        }
+    else if (userid2.equals("tmedina") || userid2.equals("Tmedina")) { 
+    	//if the user is the admin
+    	session.setAttribute("user", userid2); // the username will be stored in the session
+        out.println("welcome " + userid2);
+        out.println("<a href='logout.jsp'>  Log out</a>");
+        response.sendRedirect("AdminControl.jsp");
+    } else {
+    	session.setAttribute("user", userid2); // the username will be stored in the session
+        out.println("welcome " + userid2);
+        out.println("<a href='logout.jsp'>  Log out</a>");
+    	 response.sendRedirect("success.jsp");
     }
-    }
+    
+    
 %>
