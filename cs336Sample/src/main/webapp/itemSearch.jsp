@@ -86,12 +86,11 @@ padding: 30px;
 			  </tr>
 			  </div>
 			  
-			  
-			<% while (result.next()) { %>
+			  <% while (result.next()) { %>
 			<table>
 			<div>
 				<tr>    
-					<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>"><%= result.getString("title") %></a></td>
+					<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>&shoe_type=<%=result.getString("shoe_type")%>"><%= result.getString("title") %></a></td>
 					<td><%= result.getString("brand") %></td>
 					<td><%= result.getString("size") %></td>
 					<td><%= result.getString("initial_price") %></td>
