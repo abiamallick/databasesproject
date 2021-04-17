@@ -28,7 +28,7 @@ try {
 	int footwear_idno = 1001;
 	//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
 	String str = "SELECT a.alert_message, f.title FROM ALERTS a, footwear_items f WHERE a.alert_username = " + "'" + practice + "' And  f.footwear_item_id= '" + footwear_idno + "'";
-	
+
 	//out.println(str);
 	//Run the query against the database.
 	ResultSet result = stmt.executeQuery(str);

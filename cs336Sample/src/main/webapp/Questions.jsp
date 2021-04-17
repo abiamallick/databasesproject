@@ -14,12 +14,27 @@
 				<input type="submit" value="Search">
 		</form>
 	</div>
-		<div id="searchbar">
-   		<h2>Hi-Please post your question! A Customer Representative will answer as soon as possible.</h2>
-		<form action="QuestionAsked.jsp" method="POST">
-				<input type="text" name="questionAsked" id="questionAsked" placeholder="Enter question to post"> <br>
-				<input type="submit" value="Search">
+	
+	<br>
+	<br>
+	<h1 style="font-size:2.5vw">Hi-Please post your question! A Customer Representative will answer as soon as possible.</h1>
+	<br>
+		<form method="post" action="QuestionsAsked.jsp">
+		<table>
+		<tr>    
+		<td><u>Enter question here: </u></td> 
+		</tr>
+		<tr>
+		<td><p><input type="text" name="questionAsked"placeholder="Enter question to post"></p></td>
+		
+		</table>
+		<p>   </p>
+		<input type="submit" value="Submit!">
 		</form>
-	</div>
+	<br>
+
+
+
+
 </body>
 </html>
