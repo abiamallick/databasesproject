@@ -194,6 +194,7 @@ try {
 
 
 
+
 <%
 try {
 	//Get the database connection
@@ -203,13 +204,15 @@ try {
 	//Create a SQL statement
 	Statement stmt = con.createStatement();
 	String entity = request.getParameter("footwear_item_id");
+	String ftype = request.getParameter("shoe_type");
 	
-	String str2 = "SELECT * FROM footwear_items WHERE footwear_item_id != " + "'" + entity + "'";
+	String str2 = "SELECT * FROM footwear_items WHERE footwear_item_id != " + "'" + entity + "' AND shoe_type = '" + ftype + "'";
+	out.println(ftype);
 	
-	//out.println(str);
+	
 	//Run the query against the database.
 	ResultSet result = stmt.executeQuery(str2);
-
+	
 	
 	%>
 
@@ -225,7 +228,8 @@ try {
 <table style= ""width:50%">
 	<%
 	//parse out the results
-	while (result.next()) { %>
+	while (result.next()) { 
+	%>
 	<tr>
 	
 		<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>"><%= result.getString("title") %></a></td>
