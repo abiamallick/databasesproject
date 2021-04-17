@@ -44,17 +44,17 @@ ALTER table CUSTOMERREP add constraint foreign key (crepusername) references USE
 
 /* --------------------------------------------------------------------------------------------- */
  
- CREATE TABLE ADMIN(
+ CREATE TABLE ADMIN_USER(
 	adminusername           VARCHAR(20)   NOT NULL,
     
  PRIMARY KEY(adminusername), 
  FOREIGN KEY (adminusername) REFERENCES USERS(username) );
 
  
-INSERT INTO ADMIN
+INSERT INTO ADMIN_USER
 VALUES		('tmedina');
 
-SELECT * FROM ADMIN;
+SELECT * FROM ADMIN_USER;
 
 /* --------------------------------------------------------------------------------------------- */
 
