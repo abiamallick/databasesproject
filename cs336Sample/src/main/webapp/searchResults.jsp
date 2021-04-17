@@ -207,7 +207,7 @@ try {
 	String ftype = request.getParameter("shoe_type");
 	
 	String str2 = "SELECT * FROM footwear_items WHERE footwear_item_id != " + "'" + entity + "' AND shoe_type = '" + ftype + "'";
-	out.println(ftype);
+	//out.println(ftype);
 	
 	
 	//Run the query against the database.
