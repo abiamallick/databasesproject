@@ -19,7 +19,7 @@ Fill in the info below to create a new customer representative:
 
 
 <br>
-		<form method="post" action="createAccount.jsp">
+		<form method="post" action="createRep.jsp">
 		<table>
 		<tr>    
 		<td>Username</td><td><input type="text" name="username"></td>
