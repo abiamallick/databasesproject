@@ -51,10 +51,10 @@ ALTER table CUSTOMERREP add constraint foreign key (crepusername) references USE
  FOREIGN KEY (adminusername) REFERENCES USERS(username) );
 
  
-INSERT INTO ADMIN_USER
+INSERT INTO ADMIN
 VALUES		('tmedina');
 
-SELECT * FROM ADMIN_USER;
+SELECT * FROM ADMIN;
 
 /* --------------------------------------------------------------------------------------------- */
 
