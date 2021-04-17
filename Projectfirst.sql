@@ -41,8 +41,7 @@ CREATE TABLE CUSTOMERREP(
  FOREIGN KEY (crepusername) REFERENCES USERS(username));
     
 INSERT INTO CUSTOMERREP
-VALUES 		('amallick','turtle!','tmedina@gmail.com'),
-		('jsmith','dragon','jsmith@gmail.com');
+VALUES 		('jsmith','dragon','jsmith@gmail.com');
             
             
 SELECT * FROM CUSTOMERREP;
