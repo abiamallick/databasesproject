@@ -25,7 +25,22 @@
      
    <br>
    <br>
-     
+   
+   
+<div  style='text-align:left'>
+<a href='customerRepLoginPage.jsp'>Customer Rep Login</a>
+</div>
+      
+   <br>
+   
+<div  style='text-align:left'>
+<a href='AdminLoginPage.jsp'>Admin Login</a>
+</div>
+   
+   
+     <br>
+   <br>
+   
 	If you would like to create an account, please enter the details below
 	<br>
 		<form method="post" action="createAccount.jsp">
@@ -43,6 +58,7 @@
 		<input type="submit" value="Submit!">
 		</form>
 	<br>
+	
 	
 	
    </body>
