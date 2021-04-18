@@ -39,6 +39,7 @@ CREATE TABLE CUSTOMERREP(
     
  PRIMARY KEY(crepusername), 
  FOREIGN KEY (crepusername) REFERENCES USERS(username));
+ 
     
 INSERT INTO CUSTOMERREP
 VALUES 		('jsmith','dragon','jsmith@gmail.com');
@@ -46,7 +47,6 @@ VALUES 		('jsmith','dragon','jsmith@gmail.com');
             
 SELECT * FROM CUSTOMERREP;
  
-ALTER table CUSTOMERREP drop constraint customerrep_ibfk_1;
 ALTER table CUSTOMERREP add constraint foreign key (crepusername) references USERS(username);
 
 /* --------------------------------------------------------------------------------------------- */
@@ -164,12 +164,12 @@ WHERE a.alert_username= 'amallick' And f.footwear_item_id =1001;
 /* AUCTIONS TABLE */
  
 CREATE TABLE Auctions (
-	footwear_sells_id	int		Not Null	AUTO_INCREMENT,
-	auction_id			int		Not NULL,
-    auction_user		varchar(20)		NOT NULL,
-	starting_date		date	Not Null,
-	closing_date         date    NOT NULL,
-    initial_price_sells		float     NOT NULL, 
+	footwear_sells_id		int				Not Null	AUTO_INCREMENT,
+	auction_id				int				Not NULL,
+    auction_user			varchar(20)		NOT NULL,
+	starting_date			date			Not Null,
+	closing_date         	datetime    		NOT NULL,
+    initial_price_sells		float     	    , 
 
 Foreign key(footwear_sells_id) references footwear_items(footwear_item_id),
 Foreign key(auction_user) references USERS(username),
@@ -179,19 +179,20 @@ ALTER TABLE Auctions AUTO_INCREMENT=1000;
 
 
 INSERT INTO Auctions (auction_id, auction_user,starting_date, closing_date, initial_price_sells)
-VALUES      (3844, 'annag', '2021-02-19','2021-04-26',15.75),
-			(9880, 'ylopez','2021-02-03','2021-03-10',35.90),
-            (9683, 'bwilson','2021-01-31','2021-02-28',50.00),
-			(1606, 'bwilson','2021-03-02','2021-05-20',51.35),
-            (8451, 'annag','2021-03-11','2021-04-07',35.10),
-			(8260, 'smartinez','2021-02-23','2021-05-28',100.00),
-			(0978, 'smartinez', '2021-01-26','2021-05-09',88.70),
-            (3892, 'ylopez','2021-03-05','2021-05-01',60.00),
-            (1893, 'bwilson', '2021-01-11','2021-04-29',50.50),
-            (2932, 'annag','2021-02-20','2021-04-27',75.79),
-            (8562, 'bwilson','2021-03-06','2021-06-21',20.00);
+VALUES      (3844, 'annag', '2021-02-19','2021-04-26 13:10:01',15.75),
+			(9880, 'ylopez','2021-02-03','2021-04-17 21:30:45',35.90),
+            (9683, 'bwilson','2021-01-31','2021-02-28 20:14:08',50.00),
+			(1606, 'bwilson','2021-03-02','2021-05-20 23:25:10',51.35),
+            (8451, 'annag','2021-03-11','2021-04-07 14:19:18',35.10),
+			(8260, 'smartinez','2021-02-23','2021-05-28 23:22:10',100.00),
+			(0978, 'smartinez', '2021-01-26','2021-05-09 20:34:50',88.70),
+            (3892, 'ylopez','2021-03-05','2021-05-01 18:19:08',60.00),
+            (1893, 'bwilson', '2021-01-11','2021-04-29 14:15:13',50.50),
+            (2932, 'annag','2021-02-20','2021-04-27 12:17:19',75.79),
+            (8562, 'bwilson','2021-03-06','2021-06-21 13:18:05',20.00);
             
-            
+           
+
             
 Select * from Auctions;
 
@@ -242,12 +243,13 @@ VALUE ('amallick', 'What is an alert?', 'Customer representative will answer soo
 
 
 CREATE TABLE BIDS (
-	Bid_ID				INT			Not Null AUTO_INCREMENT,
+	Bid_ID				INT			     Not Null AUTO_INCREMENT,
     bid_username 		    VARCHAR(20)  NOT NULL,
 	bid_footwear_item_id    INT 	     NOT NULL,
-    bid_amount			double			Not Null,
-	isAutomatic			tinyint	     NOT NULL,
+    bid_amount			double			 Not Null,
+	isAutomatic			tinyint	         NOT NULL,
 	upper_limit 		DOUBLE 		,
+    bid_increment       DOUBLE      ,
     
 PRIMARY KEY (Bid_ID),
 FOREIGN KEY (bid_username) REFERENCES USERS(username), 
@@ -268,7 +270,6 @@ select * from bids;
 
 
             
-
 
 
 
