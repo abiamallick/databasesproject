@@ -45,7 +45,7 @@ padding: 30px;
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			//Connection con = db.getConnection();	
-			 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Projectfirst","root", "luv2love");
+			 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Projectfirst","root", "Bullsraptors02");
 
 			//Create a SQL statement
 			Statement stmt = con.createStatement();

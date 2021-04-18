@@ -18,7 +18,7 @@ ApplicationDB db = new ApplicationDB();
     String userid = request.getParameter("username");   
     String pwd = request.getParameter("password");
     Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Projectfirst","root", "Aniagutowska1");
+    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Projectfirst","root", "Bullsraptors02");
     Statement st = con.createStatement();
     ResultSet rs;
     rs = st.executeQuery("select * from CUSTOMERREP where crepusername='" + userid + "' and creppassword='" + pwd + "'");

@@ -68,7 +68,7 @@
 			</select>
 		</tr>
 		<tr> 
-		<td>Initial Price</td><td><input type="text" name="initialprice"></td>
+		<td>Initial Price</td><td><input type="text" name="initialprice"placeholder="Optional"></td>
 		</tr>
 		<tr>
 				<td>Brand</td><td><select name="brand" size=1>
@@ -91,18 +91,21 @@
 		<td>Title</td><td><input type="text" name="title"></td>
 		</tr> 				
 		<tr> 
-		<td>Starting Date like "YYYY-DD-MM"
-			<input type="date"  data-date-inline-picker="true" name="startdate"/></td>
+		<td>Starting Date 
+			<td><p><input type="text" name="startingDate"placeholder="Enter as YYYY-MM-DD"></p></td>
 		</tr>
 		<tr>
 		<tr> 
-		<td>Closing Date like "YYYY-DD-MM"
-			<input type="date"  data-date-inline-picker="true"name="enddate"/></td>
+		<td>Closing Time 
+		<td><p><input type="text" name="closingTime"placeholder="Enter as military time"></p></td>
+		</tr>
+		<tr>
+		<td>Closing Date 
+		<td><p><input type="text" name="endingDate"placeholder="Enter as YYYY-MM-DD"></p></td>
 		</tr> 
 		</table>
 		<input type="submit" value="Submit!">
 		</form>
-		<p><a href="http://afarkas.github.io/webshim/demos/demos/cfgs/input-date.html" target="_blank"></a>
    <br>
    <br>
    <br>

@@ -47,66 +47,41 @@
 		
 //////////////FOR SELLS TABLE NOW //////////////////////////
 		
-	
 		
-		String input_startDate = request.getParameter("startdate");
-		String input_closeDate = request.getParameter("enddate");
-		//we use initial price from earlier
+		Random rand = new Random();
+		int n = rand.nextInt(100000);
+
 		
-		//we turn MM/DD/YYYY to YYYY-DD-MM
-		String input_sd = (input_startDate.toString()).substring(0, 4) + "-"
-        + (input_startDate.toString()).substring(8) + "-"
-        + (input_startDate.toString()).substring(5, 7);
+		String input_startDate = request.getParameter("startingDate");
+		String input_closeDate = request.getParameter("endingDate");
+		String input_closeTime = request.getParameter("closingTime");
 		
-		String input_cd = (input_closeDate.toString()).substring(0, 4) + "-"
-		        + (input_closeDate.toString()).substring(8) + "-"
-		        + (input_closeDate.toString()).substring(5, 7);
+		String CloseDateAndTime = input_closeDate + " " + input_closeTime + ":00";
 		
-		//out.println(input_sd);
-		//out.println(input_cd);
 		
- 		String insert2 = "INSERT INTO SELLS(starting_date, closing_date, initial_price_sells)"
-				+ " VALUES ('" + input_sd + "', '" + input_cd + "', " + input_InitialPrice + ")";
-		//out.println(insert2);
+		
+	    String user = (String)session.getAttribute("user");
+		
+	    if(input_InitialPrice!=null)
+	    {
+	    	String insert3 = "INSERT INTO AUCTIONS(auction_id, auction_user, starting_date, closing_date, initial_price_sells)"
+					+ " VALUES ('" + n + "', '"  + user + "',   '"  + input_startDate + "', '" + CloseDateAndTime + "', '" + input_InitialPrice + "')";
+	    	PreparedStatement ps2 = con.prepareStatement(insert3);
+			ps2 = con.prepareStatement(insert3); 
+			ps2.executeUpdate();
+	 		
+	    }
+	    else if(input_InitialPrice==null)
+	    {
+ 		String insert2 = "INSERT INTO AUCTIONS(auction_id, auction_user, starting_date, closing_date)"
+				+ " VALUES ('" + n + "', '"  + user + "',   '"  + input_startDate + "', '" + CloseDateAndTime + "')";
  		PreparedStatement ps2 = con.prepareStatement(insert2);
 		ps2 = con.prepareStatement(insert2); 
 		ps2.executeUpdate();
-		
-		
+	    }
 		
 
-		
-/* 		
-		String insert = "INSERT INTO FOOTWEAR_ITEMS(footwear_item_id, Brand, Size, Color, item_Type, item_Condition, initial_price)" + 
-		"VALUES (?, ?, ?. ?, ?, ?, ?)";
-		out.print(insert);
-		PreparedStatement ps = con.prepareStatement(insert);
-		ps = con.prepareStatement(insert);
-		ps.setInt(1, n);
-		ps.setString(2, input_Brand);
-		ps.setFloat(3, input_Size);
-		ps.setString(4, input_Color);
-		ps.setString(5, input_Type);
-		ps.setString(6, input_Condition);
-		ps.setFloat(7, input_InitialPrice);
-		ps.executeUpdate(); */
-		
-		
-		
-		
-		
-		//ps = con.prepareStatement(insert); 
 
-		//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-/* 		ps.setString(1, input_username);
-		ps.setString(2, input_password);
-		ps.setString(3, input_email); */
-		//set strings are just for question marks
-		
-		//Run the query against the DB
-		//Run the query against the DB
-		
-		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
 		out.print("Your new item has been added to the auction");
 		
