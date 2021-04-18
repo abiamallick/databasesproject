@@ -52,8 +52,7 @@
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
 		out.print("The new customer rep account has successfully been created");
-		out.println("<a href='logout.jsp'>   click here to log in </a>");
-		
+		out.println("<a href='customerRepLoginPage.jsp'>   Click here to log in </a>");		
 		
 	} catch (Exception ex) {
 		out.print(ex);
