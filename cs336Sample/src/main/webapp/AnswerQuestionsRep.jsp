@@ -12,36 +12,33 @@
 </head>
 <body>
 <%  try {
-	ApplicationDB db = new ApplicationDB();	
-	Connection con = db.getConnection();	
-	
+	//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();
 
-	//Create a SQL statement
-	Statement stmt = con.createStatement();
 			//Create a SQL statement
-			
-	
+			Statement stmt = con.createStatement();
 			//Create a SQL statement
 
 			String entity = request.getParameter("question_id");
 					ResultSet result = stmt.executeQuery("SELECT * FROM questions");
 			
 			 %>
-			
+			<%= "ALL QUESTIONS ASKED:"%>
 			  
 			  
 			<% while (result.next()) { %>
 			<table>
 			<div>
-				<tr>    
-					<b><%= result.getString("question") %></b>
+				<tr>  
+					<b><a href="CRepAnswers.jsp?question=<%= result.getString("question")%>&question_id=<%=result.getString("question_id")%>"><%= result.getString("question") %></a></b>
 					<%= result.getString("answer") %>
 				</tr>
 				</div>
 			</table>
 			 	<% 	} %>
 				
-			<%= "ALL QUESTIONS ASKED:"%>
+			
 			<br>
 			<br>
 			<div  style='text-align:right'>
