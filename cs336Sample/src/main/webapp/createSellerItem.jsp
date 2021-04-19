@@ -32,7 +32,15 @@
 		Float input_Size = Float.valueOf(request.getParameter("size"));
 		String input_Condition = request.getParameter("condition");
 		String input_Style = request.getParameter("style");
-		Float input_InitialPrice = Float.valueOf(request.getParameter("initialprice"));
+		Double input_InitialPrice = 0.0;
+		if(request.getParameter("initialprice").equals(""))
+		{
+			input_InitialPrice=0.0;
+		}
+		else
+		{
+			input_InitialPrice = Double.valueOf(request.getParameter("initialprice"));
+		}
 		String input_Brand = request.getParameter("brand");
 		String input_Title = request.getParameter("title");
 		
