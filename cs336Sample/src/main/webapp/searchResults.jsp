@@ -148,41 +148,37 @@ try {
 
 <p>How would you like to bid:</p>
 
-<div>
-  <input type="radio" id="huey" name="manual" value="huey"
-         checked>
-  <label for="huey">Manual</label>
-</div>
+<table>
+</table>
 
 	<br>
-		<form method="post" action="manualBid.jsp">
+		<form method="post" action="createBids.jsp">
 		<table>
-		<tr>    
-		<td>Bid Amount $</td><td><input type="text" name="manualbidamount"></td>
+		 <tr>    
+		<td>Bid Type</td><td><select name ="bidtype" size=1>
+				<option value="Manual">Manual</option>
+				<option value="Automatic">Automatic</option>
+			</select>
 		</tr>
+		<tr>    
+		<td>Bid Amount $</td><td><input type="text" name="manualbidamount"placeholder="Only for manual"></td>
+		</tr>
+		<tr> 
+		<td>Bid Increment</td><td><input type="text" name="bidincrprice"placeholder="Only for automatic"></td>
+		</tr>
+		<tr> 
+		<td>Bid Upper Limit</td><td><input type="text" name="bidUL"placeholder="Only for automatic"></td>
+		</tr>
+		
+		
 		</table>
 		<input type="hidden" name="footwearid" value=<%=hi%>>
 		<input type="submit" value="Place Bid!">
 		</form>
 	<br>
 <div>
-  <input type="radio" id="dewey" name="automatic" value="dewey">
-  <label for="dewey">Automatic</label>
-</div>
 
-	<br>
-		<form method="post" action="automaticBid.jsp">
-		<table>
-		<tr>    
-		<td>Bid Increment $</td><td><input type="text" name="autobidincr"></td>
-		</tr>
-		<tr>    
-		<td>Upper Limit $</td><td><input type="text" name="auto_upperlimit"></td>
-		</tr>
-		</table>
-		<input type="submit" value="Place Bid!">
-		</form>
-	<br>
+</div>
 
       
       

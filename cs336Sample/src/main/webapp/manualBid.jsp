@@ -23,6 +23,7 @@
 		//Get parameters from the HTML form at the index.jsp
 		String input_username = (String)session.getAttribute("user");
 		Integer input_footwearid = Integer.parseInt(request.getParameter("footwearid"));
+		out.println(input_footwearid);
 		Double input_bidamt = Double.valueOf(request.getParameter("manualbidamount"));
 		int input_isAuto = 0;
 		Double highest = 0.0;
@@ -46,6 +47,10 @@
 		PreparedStatement ps = con.prepareStatement(insert);
 		ps = con.prepareStatement(insert); 
 		ps.executeUpdate(); 
+		
+		
+		
+		
 		
 		
 		out.print("Your bid has been placed!");
