@@ -13,8 +13,8 @@
 <body>
 <%  try {
 	ApplicationDB db = new ApplicationDB();	
-	//Connection con = db.getConnection();	
-	 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Projectfirst","root", "Aniagutowska1");
+	Connection con = db.getConnection();	
+	
 
 	//Create a SQL statement
 	Statement stmt = con.createStatement();

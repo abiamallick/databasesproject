@@ -20,7 +20,8 @@
 		//Create a SQL statement
 		//Statement stmt = con.createStatement();
 	Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Projectfirst","root", "Aniagutowska1");
+	ApplicationDB db = new ApplicationDB();	
+	Connection con = db.getConnection();
     Statement st = con.createStatement();
 		//Get parameters from the HTML form at the index.jsp
 		String input_username = request.getParameter("username");

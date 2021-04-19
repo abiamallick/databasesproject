@@ -19,7 +19,9 @@ ApplicationDB db2 = new ApplicationDB();
     String userid2 = request.getParameter("username");   
     String pwd2 = request.getParameter("password");
     Class.forName("com.mysql.jdbc.Driver");
-    Connection con2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/Projectfirst","root", "Bullsraptors02");
+    ApplicationDB db = new ApplicationDB();	
+	Connection con2 = db.getConnection();
+    
     Statement st2 = con2.createStatement();
     ResultSet rs2;
     rs2 = st2.executeQuery("select * from ADMIN_USER where adminusername='" + userid2 + "'");
