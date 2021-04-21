@@ -78,6 +78,7 @@ CREATE TABLE FOOTWEAR_ITEMS (
     title 				VARCHAR(75) 	NOT NULL,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     sold                tinyint,
 =======
     sold 				BOOL 			NOT NULL,
@@ -85,12 +86,16 @@ CREATE TABLE FOOTWEAR_ITEMS (
 =======
     sold 				BOOL 			NOT NULL,
 >>>>>>> branch 'master' of https://github.com/abiamallick/databasesproject.git
+=======
+    sold 				BOOL 			NOT NULL,
+>>>>>>> refs/remotes/origin/master
 
 PRIMARY KEY (footwear_item_id));
 ALTER TABLE FOOTWEAR_ITEMS AUTO_INCREMENT=1000;
 
 SELECT * FROM FOOTWEAR_ITEMS;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             INSERT INTO FOOTWEAR_ITEMS (shoe_type,size,item_condition,style,initial_price,brand,title,sold)
@@ -133,6 +138,23 @@ VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Nike Men Sneakers','0
             ('sandals',9,'Slightly Used','casual',50.50,'Converse','Barely Worn Beach Sandals For Teen Boys','0'),
             ('sandals',5,'Very Used','casual',75.79,'Under Armour','Everyday Orange Sandals In Decent Shape','0'),
             ('sandals',6,'Slightly Used','casual',20.00,'Reebok','One of a Kind Retro Sandals For Women','0');
+=======
+            
+INSERT INTO FOOTWEAR_ITEMS (shoe_type,size,item_condition,style,initial_price,brand,title,sold)
+VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Nike Men Sneakers','0'),
+			('sandals',8.5,'Slightly Used','casual',35.90,'Converse','Cute Summer Sandals','1'),
+            ('boots',6,'Slightly Used','casual',50.00,'Sperry','Funky Boots Perfect For Wedding','1'),
+			('sandals',10.5,'New','fancy',51.35,'Doc Martens','Unique Vintage Sandals','0'),
+            ('sandals',5,'New','fancy',35.10,'Sperry','Colorful and Comfy Blue Sandals','0'),
+			('sneakers',6,'Very Used','athletic',100.00,'Converse','Super Comfortable Sneakers for Everyday','0'),
+			('sneakers',6,'New','athletic',88.70,'Hunter','Perfect Running Shoes for Women','0'),
+            ('boots',8,'New','fancy',60.00,'Vans','Trendy Boots Perfect For Any Occasion','0'),
+            ('sandals',9,'Slightly Used','casual',50.50,'Converse','Barely Worn Beach Sandals For Teen Boys','0'),
+            ('sandals',5,'Very Used','casual',75.79,'Under Armour','Everyday Orange Sandals In Decent Shape','0'),
+            ('sandals',6,'Slightly Used','casual',20.00,'Reebok','One of a Kind Retro Sandals For Women','0');
+            
+
+>>>>>>> refs/remotes/origin/master
             
 
 >>>>>>> branch 'master' of https://github.com/abiamallick/databasesproject.git
