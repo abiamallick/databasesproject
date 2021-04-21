@@ -12,8 +12,6 @@ try {
 	
 	//Create a SQL statement
 	Statement stmt = con.createStatement();
-	String entity = request.getParameter("footwear_item_id");
-	String ftype = request.getParameter("shoe_type");
 	
 	String str2 = "SELECT * FROM USERS";
 	
