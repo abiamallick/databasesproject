@@ -76,30 +76,42 @@ padding: 30px;
 				}
 			ResultSet result = stmt.executeQuery(searchQuery.toString()); %>
 			
+			  
+</table>
+<br>
+
+
 			<div>
 			  <tr>
-			    <th>&emsp;&emsp;&emsp;&emsp;Title&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
-			    <th>Brand&emsp;&emsp;&emsp;</th> 
-			    <th>Size&emsp;&emsp;</th>
-			    <th>Initial Price&emsp;&emsp;&emsp;&emsp;&emsp;</th>
-			  </tr>
+			  	<th><b>Title&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</b></th>
+			 
+			    <th><b>Brand&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</b></th> 
+			    <th><b>Size&emsp;&emsp;&ensp;</b></th>
+			    <th><b>Initial Price&emsp;&emsp;&emsp;</b></th>
+			  <th><b>Status&emsp;&emsp;&emsp;&emsp;&emsp;</b></th>
+			  	</tr>
 			  </div>
+<table style= ""width:50%">
 			  
 			  <% while (result.next()) { %>
-			<table>
+
 			<div>
 				<tr>    
 					<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>&shoe_type=<%=result.getString("shoe_type")%>"><%= result.getString("title") %></a></td>
 					<td><%= result.getString("brand") %></td>
 					<td><%= result.getString("size") %></td>
 					<td><%= result.getString("initial_price") %></td>
+					<% if (result.getString("sold").equals("1")){ %>
+			<td>Sold</td>
+		<% }else{ %>
+			<td>Not Sold</td>
+			<% } %>
 				</tr>
 				</div>
-			</table>
-			 	<% 	}
-				
-			//close the connection.
-			db.closeConnection(con);
+			
+			 	<% 	} %>
+			  </table>
+			<%  db.closeConnection(con);
 			
 
 			

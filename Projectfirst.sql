@@ -1,7 +1,8 @@
 CREATE DATABASE Projectfirst;
-
 USE Projectfirst;
 
+Delete FROM USERS WHERE username=' ';
+UPDATE USERS SET user_password = 'yolo' WHERE username = 'wjohnson';
 
 CREATE TABLE USERS (
 
@@ -10,7 +11,7 @@ CREATE TABLE USERS (
     email              VARCHAR(50)   NOT NULL,
 
 
-PRIMARY KEY (username));
+PRIMARY KEY (username, user_password, email));
 
  
 INSERT INTO USERS
@@ -65,31 +66,6 @@ VALUES		('tmedina','turtle!');
 SELECT * FROM ADMIN_USER;
 /* --------------------------------------------------------------------------------------------- */
 
-         
-
-/* --------------------------------------------------------------------------------------------- */
-
-
-
- CREATE TABLE BUYERS(
-
-	username           VARCHAR(20)   NOT NULL,
-
-
-PRIMARY KEY (username), 
-FOREIGN KEY (username) REFERENCES USERS(username) );
-
-/* --------------------------------------------------------------------------------------------- */
- 
- CREATE TABLE SELLERS (
-	sid					int			Not null,
-	username           VARCHAR(20)   NOT NULL,
-PRIMARY KEY (username), 
-FOREIGN KEY (username) REFERENCES USERS(username) );
-
-/* --------------------------------------------------------------------------------------------- */
-
-
 CREATE TABLE FOOTWEAR_ITEMS (
 
 	footwear_item_id    INT              NOT NULL AUTO_INCREMENT,
@@ -100,35 +76,27 @@ CREATE TABLE FOOTWEAR_ITEMS (
     initial_price		float 			 NOT NULL,
     brand 				VARCHAR(30)		 NOT NULL,
     title 				VARCHAR(75) 	NOT NULL,
+    sold                tinyint,
 
 PRIMARY KEY (footwear_item_id));
 ALTER TABLE FOOTWEAR_ITEMS AUTO_INCREMENT=1000;
 
-
 SELECT * FROM FOOTWEAR_ITEMS;
 
-
-
-            INSERT INTO FOOTWEAR_ITEMS (shoe_type,size,item_condition,style,initial_price,brand,title)
-VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Nike Men Sneakers'),
-			('sandals',8.5,'Slightly Used','casual',35.90,'Converse','Cute Summer Sandals'),
-            ('boots',6,'Slightly Used','casual',50.00,'Sperry','Funky Boots Perfect For Wedding'),
-			('sandals',10.5,'New','fancy',51.35,'Doc Martens','Unique Vintage Sandals'),
-            ('sandals',5,'New','fancy',35.10,'Sperry','Colorful and Comfy Blue Sandals'),
-			('sneakers',6,'Very Used','athletic',100.00,'Converse','Super Comfortable Sneakers for Everyday'),
-			('sneakers',6,'New','athletic',88.70,'Hunter','Perfect Running Shoes for Women'),
-            ('boots',8,'New','fancy',60.00,'Vans','Trendy Boots Perfect For Any Occasion'),
-            ('sandals',9,'Slightly Used','casual',50.50,'Converse','Barely Worn Beach Sandals For Teen Boys'),
-            ('sandals',5,'Very Used','casual',75.79,'Under Armour','Everyday Orange Sandals In Decent Shape'),
-            ('sandals',6,'Slightly Used','casual',20.00,'Reebok','One of a Kind Retro Sandals For Women');
+            INSERT INTO FOOTWEAR_ITEMS (shoe_type,size,item_condition,style,initial_price,brand,title,sold)
+VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Nike Men Sneakers',true),
+			('sandals',8.5,'Slightly Used','casual',35.90,'Converse','Cute Summer Sandals',true),
+            ('boots',6,'Slightly Used','casual',50.00,'Sperry','Funky Boots Perfect For Wedding',false),
+			('sandals',10.5,'New','fancy',51.35,'Doc Martens','Unique Vintage Sandals',false),
+            ('sandals',5,'New','fancy',35.10,'Sperry','Colorful and Comfy Blue Sandals',true),
+			('sneakers',6,'Very Used','athletic',100.00,'Converse','Super Comfortable Sneakers for Everyday',true),
+			('sneakers',6,'New','athletic',88.70,'Hunter','Perfect Running Shoes for Women',true),
+            ('boots',8,'New','fancy',60.00,'Vans','Trendy Boots Perfect For Any Occasion',true),
+            ('sandals',9,'Slightly Used','casual',50.50,'Converse','Barely Worn Beach Sandals For Teen Boys',true),
+            ('sandals',5,'Very Used','casual',75.79,'Under Armour','Everyday Orange Sandals In Decent Shape',true),
+            ('sandals',6,'Slightly Used','casual',20.00,'Reebok','One of a Kind Retro Sandals For Women',true);
             
-
-
 /* --------------------------------------------------------------------------------------------- */
-
-
-
-
 CREATE TABLE ALERTS (
 	alertID					int			NOT NULL AUTO_INCREMENT, 
 	alert_message		Varchar(400)	Not NULL,
@@ -139,7 +107,13 @@ CREATE TABLE ALERTS (
 PRIMARY KEY (alertID), 
 FOREIGN KEY (footwear_item_id) REFERENCES FOOTWEAR_ITEMS(footwear_item_id),
 FOREIGN KEY (alert_username) REFERENCES USERS(username) );
-
+ALTER TABLE Alerts
+ADD CONSTRAINT alert_username
+    FOREIGN KEY (alert_username)
+    REFERENCES Users (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+    
 Select alert_message 
 from alerts 
 WHERE alert_username= 'amallick';
@@ -155,10 +129,6 @@ Select * from alerts;
 Select a.alert_message, f.title 
 from alerts a, footwear_items f
 WHERE a.alert_username= 'amallick' And f.footwear_item_id =1001;
-
-
-
-
 
 /* --------------------------------------------------------------------------------------------- */
 /* AUCTIONS TABLE */
@@ -176,7 +146,13 @@ Foreign key(auction_user) references USERS(username),
 PRIMARY KEY (auction_id));
 ALTER TABLE Auctions AUTO_INCREMENT=1000;
 
-
+ALTER TABLE Auctions
+ADD CONSTRAINT auction_user
+    FOREIGN KEY (auction_user)
+    REFERENCES Users (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+    
 
 INSERT INTO Auctions (auction_id, auction_user,starting_date, closing_date, initial_price_sells)
 VALUES      (3844, 'annag', '2021-02-19','2021-04-26 13:10:01',15.75),
@@ -187,35 +163,9 @@ VALUES      (3844, 'annag', '2021-02-19','2021-04-26 13:10:01',15.75),
 			(8260, 'smartinez','2021-02-23','2021-05-28 23:22:10',100.00),
 			(0978, 'smartinez', '2021-01-26','2021-05-09 20:34:50',88.70),
             (3892, 'ylopez','2021-03-05','2021-05-01 18:19:08',60.00),
-            (1893, 'bwilson', '2021-01-11','2021-04-29 14:15:13',50.50),
-            (2932, 'annag','2021-02-20','2021-04-27 12:17:19',75.79),
-            (8562, 'bwilson','2021-03-06','2021-06-21 13:18:05',20.00);
-            
-           
-
-            
-Select * from Auctions;
-
-
-
-
-
-
-/* --------------------------------------------------------------------------------------------- */
-
-/* --------------------------------------------------------------------------------------------- */
-
-
-CREATE TABLE ANSWERS (
-
-	question_id         VARCHAR(5)    NOT NULL,
-    username 		    VARCHAR(20)   NOT NULL,
-    keywords 		    VARCHAR(25)   NOT NULL, 
-
-
-PRIMARY KEY (username, question_id), 
-FOREIGN KEY (question_id) REFERENCES QUESTIONS(question_id),
-FOREIGN KEY (username) REFERENCES USERS(username) );
+            (1010, 'bwilson', '2021-04-15','2021-04-29 14:15:13',50.50),
+            (1005, 'annag','2021-02-20','2021-04-16 12:17:19',75.79),
+            (1004, 'bwilson','2021-04-06','2021-04-21 13:18:05',20.00);
 
 /* --------------------------------------------------------------------------------------------- */
 
@@ -229,6 +179,12 @@ CREATE TABLE QUESTIONS (
 PRIMARY KEY (question_id),
 FOREIGN KEY (q_username) REFERENCES USERS(username) );
 ALTER TABLE QUESTIONS AUTO_INCREMENT=10;
+ALTER TABLE Questions
+ADD CONSTRAINT q_username
+    FOREIGN KEY (q_username)
+    REFERENCES Users (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 INSERT INTO QUESTIONS (q_username, question, answer)
 VALUE ('amallick', 'What is an alert?', 'Customer representative will answer soon'),
@@ -238,9 +194,6 @@ VALUE ('amallick', 'What is an alert?', 'Customer representative will answer soo
             ('dgarcia','How can I sell an item?','Customer representative will answer soon'), 
             ('tmedina','How can I buy an item?','Customer representative will answer soon');
 /* --------------------------------------------------------------------------------------------- */
-
-/* --------------------------------------------------------------------------------------------- */
-
 
 CREATE TABLE BIDS (
 	Bid_ID				INT			     Not Null AUTO_INCREMENT,
@@ -266,11 +219,50 @@ VALUES      ('amallick', 1001, 37.00,false),
             ('dgarcia', 1001, 60.50,false);
             
 select * from bids;
+ALTER TABLE Bids
+ADD CONSTRAINT bid_username
+    FOREIGN KEY (bid_username)
+    REFERENCES Users (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
             
+/* --------------------------------------------------------------------------------------------- */
+
+ CREATE TABLE BUYERS(
+
+	username           VARCHAR(20)   NOT NULL,
 
 
-            
+PRIMARY KEY (username), 
+FOREIGN KEY (username) REFERENCES USERS(username) );
+
+ 
+ CREATE TABLE SELLERS (
+	sid					int			Not null,
+	username           VARCHAR(20)   NOT NULL,
+PRIMARY KEY (username), 
+FOREIGN KEY (username) REFERENCES USERS(username) );
 
 
+Select f.title, a.starting_date, a.closing_date, f.sold
+FROM Bids b, Auctions a, footwear_items f
+where b.bid_username='amallick' AND b.bid_footwear_item_id=f.footwear_item_id AND f.footwear_item_id=a.footwear_sells_id AND date_format(a.closing_date, '%Y-%m')=date_format(now(), '%Y-%m');
+/*-- where a.closing_date >= extract(YEAR_MONTH from CURRENT_DATE) 
+  and a.closing_date <  extract(YEAR_MONTH from CURRENT_DATE + INTERVAL 1 MONTH)--*/
 
+SELECT b.bid_username, f.title, a.starting_date, a.closing_date, f.sold
+FROM Bids b
+JOIN footwear_items f
+  ON b.bid_footwear_item_id=f.footwear_item_id
+JOIN Auctions a
+  ON f.footwear_item_id=a.footwear_sells_id
+WHERE b.bid_username='amallick' AND  date_format(a.closing_date, '%Y-%m')=date_format(now(), '%Y-%m');
+
+SELECT f.title, f.size, a.closing_date, a.starting_date, a.auction_user
+FROM footwear_items f
+JOIN Auctions a ON a.footwear_sells_id=f.footwear_item_id
+WHERE f.footwear_item_id != '1004' AND f.shoe_type = 'sandals' AND date_format(a.closing_date, '%Y-%m')=date_format(now(), '%Y-%m')
+ORDER BY f.title;
+/* --------------------------------------------------------------------------------------------- */
 

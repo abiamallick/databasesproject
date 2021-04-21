@@ -42,6 +42,10 @@ Welcome <%=session.getAttribute("user")%>
 <a href='Questions.jsp'>Have Questions?</a>
 </div>
 
+<div  style='text-align:right'>
+<a href='AuctionHistory.jsp?bid_username=<%=session.getAttribute("user")%>'>View Auction History</a>
+</div>
+
 <div id="searchbar">
    <h2>Hi! Select at least one search parameter</h2>
 		<form action="itemSearch.jsp" method="GET">

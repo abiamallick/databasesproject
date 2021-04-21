@@ -131,13 +131,18 @@ try {
 	<%
 	//parse out the results
 	while (result.next()) { %>
-
+	
+	<div>
 	<tr>
-		<td><%= result.getString("bid_username") %> <td>
-		$
+		<td><a href="AuctionHistory.jsp?bid_username=<%= result.getString("bid_username")%>"><%= result.getString("bid_username") %></a><td>
+		
 		<td><%= result.getString("bid_amount") %> <td>
+		<td><td>
+		
 	</tr>	
 
+				</div>
+			
 	<% }
 	//close the connection.
 	%>
@@ -202,8 +207,7 @@ try {
 	String entity = request.getParameter("footwear_item_id");
 	String ftype = request.getParameter("shoe_type");
 	
-	String str2 = "SELECT * FROM footwear_items WHERE footwear_item_id != " + "'" + entity + "' AND shoe_type = '" + ftype + "'";
-	//out.println(ftype);
+	String str2 = "SELECT f.title, f.footwear_item_id, f.size, f.sold, a.starting_date, a.closing_date, a.auction_user FROM footwear_items f JOIN Auctions a ON a.footwear_sells_id=f.footwear_item_id WHERE f.footwear_item_id != '" + entity + "' AND f.shoe_type = '" + ftype + "' AND date_format(a.closing_date, '%Y-%m')=date_format(now(), '%Y-%m') ORDER BY f.title";
 	
 	
 	//Run the query against the database.
@@ -212,32 +216,49 @@ try {
 	
 	%>
 
-<table>	
+<table>
  <tr><td colspan=2 style="font-size:12pt;" align="center">
 <h3>Similar Items</h3></td></tr>
 
 </table>
+
 <br>
-
-
-			
+			<div>
+			  <tr>
+			  	<th><b>Title&emsp;&ensp;&emsp;&ensp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</b></th>
+			 
+			    <th><b>&emsp;&ensp;&emsp;&ensp;&emsp;&emsp;&ensp;&emsp;&ensp;&emsp;Size&emsp;&ensp;&emsp;</b></th> 
+			  <th><b>Starting Date&emsp;&ensp;&emsp;&ensp;&emsp;&emsp;</b></th>
+			  <th><b>Closing Date &emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;</b></th>
+			  <th><b>&emsp;&ensp;&emsp;Status</b></th>
+			  	</tr>
+			  </div>
 <table style= ""width:50%">
 	<%
 	//parse out the results
 	while (result.next()) { 
 	%>
+	<div>
 	<tr>
 	
-		<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>"><%= result.getString("title") %></a></td>
-		
-		<td>Size: <%= result.getString("size") %> <td>
+		<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>"><%= result.getString("f.title") %></a>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
+		<td> <%= result.getString("f.size") %>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp; </td>
+		<td> <%= result.getString("a.starting_date") %>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp; </td>
+		<td> <%= result.getString("a.closing_date") %> &emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
+		<% if (result.getString("sold").equals("1")){ %>
+			<td>Sold</td>
+		<% }else{ %>
+			<td>Not Sold</td>
+			<% } %>
 	</tr>	
-	<% }
+	</div>
+	<% } %>
 	
-	//close the connection.
-	db.closeConnection(con);
+	<%  db.closeConnection(con);
 	%>
+	
 </table>
+
 <%} catch (Exception e) {
 	out.print(e);
 }
