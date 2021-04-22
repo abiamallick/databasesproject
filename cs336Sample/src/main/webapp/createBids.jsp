@@ -11,7 +11,52 @@
 </head>
 <body>
 
-<%	double highest = 0.0; %>
+
+<%boolean willExec = true; %>
+
+<%
+	try {
+		//setting the user with the highest upper limit as the alpha
+		//Get the database connection
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();
+
+		//Create a SQL statement
+		Statement stmt = con.createStatement();
+		Integer input_footwearid = Integer.parseInt(request.getParameter("footwearid"));
+		Integer countChecker = 0;
+
+		String checker2= "SELECT COUNT(*) FROM bids where bid_footwear_item_id= '" + input_footwearid + "' And isAutomatic = 1";
+
+		ResultSet result = stmt.executeQuery(checker2);
+		
+		while (result.next()) {
+			countChecker = (result.getInt("Count(*)"));	
+			out.println(countChecker);
+		}
+		if( countChecker ==0){
+			willExec = false;
+		}
+		else{
+			willExec = true;
+		}
+		
+		out.println(willExec);
+		con.close();
+	} catch (Exception ex) {
+		out.print(ex);
+		out.print("insert failed");
+	}
+%>
+
+
+
+
+
+<%	double highest = 0.0;
+	Boolean hasInserted = false;%>
+	
+	
 	<%
 	try {
 
@@ -25,7 +70,7 @@
 		//Get parameters from the HTML form at the index.jsp
 		String input_username = (String)session.getAttribute("user");
 		Integer input_footwearid = Integer.parseInt(request.getParameter("footwearid"));
-		out.println(input_footwearid);
+	//	out.println(input_footwearid);
 		String input_bidtype = request.getParameter("bidtype");
 		//Boolean is_working = false;
 		int input_isAuto = 0;
@@ -38,7 +83,7 @@
 			
 			if(request.getParameter("manualbidamount").equals(""))
 			{
-				out.println("Please enter a bid increment");
+				out.println("Please enter a bid increment. ");
 			}
 			else
 			{
@@ -85,7 +130,7 @@
 		
 		while (result.next()) {
 			highest = (result.getDouble("max(bid_amount)"));
-			out.println("old highest = " + highest);
+			//out.println("old highest = " + highest);
 		}
 		
 		
@@ -107,6 +152,7 @@
 		PreparedStatement ps = con.prepareStatement(insert);
 		ps = con.prepareStatement(insert); 
 		ps.executeUpdate(); 
+		hasInserted=true;
 		
 		out.print("Your bid has been placed!");
 		out.println("<a href='success.jsp'>   click here to go back to the home page </a>");
@@ -120,6 +166,7 @@
   		PreparedStatement ps = con.prepareStatement(insert2);
 		ps = con.prepareStatement(insert2); 
 		ps.executeUpdate(); 
+		hasInserted=true;
 		
 		out.print("Your bid has been placed!");
 		out.println("<a href='success.jsp'>   click here to go back to the home page </a>");	
@@ -162,7 +209,7 @@
 		
 		while (result.next()) {
 			highest = (result.getDouble("max(bid_amount)"));
-			out.println("new" + highest);
+		//	out.println("new" + highest);
 		}
 		
 		con.close();
@@ -210,7 +257,7 @@
 				double user_bidincr = result.getDouble("bid_increment");
 				double newinsr = highest + user_bidincr;
 				
-				if(newinsr < user_UL){
+					if(newinsr < user_UL && hasInserted== true){
 					
 					String insert3 = "INSERT INTO BIDS(bid_username, bid_footwear_item_id, bid_amount, isAutomatic, upper_limit, bid_increment)"
 		  					+ " VALUES ('" + user + "', '" + input_footwearid + "', '" + newinsr + "', '" + is_auto + "', '" + user_UL + "', '" + user_bidincr + "' )";
@@ -219,12 +266,11 @@
 					ps.executeUpdate(); 
 					
 					
-				}
-				else{//if it can't increment anymore bc they reached their upperlimit
+					}
+					else{//if it can't increment anymore bc they reached their upperlimit
 					out.println(""); //just do nothing
-				}
-				
-		
+					}
+
 				
 			}
 			else{
@@ -242,6 +288,212 @@
 	}
 %>
 
+<% double secondToLast = 0.0; %>
+
+
+
+<%
+	try {
+
+		//Get the database connection
+		//finding the second to largest UL
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();
+
+		//Create a SQL statement
+		Statement stmt = con.createStatement();
+		Integer input_footwearid = Integer.parseInt(request.getParameter("footwearid"));
+
+		String checker2= "SELECT max(Upper_limit) FROM bids Where bid_footwear_item_id= '" + input_footwearid + "' And isAutomatic = 1 And Upper_limit < (SELECT max(Upper_limit)FROM bids)";
+
+		ResultSet result = stmt.executeQuery(checker2);
+		
+		while (result.next()) {
+			secondToLast = (result.getDouble("max(Upper_limit)"));
+		//	out.println("new" + highest);
+		}
+		
+		con.close();
+		
+		//FROM THAT WE WERE ABLE TO GET THE second to largest bid UL
+			
+		
+	} catch (Exception ex) {
+		out.print(ex);
+		out.print("insert failed");
+	}
+%>
+
+
+
+
+
+<%
+	try {
+		//setting all users equal to their upper limit in case of a collision
+		//Get the database connection
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();
+
+		//Create a SQL statement
+		Statement stmt = con.createStatement();
+		Integer input_footwearid = Integer.parseInt(request.getParameter("footwearid"));
+		Integer is_auto = 1;
+
+		String checker2= "SELECT bid_username, upper_limit, bid_increment FROM bids Where bid_footwear_item_id= '" + input_footwearid + "' And isAutomatic = 1 And upper_limit <  (select MAX(upper_limit) from bids) GROUP BY BID_USERNAME, upper_limit, bid_increment";
+
+		ResultSet result = stmt.executeQuery(checker2);
+		
+		while (result.next()) {
+			String out_user = (result.getString("bid_username"));
+			double out_UL = result.getDouble("upper_limit");
+			double out_bidincr = result.getDouble("bid_increment");
+			
+			if (out_UL > highest){
+			String insert3 = "INSERT INTO BIDS(bid_username, bid_footwear_item_id, bid_amount, isAutomatic, upper_limit, bid_increment)"
+  					+ " VALUES ('" + out_user + "', '" + input_footwearid + "', '" + out_UL + "', '" + is_auto + "', '" + out_UL + "', '" + out_bidincr + "' )";
+  			PreparedStatement ps = con.prepareStatement(insert3);
+			ps = con.prepareStatement(insert3); 
+			ps.executeUpdate(); 
+			}
+		
+		}
+		
+		con.close();
+		
+		
+			
+		
+	} catch (Exception ex) {
+		out.print(ex);
+		out.print("insert failed");
+	}
+%>
+
+
+<%
+	try {
+		//setting the user with the highest upper limit as the alpha
+		//Get the database connection
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();
+
+		//Create a SQL statement
+		Statement stmt = con.createStatement();
+		Integer input_footwearid = Integer.parseInt(request.getParameter("footwearid"));
+		Integer is_auto = 1;
+
+		String checker2= "select bid_username, max(bid_amount), bid_increment, upper_limit from bids Where bid_footwear_item_id= '" + input_footwearid + "' And isAutomatic = 1 And upper_limit = (Select max(upper_limit) from bids) group by bid_username, bid_increment, upper_limit;";
+
+		ResultSet result = stmt.executeQuery(checker2);
+		
+		while (result.next()) {
+			String out_user = (result.getString("bid_username"));
+			double out_UL = result.getDouble("upper_limit");
+			double out_bidincr = result.getDouble("bid_increment");
+			double newVal = secondToLast + out_bidincr;
+			
+			if(willExec== true ){
+			
+				String insert3 = "INSERT INTO BIDS(bid_username, bid_footwear_item_id, bid_amount, isAutomatic, upper_limit, bid_increment)"
+	  					+ " VALUES ('" + out_user + "', '" + input_footwearid + "', '" + newVal + "', '" + is_auto + "', '" + out_UL + "', '" + out_bidincr + "' )";
+	  			PreparedStatement ps = con.prepareStatement(insert3);
+				ps = con.prepareStatement(insert3); 
+				ps.executeUpdate(); 
+			}
+			else{
+				String insert4 = "INSERT INTO BIDS(bid_username, bid_footwear_item_id, bid_amount, isAutomatic, upper_limit, bid_increment)"
+	  					+ " VALUES ('" + out_user + "', '" + input_footwearid + "', '" + out_UL + "', '" + is_auto + "', '" + out_UL + "', '" + out_bidincr + "' )";
+	  			PreparedStatement ps = con.prepareStatement(insert4);
+				ps = con.prepareStatement(insert4); 
+				ps.executeUpdate();
+			}
+		
+		}
+		
+		con.close();
+		
+		
+			
+		
+	} catch (Exception ex) {
+		out.print(ex);
+		out.print("insert failed");
+	}
+%>
+
+
+
+<%Double alertHighest = 0.0;
+String alertUser = " ";%>
+
+<%
+	try {//GETTING USER WITH THE LARGEST VALUE IN THE DB FOR PARTICULAR ITEM
+		//Get the database connection
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();
+
+		//Create a SQL statement
+		Statement stmt = con.createStatement();
+		Integer input_footwearid = Integer.parseInt(request.getParameter("footwearid"));
+		
+
+		String checker2= "SELECT * FROM bids WHERE bid_amount IN (SELECT max(bid_amount) FROM bids Where bid_footwear_item_id= '" + input_footwearid + "');";
+
+		ResultSet result = stmt.executeQuery(checker2);
+		
+		while (result.next()) {
+			alertUser = (result.getString("bid_username"));
+			alertHighest = result.getDouble("bid_amount");
+		}
+		con.close();
+		
+		
+	} catch (Exception ex) {
+		out.print(ex);
+		out.print("insert failed");
+	}
+%>
+
+
+
+
+<%
+	try {
+		//setting all users equal to their upper limit in case of a collision
+		//Get the database connection
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();
+
+		//Create a SQL statement
+		Statement stmt = con.createStatement();
+		Integer input_footwearid = Integer.parseInt(request.getParameter("footwearid"));
+		String alertMessage = alertUser + " has bid higher than you";
+
+		String checker2= "select distinct bid_username from bids where bid_footwear_item_id =1001 And bid_username <>'" + alertUser + "'";
+
+		ResultSet result = stmt.executeQuery(checker2);
+		
+		while (result.next()) {
+			String insertAlert_user = (result.getString("bid_username"));
+			
+			if (hasInserted=true){
+			String insert3 = "INSERT INTO Alerts(alert_message, footwear_item_id, alert_username)"
+  					+ " VALUES ('" + alertMessage + "', '" + input_footwearid + "', '" + insertAlert_user + "')";
+  			PreparedStatement ps = con.prepareStatement(insert3);
+			ps = con.prepareStatement(insert3); 
+			ps.executeUpdate(); 
+			}
+		
+		}
+		
+		con.close();
+
+	} catch (Exception ex) {
+		out.print(ex);
+		out.print("insert failed");
+	}
+%>
 
 
 
