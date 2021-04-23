@@ -173,7 +173,7 @@ try {
 		String formattedDate = myDateObj.format(myFormatObj);
 		String entity = request.getParameter("footwear_item_id");
 		String auctionDate="";
-		int status = 0;
+		
 		
 		//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
 		String str = "SELECT bid_username, bid_amount FROM bids WHERE bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id = '" + entity + "')";
@@ -185,26 +185,18 @@ try {
 		
 		while (result2.next()) {
 			
-			String theItem = request.getParameter("footwear_item_id");
 			
-			String typeofItem = request.getParameter("style");
-
 			String winner_username = (result2.getString("bid_username"));
 			
-			double winner_amount = (result2.getDouble("bid_amount"));
-			
-			String auc_num = (result2.getString("auction_id"));
-			
+			Double winner_amount = (result2.getDouble("bid_amount"));
 			
 			
 			
 			
 			if(hasEnded==true && hasReserve==true)
 			{
-				status = 1;
-				String insert3 = "INSERT INTO WINNER(w_username,w_amount,w_auction_id,w_footwear_id,w_style,status_winner))"
-	  					+ " VALUES ('" + winner_username + "', '" + winner_amount + "', '" + auc_num + "', '" + theItem + "', '" + typeofItem + "','" + status + "')";
-				String update1 = "UPDATE footwear_items  SET sold=1 WHERE footwear_item_id like " + "'" + theItem + "'";
+				String insert3 = "INSERT INTO WINNER(w_username,w_amount)"
+	  					+ " VALUES ('" + winner_username + "', '" + winner_amount + "')";
 	  			PreparedStatement ps = con.prepareStatement(insert3);
 				ps = con.prepareStatement(insert3); 
 				ps.executeUpdate();
@@ -388,11 +380,6 @@ try {
 %>
 
 
-
-
-
-
-      
 
 
 
