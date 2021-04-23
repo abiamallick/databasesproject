@@ -7,9 +7,12 @@
 <title>Sales Report</title>
 </head>
 <body>
+	
+<h2>
 Sales Report Options:
+</h2>
 <br>
-Select one. 
+Please select one.
 
 <br>
 <br>
