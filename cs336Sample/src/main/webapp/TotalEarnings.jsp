@@ -10,6 +10,24 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<style>
+
+.tab1{
+tab-size=50;
+}
+
+
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+}
+th, td {
+padding: 30px;
+}
+</style>
 <%
 //IF ADMIN IS LOGGING IN 
 try{
@@ -19,18 +37,23 @@ try{
 	//Create a SQL statement
 	Statement st2 = con.createStatement();
     ResultSet rs2;
-    rs2 = st2.executeQuery("SELECT SUM(initial_price) FROM FOOTWEAR_ITEMS WHERE sold=1");
+    rs2 = st2.executeQuery("SELECT SUM(w_amount) FROM WINNER");
     if (rs2.next()) { %>
-    	<h2>Sales Report:</h2>
-		<table>
-			<tr>
-				<th>Total Earnings</th>
+    	<h2>Sales Report: Total Earnings</h2>
+    	
+	<div>
+			  <tr>
+			  
+			  <th><b>Total Earnings&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</b></th> 	    
 			</tr>	
+	</div>
+	<table style= ""width:50%">
+			  
 			
 	<%	do { %>
 			<tr>
-				<th>$</th>
-				<td><%= rs2.getFloat("SUM(initial_price)")%></td>
+				
+				<td>$<%=rs2.getFloat("SUM(w_amount)")%></td>
 			</tr>
     <%	} while (rs2.next()); %>
 		    			</table>
