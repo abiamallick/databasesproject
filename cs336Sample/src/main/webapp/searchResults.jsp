@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.LocalDateTime,java.time.format.DateTimeFormatter"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
 
 
@@ -89,10 +89,125 @@
 			out.print(e);
 		}
 	%>
+	<%
+	boolean hasEnded = false;
+	boolean hasReserve= false;
+	%>
+
+<%
+try {
+
+	//Get the database connection
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();	
+		
+		//Create a SQL statement
+		Statement stmt = con.createStatement();
+		//Get the combobox from the index.jsp
+		String practice = (String)session.getAttribute("user");
+		LocalDateTime myDateObj = LocalDateTime.now();
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		String formattedDate = myDateObj.format(myFormatObj);
+		String entity = request.getParameter("footwear_item_id");
+		String auctionDate="";
+		Double auctionReserve=0.0;
+		Double auctionAmount = 0.0;
+		
+		
+		//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
+		String str = "SELECT b.bid_username, au.closing_date, au.initial_price_sells, b.bid_amount FROM Auctions au, BIDS b WHERE b.bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id = '" + entity + "') and au.initial_price_sells = (SELECT Min(initial_price_sells) FROM Auctions WHERE bid_footwear_item_id = '" + entity + "')";
+		
+		ResultSet result2 = stmt.executeQuery(str);
+		
+		while (result2.next()) {
+			
+			auctionDate = (result2.getString("closing_date"));
+			auctionReserve = (result2.getDouble("initial_price_sells"));
+			auctionAmount = (result2.getDouble("bid_amount"));
+			
+		}
+		
+		if(auctionDate==formattedDate)
+		{
+			hasEnded=true;
+		}
+		else if(auctionDate.compareTo(formattedDate)<0)
+		{
+			hasEnded=true;
+		}
+		else if(auctionDate.compareTo(formattedDate)>0)
+		{
+			hasEnded=false;
+		}
+		
+		
+		if(auctionReserve==auctionAmount)
+		{
+			hasReserve=true;
+		}
+		else if(auctionReserve>auctionAmount)
+		{
+			hasEnded=true;
+		}
+		else if(auctionReserve<auctionAmount)
+		{
+			hasEnded=false;
+		}
+		
+} catch (Exception e) {
+	out.print(e);
+}%>
+<%        
+try {
+
+	//Get the database connection
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();	
+		
+		//Create a SQL statement
+		Statement stmt = con.createStatement();
+		//Get the combobox from the index.jsp
+		String practice = (String)session.getAttribute("user");
+		LocalDateTime myDateObj = LocalDateTime.now();
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		String formattedDate = myDateObj.format(myFormatObj);
+		String entity = request.getParameter("footwear_item_id");
+		String auctionDate="";
+		
+		
+		//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
+		String str = "SELECT bid_username, bid_amount FROM bids WHERE bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id = '" + entity + "')";
+		
 
 
-
-
+		ResultSet result2 = stmt.executeQuery(str);
+		
+		
+		while (result2.next()) {
+			
+			
+			String winner_username = (result2.getString("bid_username"));
+			
+			Double winner_amount = (result2.getDouble("bid_amount"));
+			
+			
+			
+			
+			if(hasEnded==true && hasReserve==true)
+			{
+				String insert3 = "INSERT INTO WINNER(w_username,w_amount)"
+	  					+ " VALUES ('" + winner_username + "', '" + winner_amount + "')";
+	  			PreparedStatement ps = con.prepareStatement(insert3);
+				ps = con.prepareStatement(insert3); 
+				ps.executeUpdate();
+			}
+			
+		}
+		
+		
+} catch (Exception e) {
+	out.print(e);
+}%>
 <%
 try {
 
