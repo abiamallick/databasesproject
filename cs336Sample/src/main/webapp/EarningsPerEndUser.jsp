@@ -11,6 +11,24 @@
 <title>Earnings Per End User</title>
 </head>
 <body>
+
+<style>
+
+.tab1{
+tab-size=50;
+}
+
+
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+}
+th, td {
+padding: 30px;
+}
+</style>
 <%
 //IF ADMIN IS LOGGING IN 
 try{
@@ -19,19 +37,25 @@ try{
 	//Create a SQL statement
 	Statement st2 = con.createStatement();
     ResultSet rs2;
-    rs2 = st2.executeQuery("SELECT username, SUM(initial_price) FROM SELLERS WHERE sold=1 GROUP BY username");
-    if (rs2.next()) { %>
-    	<h2>Sales Report:</h2>
-		<table>
-			<tr>
-				<th> Earnings Per Each Item Type</th>
+    rs2 = st2.executeQuery("SELECT a.auction_user, SUM(w.w_amount) FROM Auctions a JOIN winner w WHERE  w.w_auction_id=a.auction_id GROUP BY a.auction_user");
+    if (rs2.next()) { %>	
+    	<h2>Sales Report: Earnings Per End User</h2>
+    	
+    	
+	<div>
+			  <tr>
+			  	<th><b>Seller&emsp;&emsp;&emsp;&ensp;&emsp;</b></th>
+			 
+			    <th><b>Earnings&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</b></th> 	    
 			</tr>	
+	</div>
+	<table style= ""width:50%">
+	
 			
 	<%	do { %>
 			<tr>
-				<td><%= rs2.getString("username")%></td>
-				<th>$</th>
-				<td><%= rs2.getFloat("SUM(initial_price)") %></td>
+				<td><%= rs2.getString("a.auction_user")%></td>
+				<td>$<%= rs2.getFloat("SUM(w.w_amount)") %></td>
 			</tr>
     <%	} while (rs2.next()); %>
 		    			</table>
