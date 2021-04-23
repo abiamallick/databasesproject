@@ -1,8 +1,6 @@
 CREATE DATABASE Projectfirst;
 USE Projectfirst;
 
-Delete FROM USERS WHERE username=' ';
-UPDATE USERS SET user_password = 'yolo' WHERE username = 'wjohnson';
 
 CREATE TABLE USERS (
 
@@ -138,7 +136,7 @@ CREATE TABLE Auctions (
 	auction_id				int				Not NULL,
     auction_user			varchar(20)		NOT NULL,
 	starting_date			date			Not Null,
-	closing_date         	datetime    		NOT NULL,
+	closing_date         	datetime    	NOT NULL,
     initial_price_sells		float     	    , 
 
 Foreign key(footwear_sells_id) references footwear_items(footwear_item_id),
@@ -229,22 +227,7 @@ ADD CONSTRAINT bid_username
             
 /* --------------------------------------------------------------------------------------------- */
 
- CREATE TABLE BUYERS(
-
-	username           VARCHAR(20)   NOT NULL,
-
-
-PRIMARY KEY (username), 
-FOREIGN KEY (username) REFERENCES USERS(username) );
-
  
- CREATE TABLE SELLERS (
-	sid					int			Not null,
-	username           VARCHAR(20)   NOT NULL,
-PRIMARY KEY (username), 
-FOREIGN KEY (username) REFERENCES USERS(username) );
-
-
 Select f.title, a.starting_date, a.closing_date, f.sold
 FROM Bids b, Auctions a, footwear_items f
 where b.bid_username='amallick' AND b.bid_footwear_item_id=f.footwear_item_id AND f.footwear_item_id=a.footwear_sells_id AND date_format(a.closing_date, '%Y-%m')=date_format(now(), '%Y-%m');
@@ -265,4 +248,24 @@ JOIN Auctions a ON a.footwear_sells_id=f.footwear_item_id
 WHERE f.footwear_item_id != '1004' AND f.shoe_type = 'sandals' AND date_format(a.closing_date, '%Y-%m')=date_format(now(), '%Y-%m')
 ORDER BY f.title;
 /* --------------------------------------------------------------------------------------------- */
+
+CREATE TABLE WINNER (
+
+    w_username 		    VARCHAR(20)   NOT NULL,
+    w_amount            DOUBLE        NOT NULL,
+    status_winner        INT,        
+
+PRIMARY KEY (w_username));
+
+
+SELECT b.bid_username, au.closing_date, au.initial_price_sells, b.bid_amount FROM Auctions au, BIDS b
+WHERE b.bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id  = 1001)
+and au.initial_price_sells = (SELECT Min(initial_price_sells) FROM Auctions WHERE bid_footwear_item_id  = 1001);
+
+
+SELECT b.bid_username, au.closing_date, au.initial_price_sells, Max(b.bid_amount) FROM Auctions au, BIDS b
+WHERE footwear_sells_id = 1001
+and footwear_sells_id = bid_footwear_item_id
+group by b.bid_username, b.bid_amount, au.closing_date, au.initial_price_sells;
+
 
