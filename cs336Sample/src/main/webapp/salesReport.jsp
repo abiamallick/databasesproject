@@ -28,6 +28,18 @@ Select one.
 
 
 
+<br>
+<br>
+<br>
+
+<div  style='text-align:left'>
+<ul>
+Return to the admin portal <a href="AdminControl.jsp">here</a> or logout <a href="logout.jsp">here.</a>
+
+	
+</ul>
+</div>
+
 
 
 
