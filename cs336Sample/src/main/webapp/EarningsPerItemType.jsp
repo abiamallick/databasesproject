@@ -10,6 +10,24 @@
 <title>Earnings Per Item Type</title>
 </head>
 <body>
+
+<style>
+
+.tab1{
+tab-size=50;
+}
+
+
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+}
+th, td {
+padding: 30px;
+}
+</style>
 <%
 //IF ADMIN IS LOGGING IN 
 try{
@@ -18,19 +36,27 @@ try{
 	//Create a SQL statement
 	Statement st2 = con.createStatement();
     ResultSet rs2;
-    rs2 = st2.executeQuery("SELECT style, SUM(initial_price) FROM FOOTWEAR_ITEMS WHERE sold=1 GROUP BY style");
+    rs2 = st2.executeQuery("SELECT f.style, SUM(w.w_amount) FROM winner w JOIN footwear_items f WHERE f.sold=1 AND w.w_footwear_id=f.footwear_item_id GROUP BY f.style");
     if (rs2.next()) { %>
-    	<h2>Sales Report:</h2>
-		<table>
-			<tr>
-				<th> Earnings Per Each Item Type</th>
+    	<h2>Sales Report: Earnings Per Item Type</h2>
+    	
+    	
+    	
+	<div>
+			  <tr>
+			  	<th><b>Style&emsp;&emsp;&emsp;&ensp;&emsp;</b></th>
+			 
+			    <th><b>Earnings&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</b></th> 	    
 			</tr>	
-			
+	</div>
+	<table style= ""width:50%">
+	
+    	
 	<%	do { %>
 			<tr>
-				<td><%= rs2.getString("style")%></td>
-				<th>$</th>
-				<td><%= rs2.getFloat("SUM(initial_price)") %></td>
+				<td><%= rs2.getString("f.style")%></td>
+				
+				<td>$<%= rs2.getFloat("SUM(w.w_amount)")%></td>
 			</tr>
     <%	} while (rs2.next()); %>
 		    			</table>
