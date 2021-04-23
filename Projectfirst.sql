@@ -1,6 +1,6 @@
 CREATE DATABASE Projectfirst;
 USE Projectfirst;
-
+drop database projectfirst;
 
 CREATE TABLE USERS (
 
@@ -79,20 +79,21 @@ CREATE TABLE FOOTWEAR_ITEMS (
 PRIMARY KEY (footwear_item_id));
 ALTER TABLE FOOTWEAR_ITEMS AUTO_INCREMENT=1000;
 
+
 SELECT * FROM FOOTWEAR_ITEMS;
 
             INSERT INTO FOOTWEAR_ITEMS (shoe_type,size,item_condition,style,initial_price,brand,title,sold)
-VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Nike Men Sneakers',true),
+VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Nike Men Sneakers',false),
 			('sandals',8.5,'Slightly Used','casual',35.90,'Converse','Cute Summer Sandals',true),
-            ('boots',6,'Slightly Used','casual',50.00,'Sperry','Funky Boots Perfect For Wedding',false),
+            ('boots',6,'Slightly Used','casual',50.00,'Sperry','Funky Boots Perfect For Wedding',true),
 			('sandals',10.5,'New','fancy',51.35,'Doc Martens','Unique Vintage Sandals',false),
-            ('sandals',5,'New','fancy',35.10,'Sperry','Colorful and Comfy Blue Sandals',true),
-			('sneakers',6,'Very Used','athletic',100.00,'Converse','Super Comfortable Sneakers for Everyday',true),
-			('sneakers',6,'New','athletic',88.70,'Hunter','Perfect Running Shoes for Women',true),
-            ('boots',8,'New','fancy',60.00,'Vans','Trendy Boots Perfect For Any Occasion',true),
-            ('sandals',9,'Slightly Used','casual',50.50,'Converse','Barely Worn Beach Sandals For Teen Boys',true),
+            ('sandals',5,'New','fancy',35.10,'Sperry','Colorful and Comfy Blue Sandals',false),
+			('sneakers',6,'Very Used','athletic',100.00,'Converse','Super Comfortable Sneakers for Everyday',false),
+			('sneakers',6,'New','athletic',88.70,'Hunter','Perfect Running Shoes for Women',false),
+            ('boots',8,'New','fancy',60.00,'Vans','Trendy Boots Perfect For Any Occasion',false),
+            ('sandals',9,'Slightly Used','casual',50.50,'Converse','Barely Worn Beach Sandals For Teen Boys',false),
             ('sandals',5,'Very Used','casual',75.79,'Under Armour','Everyday Orange Sandals In Decent Shape',true),
-            ('sandals',6,'Slightly Used','casual',20.00,'Reebok','One of a Kind Retro Sandals For Women',true);
+            ('sandals',6,'Slightly Used','casual',20.00,'Reebok','One of a Kind Retro Sandals For Women',false);
             
 /* --------------------------------------------------------------------------------------------- */
 CREATE TABLE ALERTS (
@@ -151,7 +152,7 @@ ADD CONSTRAINT auction_user
     ON DELETE CASCADE
     ON UPDATE CASCADE;
     
-
+select * from auctions;
 INSERT INTO Auctions (auction_id, auction_user,starting_date, closing_date, initial_price_sells)
 VALUES      (3844, 'annag', '2021-02-19','2021-04-26 13:10:01',15.75),
 			(9880, 'ylopez','2021-02-03','2021-04-17 21:30:45',35.90),
@@ -253,9 +254,22 @@ CREATE TABLE WINNER (
 
     w_username 		    VARCHAR(20)   NOT NULL,
     w_amount            DOUBLE        NOT NULL,
+    w_auction_id			INT 		  NOT NULL,
+    w_footwear_id			INT 		NOT NULL,
+    w_style 			VARCHAR(30)		NOT NULL,
     status_winner        INT,        
 
-PRIMARY KEY (w_username));
+PRIMARY KEY (w_auction_id),
+FOREIGN KEY(w_auction_id) REFERENCES AUCTIONS(auction_id),
+FOREIGN KEY(w_footwear_id) REFERENCES footwear_items(footwear_item_id) );
+
+
+
+Select * from winner;
+INSERT INTO WINNER(w_username,w_amount,w_auction_id,w_footwear_id,w_style,status_winner)
+VALUES ('dgarcia','60.5','1606','1001','casual','1'),
+		('dgarcia','39.5','3844','1009','casual','1'),
+        ('twilliams','75','8451','1002','casual','1');
 
 
 SELECT b.bid_username, au.closing_date, au.initial_price_sells, b.bid_amount FROM Auctions au, BIDS b
@@ -267,5 +281,3 @@ SELECT b.bid_username, au.closing_date, au.initial_price_sells, Max(b.bid_amount
 WHERE footwear_sells_id = 1001
 and footwear_sells_id = bid_footwear_item_id
 group by b.bid_username, b.bid_amount, au.closing_date, au.initial_price_sells;
-
-
