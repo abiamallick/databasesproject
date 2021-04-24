@@ -331,25 +331,6 @@ WHERE f.footwear_item_id != '1004' AND f.shoe_type = 'sandals' AND date_format(a
 ORDER BY f.title;
 /* --------------------------------------------------------------------------------------------- */
 
-
-
-CREATE TABLE WINNER (
-
-    w_username 		    VARCHAR(20)   NOT NULL,
-    w_amount            DOUBLE        NOT NULL,
-    w_auction_id			INT 		  NOT NULL,
-    w_footwear_id			INT 		NOT NULL,
-    w_style 			VARCHAR(30)		NOT NULL,
-    status_winner        INT,        
-
-PRIMARY KEY (w_auction_id),
-FOREIGN KEY(w_auction_id) REFERENCES AUCTIONS(auction_id),
-FOREIGN KEY(w_footwear_id) REFERENCES footwear_items(footwear_item_id) );
-
-
-
-
-
 /* ------------------------------------------- */
 create table wishlist(
 	wishlist_id 		 int     NOT NULL auto_increment,
