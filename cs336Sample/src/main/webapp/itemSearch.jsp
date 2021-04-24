@@ -120,6 +120,8 @@ padding: 30px;
 			out.print(e);
 		}%>
 	
-
+	<div  style='text-align:bottom'>
+<a href='wishlist.jsp'>Don't see your item? Click here to add it to your wishlist!</a>
+</div>
 	</body>
 </html>

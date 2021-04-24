@@ -167,16 +167,7 @@ try {
 		Double wishlist_shoeSize = (result.getDouble("size"));
 		String wishlist_shoeBrand= result.getString("brand");
 		
-/* 		out.println(input_ShoeType);
-		out.println(wishlist_shoeType);
-		out.println("=");
-		out.println(wishlist_shoeSize);
-		out.println(input_Size);
-		out.println("=");
-		out.println(wishlist_shoeBrand);
-		out.println(input_Brand);
-		out.println(wishlist_shoeSize.compareTo(input_Size)); */
-		
+
 		
 		
 		
