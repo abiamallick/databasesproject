@@ -8,9 +8,11 @@
 
 <!DOCTYPE html>
 <html>
+	
    <head>
       <title>Login Form</title>
    </head>
+	<body bgcolor="#FDD8F8"></body>
    <body>
    
    Welcome to the login page!
