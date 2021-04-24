@@ -374,7 +374,13 @@ SELECT bid_username, bid_amount FROM bids WHERE bid_amount = (SELECT Max(bid_amo
 
 SELECT b.bid_username, au.auction_id, au.closing_date, au.initial_price_sells, b.bid_amount FROM Auctions au, BIDS b WHERE b.bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id = 1011) and au.initial_price_sells = (SELECT Min(initial_price_sells) FROM Auctions WHERE bid_footwear_item_id = 1011);
 
-    
+select f.title, b.bid_amount, f.sold, f.footwear_item_id, b.bid_footwear_item_id
+from footwear_items f, bids b
+WHERE f.sold = 0 AND f.shoe_type LIKE 'sandals' AND b.bid_amount =
+(select Max(b.bid_amount)
+  from bids b where b.bid_footwear_item_id=f.footwear_item_id)
+group by f.title, b.bid_amount, f.sold,f.footwear_item_id
+ORDER BY b.bid_amount;
     
     
     

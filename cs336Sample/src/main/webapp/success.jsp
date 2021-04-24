@@ -55,7 +55,6 @@ Welcome <%=session.getAttribute("user")%>
 		<form action="itemSearch.jsp" method="GET">
 		<label for="type">Are you looking for sneakers, boots, or heels?</label>
 				<input type="text" name="shoe_type" id="shoe_type" placeholder="Enter shoe type"> <br>
-				<input type="submit" value="Search">
 			<label for="brand">Brand</label>
 				<select name="brand" id="brand">
 				<option value="" disabled selected hidden="true">Select brand</option>
@@ -92,7 +91,15 @@ Welcome <%=session.getAttribute("user")%>
 				<option value="11.0">11.0</option>
 				<option value="11.5">11.5</option>
 				<option value="12.0">12.0</option>
-				
+			</select> 		
+									<label for="sort">Sort by the following:</label>
+				<select name="sorting_options" id="sorting_options">
+				<option value="" disabled selected hidden="true">Select sorting option</option>
+				<option value="by_type">By Type</option>
+				<option value="by_bidding_price">By Bidding Price</option>
+				<option value="by_newly_listed">By Newly Listed</option>
+				<option value="by_ending_soonest">By Ending Soonest</option>
+				<input type="submit" value="Search">
 		</form>
 	</div>
 	
