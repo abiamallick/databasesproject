@@ -197,7 +197,7 @@ CREATE TABLE BIDS (
     bid_username 		    VARCHAR(20)  NOT NULL,
 	bid_footwear_item_id    INT 	     NOT NULL,
     bid_amount			double			 Not Null,
-	isAutomatic			tinyint	         NOT NULL,
+	isAutomatic			int	         NOT NULL,
 	upper_limit 		DOUBLE 		,
     bid_increment       DOUBLE      ,
     
@@ -205,14 +205,16 @@ PRIMARY KEY (bid_username, bid_amount),
 FOREIGN KEY (bid_username) REFERENCES USERS(username), 
 FOREIGN KEY (bid_footwear_item_id) REFERENCES FOOTWEAR_ITEMS(footwear_item_id));
 
+
+
 INSERT INTO BIDS (bid_username, bid_footwear_item_id, bid_amount, isAutomatic)
-VALUES      ('amallick', 1001, 37.00,false),
-			('ntaylor', 1001,49.20 , false),
-            ('jsmith', 1005, 111.11 ,false),
-			('amallick', 1004,40.50,false),
-            ('twilliams', 1002,75.00, false),
-            ('dgarcia', 1009,83.20 ,false),
-            ('dgarcia', 1001, 60.50,false);
+VALUES      ('amallick', 1001, 37.00,0),
+			('ntaylor', 1001,49.20 , 0),
+            ('jsmith', 1005, 111.11 ,0),
+			('amallick', 1004,40.50,0),
+            ('twilliams', 1002,75.00, 0),
+            ('dgarcia', 1009,83.20 ,0),
+            ('dgarcia', 1001, 60.50,0);
             
 select * from bids;
 ALTER TABLE Bids
