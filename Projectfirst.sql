@@ -359,11 +359,41 @@ create table wishlist(
     brand 				VARCHAR(30)		 NOT NULL,
     primary key(wishlist_id),
     foreign key(wishlistUser) references Users(username));
+ALTER TABLE WINNER
+ADD CONSTRAINT wishlistUser
+    FOREIGN KEY (wishlistUser)
+    REFERENCES USERS(username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 
 
 
 
+CREATE TABLE WINNER (
+
+    w_username 		    VARCHAR(20)   NOT NULL,
+    w_amount            DOUBLE        NOT NULL,
+    w_auction_id			INT 		  NOT NULL,
+    w_footwear_id			INT 		NOT NULL,
+    status_winner        INT,        
+
+PRIMARY KEY (w_auction_id),
+FOREIGN KEY(w_auction_id) REFERENCES AUCTIONS(auction_id),
+FOREIGN KEY(w_footwear_id) REFERENCES footwear_items(footwear_item_id),
+FOREIGN KEY(w_username) REFERENCES USERS(username) );
+ALTER TABLE WINNER
+ADD CONSTRAINT w_username
+    FOREIGN KEY (w_username)
+    REFERENCES Users (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+ALTER TABLE WINNER
+ADD CONSTRAINT w_auction_id
+    FOREIGN KEY (w_auction_id)
+    REFERENCES AUCTIONS(auction_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 
     
