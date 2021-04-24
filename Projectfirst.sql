@@ -87,17 +87,17 @@ from footwear_items;
 SELECT * FROM FOOTWEAR_ITEMS;
 
 INSERT INTO FOOTWEAR_ITEMS (shoe_type,size,item_condition,style,initial_price,brand,title,sold)
-VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Nike Men Sneakers',true),
-			('sandals',8.5,'Slightly Used','casual',35.90,'Converse','Cute Summer Sandals',true),
-            ('boots',6,'Slightly Used','casual',50.00,'Sperry','Funky Boots Perfect For Wedding',false),
-			('sandals',10.5,'New','fancy',51.35,'Doc Martens','Unique Vintage Sandals',false),
-            ('sandals',5,'New','fancy',35.10,'Sperry','Colorful and Comfy Blue Sandals',true),
-			('sneakers',6,'Very Used','athletic',100.00,'Converse','Super Comfortable Sneakers for Everyday',true),
-			('sneakers',6,'New','athletic',88.70,'Hunter','Perfect Running Shoes for Women',true),
-            ('boots',8,'New','fancy',60.00,'Vans','Trendy Boots Perfect For Any Occasion',true),
-            ('sandals',9,'Slightly Used','casual',50.50,'Converse','Barely Worn Beach Sandals For Teen Boys',true),
+VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Adidas Men Sneakers',false),
+			('sandals',8.5,'Slightly Used','casual',35.90,'Converse','Comfortable Running Sneakers',true),
+            ('boots',6,'Slightly Used','casual',50.00,'Sperry','Funky Boots Perfect For Sledding',true),
+			('boots',10.5,'New','fancy',51.35,'Doc Martens','Unique Vintage Tall Boots',false),
+            ('sandals',5,'New','fancy',35.10,'Uggs','Colorful and Comfy Blue Sandals',true),
+			('sneakers',6,'Very Used','athletic',100.00,'Reebok','Super Comfortable Sneakers for Everyday',false),
+			('sneakers',6,'New','athletic',88.70,'Vans','Perfect Running Shoes for Women',false),
+            ('boots',8,'New','fancy',60.00,'Hunter','Trendy Boots Perfect For Any Occasion',false),
+            ('sandals',9,'Slightly Used','casual',50.50,'Converse','Barely Worn Beach Sandals For Teen Boys',false),
             ('sandals',5,'Very Used','casual',75.79,'Under Armour','Everyday Orange Sandals In Decent Shape',true),
-            ('sandals',6,'Slightly Used','casual',20.00,'Reebok','One of a Kind Retro Sandals For Women',true);
+            ('sneakers',6,'Slightly Used','casual',20.00,'Reebok','Reebok Retro Sneakers For Women',true);
             
 /* --------------------------------------------------------------------------------------------- */
 CREATE TABLE ALERTS (
