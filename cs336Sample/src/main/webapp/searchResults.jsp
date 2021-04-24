@@ -16,6 +16,7 @@
 	<%
 	
 		try { 
+//searchresults.jsp
 	
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
@@ -381,6 +382,7 @@ try {
 	out.print(e);
 }
 %>
+
 
 
       

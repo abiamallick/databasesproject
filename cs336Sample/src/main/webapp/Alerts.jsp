@@ -27,7 +27,7 @@ try {
 	String practice = (String)session.getAttribute("user");
 	int footwear_idno = 1001;
 	//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-	String str = "SELECT a.alert_message, f.title FROM ALERTS a, footwear_items f WHERE a.alert_username = " + "'" + practice + "' And  f.footwear_item_id= '" + footwear_idno + "'";
+	String str = "Select a.alert_message, f.title from alerts a, footwear_items f WHERE a.footwear_item_id = f.footwear_item_id and a.alert_username = " + "'" + practice + "'";
 
 	//out.println(str);
 	//Run the query against the database.
@@ -46,9 +46,9 @@ try {
 	//parse out the results
 	while (result.next()) { %>
 	<tr>
-		<td><%= result.getString("a.alert_message") %> <td>
+	<td>	<%= result.getString("a.alert_message") %>
 		in regards to
-		<td><%= result.getString("f.title") %> <td>
+		<%= result.getString("f.title") %> </td>
 	</tr>	
 
 	<% }
