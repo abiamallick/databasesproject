@@ -193,9 +193,7 @@ VALUE ('amallick', 'What is an alert?', 'Customer representative will answer soo
             ('dgarcia','How can I sell an item?','Customer representative will answer soon'), 
             ('tmedina','How can I buy an item?','Customer representative will answer soon');
 /* --------------------------------------------------------------------------------------------- */
-
 CREATE TABLE BIDS (
-	Bid_ID				INT			     Not Null AUTO_INCREMENT,
     bid_username 		    VARCHAR(20)  NOT NULL,
 	bid_footwear_item_id    INT 	     NOT NULL,
     bid_amount			double			 Not Null,
@@ -203,10 +201,9 @@ CREATE TABLE BIDS (
 	upper_limit 		DOUBLE 		,
     bid_increment       DOUBLE      ,
     
-PRIMARY KEY (Bid_ID),
+PRIMARY KEY (bid_username, bid_amount),
 FOREIGN KEY (bid_username) REFERENCES USERS(username), 
 FOREIGN KEY (bid_footwear_item_id) REFERENCES FOOTWEAR_ITEMS(footwear_item_id));
-ALTER TABLE BIDS AUTO_INCREMENT=500;
 
 INSERT INTO BIDS (bid_username, bid_footwear_item_id, bid_amount, isAutomatic)
 VALUES      ('amallick', 1001, 37.00,false),
