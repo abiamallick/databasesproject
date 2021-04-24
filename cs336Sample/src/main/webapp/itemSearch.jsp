@@ -24,20 +24,20 @@ padding: 30px;
 </style>
 
 <%
-	ArrayList<String> paramList = new ArrayList<String>();
-	Map<String, String> searchParams = new HashMap<String, String>();
-	String paramValue = "";
-		int index = 0;
-	for (Enumeration<String> params = request.getParameterNames(); params.hasMoreElements();) {
-		//paramList.add(params.nextElement());
-		String paramName = params.nextElement();
-		paramValue = request.getParameter(paramName);
-		if (!paramValue.isEmpty() && paramValue != null) {
-			paramList.add(paramName);
+	
+	Map<String, String> search = new HashMap<String, String>();
+	ArrayList<String> list = new ArrayList<String>();
+	String value = "";
+	int ind = 0;
+	for (Enumeration<String> para = request.getParameterNames(); para.hasMoreElements();) {
+		String name = para.nextElement();
+		value = request.getParameter(name);
+		if (!value.isEmpty() && value != null) {
+			list.add(name);
 			//System.out.println(paramList.get(index));
 			//System.out.println(paramValue);				
-			searchParams.put(paramList.get(index), paramValue);
-			index++;
+			search.put(list.get(ind), value);
+			ind++;
 		}
 	}
 		 try {
@@ -48,33 +48,33 @@ padding: 30px;
 
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			StringBuilder searchQuery = new StringBuilder("");
+			StringBuilder query = new StringBuilder("");
 			//Get the selected search item
-				if (paramValue.isEmpty() || paramValue == null) {
+				if (value.isEmpty() || value == null) {
 					ResultSet result = stmt.executeQuery("SELECT * FROM footwear_items");
 				}
 				else {
-					searchQuery = new StringBuilder("SELECT * FROM footwear_items WHERE ");
+					query = new StringBuilder("SELECT * FROM footwear_items WHERE ");
 					String condition = null;
-					for (int i = 0; i < searchParams.size(); i++) {
+					for (int i = 0; i < search.size(); i++) {
 						// Check for numeric parameter so we can format the SQL query correctly
-						if ((paramList.get(i)).equals("size")) {
-							condition = paramList.get(i) + " = " + searchParams.get(paramList.get(i));
-						} else if ((paramList.get(i)).equals("brand")) {
-							condition = paramList.get(i) + " LIKE \'" + searchParams.get(paramList.get(i)) + "\'";
+						if ((list.get(i)).equals("size")) {
+							condition = list.get(i) + " = " + search.get(list.get(i));
+						} else if ((list.get(i)).equals("brand")) {
+							condition = list.get(i) + " LIKE \'" + search.get(list.get(i)) + "\'";
 						} else {
-							condition = paramList.get(i) + " LIKE \'" + searchParams.get(paramList.get(i)) + "\'";	
+							condition = list.get(i) + " LIKE \'" + search.get(list.get(i)) + "\'";	
 						}
 						// Only want to include AND when we have more than one parameter
 						if (i == 0) {
-							searchQuery.append(condition);	
+							query.append(condition);	
 						} else if (i > 0) {
-							searchQuery.append(" AND " + condition);
+							query.append(" AND " + condition);
 						}	
 					}
 					//System.out.println(searchQuery);
 				}
-			ResultSet result = stmt.executeQuery(searchQuery.toString()); %>
+			ResultSet result = stmt.executeQuery(query.toString()); %>
 			
 			  
 </table>
