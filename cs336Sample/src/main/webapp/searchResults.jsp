@@ -371,7 +371,7 @@ try {
 	<div>
 	<tr>
 	
-		<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>"><%= result.getString("f.title") %></a>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
+		<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>&shoe_type=<%=ftype %>"><%= result.getString("f.title") %></a>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
 		<td> <%= result.getString("f.size") %>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp; </td>
 		<td> <%= result.getString("a.starting_date") %>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp; </td>
 		<td> <%= result.getString("a.closing_date") %> &emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
