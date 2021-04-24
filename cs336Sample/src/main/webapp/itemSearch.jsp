@@ -74,9 +74,25 @@ padding: 30px;
 					}
 					//System.out.println(searchQuery);
 				}
+			out.println(query.toString());
+			session.setAttribute("query_result",query.toString());
 			ResultSet result = stmt.executeQuery(query.toString()); %>
 			
-			  
+			
+		<form action="itemSort.jsp" method="GET">
+		<label for="sort">Sort by the following:</label>
+			<label for="sorting_options"></label>
+				<select name="sorting_options" id="sorting_options">
+				<option value="" disabled selected hidden="true">Select sorting option</option>
+				<option value="by_type">By Type</option>
+				<option value="by_bidding_price">By Bidding Price</option>
+				<option value="by_newly_listed">By Newly Listed</option>
+				<option value="by_ending_soonest">By Ending Soonest</option>
+				<input type="hidden" name="query" value=<%=query.toString()%>>
+				<input type="submit" value="Search">
+			</select> 			
+			  		</form>
+	</div>
 </table>
 <br>
 
