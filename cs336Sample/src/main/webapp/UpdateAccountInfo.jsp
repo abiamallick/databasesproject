@@ -67,8 +67,8 @@ try {
 	<tr>
 	
 		<td><%= result.getString("username") %></a>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td></a></td>
-		<td><a href="DeleteAccountPass.jsp?user_password=<%= result.getString("user_password") %>"> <%= result.getString("user_password") %></a> &emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
-		<td><a href="DeleteAccountEmail.jsp?Email=<%= result.getString("email") %>"> <%= result.getString("email") %></a> &emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
+		<td><a href="UpdateAccountPass.jsp?user_password=<%= result.getString("user_password") %>&username=<%= result.getString("username") %>"> <%= result.getString("user_password") %></a> &emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
+		<td><a href="UpdateAccountEmail.jsp?Email=<%= result.getString("email") %>&username=<%= result.getString("username") %>"> <%= result.getString("email") %></a> &emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
 	
 	</tr>	
 	</div>
