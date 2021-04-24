@@ -4,6 +4,8 @@ USE Projectfirst;
 Delete FROM USERS WHERE username=' ';
 UPDATE USERS SET user_password = 'yolo' WHERE username = 'wjohnson';
 
+
+
 CREATE TABLE USERS (
 
 	username           VARCHAR(20)   NOT NULL,
@@ -160,6 +162,8 @@ ADD CONSTRAINT auction_user
     ON DELETE CASCADE
     ON UPDATE CASCADE;
     
+    
+    select * from auctions;
 
 INSERT INTO Auctions (auction_id, auction_user,starting_date, closing_date, initial_price_sells)
 VALUES      (3844, 'annag', '2021-02-19','2021-04-26 13:10:01',15.75),
@@ -294,20 +298,7 @@ Group by bid_username, isAutomatic;
             
 /* --------------------------------------------------------------------------------------------- */
 
- CREATE TABLE BUYERS(
-
-	username           VARCHAR(20)   NOT NULL,
-
-
-PRIMARY KEY (username), 
-FOREIGN KEY (username) REFERENCES USERS(username) );
-
  
- CREATE TABLE SELLERS (
-	sid					int			Not null,
-	username           VARCHAR(20)   NOT NULL,
-PRIMARY KEY (username), 
-FOREIGN KEY (username) REFERENCES USERS(username) );
 
 
 Select f.title, a.starting_date, a.closing_date, f.sold
@@ -375,7 +366,13 @@ ADD CONSTRAINT w_auction_id
     REFERENCES AUCTIONS(auction_id)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
+    
+    
+select * from winner;
 
+SELECT bid_username, bid_amount FROM bids WHERE bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id = 1011);
+
+SELECT b.bid_username, au.auction_id, au.closing_date, au.initial_price_sells, b.bid_amount FROM Auctions au, BIDS b WHERE b.bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id = 1011) and au.initial_price_sells = (SELECT Min(initial_price_sells) FROM Auctions WHERE bid_footwear_item_id = 1011);
 
     
     
