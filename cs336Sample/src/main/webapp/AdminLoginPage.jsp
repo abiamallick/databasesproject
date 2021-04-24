@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+    <body bgcolor="#D8FBFD"></body>
+
 <title>admin login page</title>
 </head>
 <body>
