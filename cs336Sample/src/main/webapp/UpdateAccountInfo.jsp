@@ -10,6 +10,23 @@
 <title>Insert title here</title>
 </head>
 <body>
+<style>
+
+.tab1{
+tab-size=50;
+}
+
+
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+}
+th, td {
+padding: 30px;
+}
+</style>
 <%
 try {
 	//Get the database connection
@@ -27,18 +44,17 @@ try {
 	
 	%>
 
-<table>
+
  <tr><td colspan=2 style="font-size:12pt;" align="center">
 <h3>USER ACCOUNT INFORMATION: SELECT A USER'S USERNAME, PASSWORD OR EMAIL TO UPDATE</h3></td></tr>
 
-</table>
 
 <br>
 			<div>
 			  <tr>
-			  	<th><b>Username&emsp;&ensp;&emsp;&ensp;&ensp;</b></th>
+			  	<th><b>&ensp;&emsp;&ensp;&ensp;Username&emsp;&ensp;&emsp;&ensp;&ensp;&ensp;&emsp;&ensp;&ensp;</b></th>
 			 
-			    <th><b>&emsp;&ensp;&emsp;&ensp;Password&emsp;&ensp;&emsp;</b></th> 
+			    <th><b>&emsp;&ensp;&emsp;&ensp;Password&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&ensp;&ensp;&emsp;&ensp;&ensp;</b></th> 
 			  <th><b>&ensp;&emsp;&ensp;&emsp;&emsp;Email&emsp;&ensp;&emsp;&ensp;&emsp;&emsp;</b></th>
 			  	</tr>
 			  </div>
@@ -50,9 +66,9 @@ try {
 	<div>
 	<tr>
 	
-		<td><a href="DeleteAccountUser.jsp?username=<%= result.getString("username") %>"><%= result.getString("username") %></a>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td></a></td>
-		<td> <%= result.getString("user_password") %>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp; </td>
-		<td> <%= result.getString("email") %>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp; </td>
+		<td><%= result.getString("username") %></a>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td></a></td>
+		<td><a href="DeleteAccountPass.jsp?user_password=<%= result.getString("user_password") %>"> <%= result.getString("user_password") %></a> &emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
+		<td><a href="DeleteAccountEmail.jsp?Email=<%= result.getString("email") %>"> <%= result.getString("email") %></a> &emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
 	
 	</tr>	
 	</div>

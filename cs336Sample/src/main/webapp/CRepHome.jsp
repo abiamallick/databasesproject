@@ -27,15 +27,19 @@ WELCOME TO THE CUSTOMER REPRESENTATIVE HOME PAGE!
 <a href='DeleteAccountInfo.jsp'>Delete User Account</a>
 </div>
 
+<div  style='text-align:center'>
+<a href='RemoveBids.jsp'>Remove Bids</a>
+</div>
+
+<div  style='text-align:center'>
+<a href='RemoveAuction.jsp'>Remove Auctions<a>
+</div>
+
 <div  style='text-align:right'>
 <a href='logout.jsp'>Log out</a>
 </div>
 
 
-
-<div  style='text-align:right'>
-<a href='success.jsp'>Switch to user perspective.</a>
-</div>
 
 
 </body>

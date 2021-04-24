@@ -51,10 +51,10 @@ padding: 30px;
 			StringBuilder query = new StringBuilder("");
 			//Get the selected search item
 				if (value.isEmpty() || value == null) {
-					ResultSet result = stmt.executeQuery("SELECT * FROM footwear_items");
+					ResultSet result = stmt.executeQuery("SELECT * FROM footwear_items WHERE sold = 0");
 				}
 				else {
-					query = new StringBuilder("SELECT * FROM footwear_items WHERE ");
+					query = new StringBuilder("SELECT * FROM footwear_items WHERE sold = 0 AND ");
 					String condition = null;
 					for (int i = 0; i < search.size(); i++) {
 						// Check for numeric parameter so we can format the SQL query correctly
