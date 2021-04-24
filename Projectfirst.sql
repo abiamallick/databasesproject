@@ -1,6 +1,8 @@
 CREATE DATABASE Projectfirst;
 USE Projectfirst;
-drop database projectfirst;
+
+Delete FROM USERS WHERE username=' ';
+UPDATE USERS SET user_password = 'yolo' WHERE username = 'wjohnson';
 
 CREATE TABLE USERS (
 
@@ -79,21 +81,23 @@ CREATE TABLE FOOTWEAR_ITEMS (
 PRIMARY KEY (footwear_item_id));
 ALTER TABLE FOOTWEAR_ITEMS AUTO_INCREMENT=1000;
 
+Select max(footwear_item_id)
+from footwear_items;
 
 SELECT * FROM FOOTWEAR_ITEMS;
 
-            INSERT INTO FOOTWEAR_ITEMS (shoe_type,size,item_condition,style,initial_price,brand,title,sold)
-VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Nike Men Sneakers',false),
+INSERT INTO FOOTWEAR_ITEMS (shoe_type,size,item_condition,style,initial_price,brand,title,sold)
+VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Nike Men Sneakers',true),
 			('sandals',8.5,'Slightly Used','casual',35.90,'Converse','Cute Summer Sandals',true),
-            ('boots',6,'Slightly Used','casual',50.00,'Sperry','Funky Boots Perfect For Wedding',true),
+            ('boots',6,'Slightly Used','casual',50.00,'Sperry','Funky Boots Perfect For Wedding',false),
 			('sandals',10.5,'New','fancy',51.35,'Doc Martens','Unique Vintage Sandals',false),
-            ('sandals',5,'New','fancy',35.10,'Sperry','Colorful and Comfy Blue Sandals',false),
-			('sneakers',6,'Very Used','athletic',100.00,'Converse','Super Comfortable Sneakers for Everyday',false),
-			('sneakers',6,'New','athletic',88.70,'Hunter','Perfect Running Shoes for Women',false),
-            ('boots',8,'New','fancy',60.00,'Vans','Trendy Boots Perfect For Any Occasion',false),
-            ('sandals',9,'Slightly Used','casual',50.50,'Converse','Barely Worn Beach Sandals For Teen Boys',false),
+            ('sandals',5,'New','fancy',35.10,'Sperry','Colorful and Comfy Blue Sandals',true),
+			('sneakers',6,'Very Used','athletic',100.00,'Converse','Super Comfortable Sneakers for Everyday',true),
+			('sneakers',6,'New','athletic',88.70,'Hunter','Perfect Running Shoes for Women',true),
+            ('boots',8,'New','fancy',60.00,'Vans','Trendy Boots Perfect For Any Occasion',true),
+            ('sandals',9,'Slightly Used','casual',50.50,'Converse','Barely Worn Beach Sandals For Teen Boys',true),
             ('sandals',5,'Very Used','casual',75.79,'Under Armour','Everyday Orange Sandals In Decent Shape',true),
-            ('sandals',6,'Slightly Used','casual',20.00,'Reebok','One of a Kind Retro Sandals For Women',false);
+            ('sandals',6,'Slightly Used','casual',20.00,'Reebok','One of a Kind Retro Sandals For Women',true);
             
 /* --------------------------------------------------------------------------------------------- */
 CREATE TABLE ALERTS (
@@ -113,9 +117,13 @@ ADD CONSTRAINT alert_username
     ON DELETE CASCADE
     ON UPDATE CASCADE;
     
-Select alert_message 
-from alerts 
-WHERE alert_username= 'amallick';
+SELECT distinct a.alert_message, f.title 
+FROM ALERTS a, footwear_items f 
+WHERE a.alert_username = 'amallick';
+    
+Select a.alert_message, f.title 
+from alerts a, footwear_items f
+WHERE a.footwear_item_id = f.footwear_item_id and a.alert_username= 'amallick';
 
 INSERT INTO ALERTS
 VALUES      (10,'You have won the auction!',1001,'amallick');
@@ -137,7 +145,7 @@ CREATE TABLE Auctions (
 	auction_id				int				Not NULL,
     auction_user			varchar(20)		NOT NULL,
 	starting_date			date			Not Null,
-	closing_date         	datetime    	NOT NULL,
+	closing_date         	datetime    		NOT NULL,
     initial_price_sells		float     	    , 
 
 Foreign key(footwear_sells_id) references footwear_items(footwear_item_id),
@@ -152,7 +160,7 @@ ADD CONSTRAINT auction_user
     ON DELETE CASCADE
     ON UPDATE CASCADE;
     
-select * from auctions;
+
 INSERT INTO Auctions (auction_id, auction_user,starting_date, closing_date, initial_price_sells)
 VALUES      (3844, 'annag', '2021-02-19','2021-04-26 13:10:01',15.75),
 			(9880, 'ylopez','2021-02-03','2021-04-17 21:30:45',35.90),
@@ -193,6 +201,7 @@ VALUE ('amallick', 'What is an alert?', 'Customer representative will answer soo
             ('dgarcia','How can I sell an item?','Customer representative will answer soon'), 
             ('tmedina','How can I buy an item?','Customer representative will answer soon');
 /* --------------------------------------------------------------------------------------------- */
+
 CREATE TABLE BIDS (
     bid_username 		    VARCHAR(20)  NOT NULL,
 	bid_footwear_item_id    INT 	     NOT NULL,
@@ -223,11 +232,84 @@ ADD CONSTRAINT bid_username
     REFERENCES Users (username)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
+    
+
+    
+
+    
+    
+/*--------------Abia's queries---------------*/
+
+
+SELECT *
+FROM bids
+WHERE bid_amount IN
+    (SELECT max(bid_amount)
+     FROM bids
+     WHERE bid_footwear_item_id =1001);
+
+SELECT max(bid_amount), bid_username, isAutomatic, upper_limit, bid_increment
+FROM bids 
+where bid_footwear_item_id = 1001 AND bid_username <> 'amallick'
+GROUP BY BID_USERNAME, isAutomatic, upper_limit, bid_increment;
+
+SELECT COUNT(distinct bid_username) 
+FROM bids where bid_footwear_item_id = 1001 And isAutomatic = 1;
+
+
+
+SELECT bid_username, MAX(Upper_limit) 
+FROM bids
+WHERE bid_footwear_item_id = 1001 And upper_limit  < (SELECT MAX(upper_limit)
+                 FROM bids) GROUP BY BID_USERNAME;
+
+/* getting second to last highest bid so we could set new bid of user with highest UL = to value + bid increment */
+SELECT max(Upper_limit)
+FROM bids
+WHERE bid_footwear_item_id = 1001 And isAutomatic = 1 And Upper_limit < (SELECT max(Upper_limit)
+                FROM bids);     
+
+select * 
+from bids
+WHERE bid_footwear_item_id = 1001 And isAutomatic = 1;
+
+/*information about all users but the one with the highest bid UL */
+SELECT bid_username, upper_limit, bid_increment
+FROM bids
+WHERE bid_footwear_item_id = 1001 And isAutomatic = 1 And upper_limit <  (select MAX(upper_limit) 
+                 from bids) GROUP BY BID_USERNAME, upper_limit, bid_increment ;
+
+/*find the highest user*/
+select bid_username, max(bid_amount), bid_increment, upper_limit 
+from bids 
+where bid_footwear_item_id = 1001 And isAutomatic = 1 And upper_limit = 
+(Select max(upper_limit) from bids) group by bid_username, bid_increment, upper_limit;
+
+
+
+Select max(bid_amount), bid_username, isAutomatic 
+from Bids Where bid_footwear_item_id= '1001' and bid_username <> 'amallick' 
+Group by bid_username, isAutomatic;    
 
             
 /* --------------------------------------------------------------------------------------------- */
 
+ CREATE TABLE BUYERS(
+
+	username           VARCHAR(20)   NOT NULL,
+
+
+PRIMARY KEY (username), 
+FOREIGN KEY (username) REFERENCES USERS(username) );
+
  
+ CREATE TABLE SELLERS (
+	sid					int			Not null,
+	username           VARCHAR(20)   NOT NULL,
+PRIMARY KEY (username), 
+FOREIGN KEY (username) REFERENCES USERS(username) );
+
+
 Select f.title, a.starting_date, a.closing_date, f.sold
 FROM Bids b, Auctions a, footwear_items f
 where b.bid_username='amallick' AND b.bid_footwear_item_id=f.footwear_item_id AND f.footwear_item_id=a.footwear_sells_id AND date_format(a.closing_date, '%Y-%m')=date_format(now(), '%Y-%m');
@@ -249,6 +331,8 @@ WHERE f.footwear_item_id != '1004' AND f.shoe_type = 'sandals' AND date_format(a
 ORDER BY f.title;
 /* --------------------------------------------------------------------------------------------- */
 
+
+
 CREATE TABLE WINNER (
 
     w_username 		    VARCHAR(20)   NOT NULL,
@@ -264,19 +348,26 @@ FOREIGN KEY(w_footwear_id) REFERENCES footwear_items(footwear_item_id) );
 
 
 
-Select * from winner;
-INSERT INTO WINNER(w_username,w_amount,w_auction_id,w_footwear_id,w_style,status_winner)
-VALUES ('dgarcia','60.5','1606','1001','casual','1'),
-		('dgarcia','39.5','3844','1009','casual','1'),
-        ('twilliams','75','8451','1002','casual','1');
 
 
-SELECT b.bid_username, au.closing_date, au.initial_price_sells, b.bid_amount FROM Auctions au, BIDS b
-WHERE b.bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id  = 1001)
-and au.initial_price_sells = (SELECT Min(initial_price_sells) FROM Auctions WHERE bid_footwear_item_id  = 1001);
+/* ------------------------------------------- */
+create table wishlist(
+	wishlist_id 		 int     NOT NULL auto_increment,
+	wishlistUser		varchar(20)	Not null,
+	shoe_type 			VARCHAR(40)  	 NOT NULL,
+    size                float           NOT NULL,
+    brand 				VARCHAR(30)		 NOT NULL,
+    primary key(wishlist_id),
+    foreign key(wishlistUser) references Users(username));
 
 
-SELECT b.bid_username, au.closing_date, au.initial_price_sells, Max(b.bid_amount) FROM Auctions au, BIDS b
-WHERE footwear_sells_id = 1001
-and footwear_sells_id = bid_footwear_item_id
-group by b.bid_username, b.bid_amount, au.closing_date, au.initial_price_sells;
+
+
+
+
+
+    
+    
+    
+    
+    
