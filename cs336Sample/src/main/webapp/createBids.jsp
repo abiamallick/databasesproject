@@ -12,47 +12,6 @@
 <body>
 
 
-<%boolean willExec = true; %>
-
-<%
-	try {
-		//setting the user with the highest upper limit as the alpha
-		//Get the database connection
-		ApplicationDB db = new ApplicationDB();	
-		Connection con = db.getConnection();
-
-		//Create a SQL statement
-		Statement stmt = con.createStatement();
-		Integer input_footwearid = Integer.parseInt(request.getParameter("footwearid"));
-		Integer countChecker = 0;
-
-		String checker2= "SELECT COUNT(*) FROM bids where bid_footwear_item_id= '" + input_footwearid + "' And isAutomatic = 1";
-
-		ResultSet result = stmt.executeQuery(checker2);
-		
-		while (result.next()) {
-			countChecker = (result.getInt("Count(*)"));	
-			out.println(countChecker);
-		}
-		if( countChecker ==0){
-			willExec = false;
-		}
-		else{
-			willExec = true;
-		}
-		
-		out.println(willExec);
-		con.close();
-	} catch (Exception ex) {
-		out.print(ex);
-		out.print("insert failed");
-	}
-%>
-
-
-
-
-
 <%	double highest = 0.0;
 	Boolean hasInserted = false;%>
 	
@@ -288,10 +247,48 @@
 	}
 %>
 
+
+
+<%boolean willExec = true; %>
+
+<%
+	try {
+		//setting the user with the highest upper limit as the alpha
+		//Get the database connection
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();
+
+		//Create a SQL statement
+		Statement stmt = con.createStatement();
+		Integer input_footwearid = Integer.parseInt(request.getParameter("footwearid"));
+		Integer countChecker = 0;
+
+		String checker2= "SELECT COUNT(distinct bid_username) FROM bids where bid_footwear_item_id= '" + input_footwearid + "' And isAutomatic = 1";
+
+		ResultSet result = stmt.executeQuery(checker2);
+		
+		while (result.next()) {
+			countChecker = (result.getInt("COUNT(distinct bid_username)"));	
+			out.println(countChecker);
+		}
+		if( countChecker >=2){
+			willExec = true;
+		}
+		else{
+			willExec = false;
+		}
+		
+		out.println(willExec);
+		con.close();
+	} catch (Exception ex) {
+		out.print(ex);
+		out.print("insert failed");
+	}
+%>
+
+
+
 <% double secondToLast = 0.0; %>
-
-
-
 <%
 	try {
 
@@ -349,8 +346,8 @@
 			double out_UL = result.getDouble("upper_limit");
 			double out_bidincr = result.getDouble("bid_increment");
 			
-			if (out_UL > highest){
-			String insert3 = "INSERT INTO BIDS(bid_username, bid_footwear_item_id, bid_amount, isAutomatic, upper_limit, bid_increment)"
+			if (out_UL > highest && willExec ==true){
+			String insert3 = "INSERT IGNORE INTO BIDS(bid_username, bid_footwear_item_id, bid_amount, isAutomatic, upper_limit, bid_increment)"
   					+ " VALUES ('" + out_user + "', '" + input_footwearid + "', '" + out_UL + "', '" + is_auto + "', '" + out_UL + "', '" + out_bidincr + "' )";
   			PreparedStatement ps = con.prepareStatement(insert3);
 			ps = con.prepareStatement(insert3); 
@@ -395,18 +392,11 @@
 			
 			if(willExec== true ){
 			
-				String insert3 = "INSERT INTO BIDS(bid_username, bid_footwear_item_id, bid_amount, isAutomatic, upper_limit, bid_increment)"
+				String insert3 = "INSERT IGNORE INTO BIDS(bid_username, bid_footwear_item_id, bid_amount, isAutomatic, upper_limit, bid_increment)"
 	  					+ " VALUES ('" + out_user + "', '" + input_footwearid + "', '" + newVal + "', '" + is_auto + "', '" + out_UL + "', '" + out_bidincr + "' )";
 	  			PreparedStatement ps = con.prepareStatement(insert3);
 				ps = con.prepareStatement(insert3); 
 				ps.executeUpdate(); 
-			}
-			else{
-				String insert4 = "INSERT INTO BIDS(bid_username, bid_footwear_item_id, bid_amount, isAutomatic, upper_limit, bid_increment)"
-	  					+ " VALUES ('" + out_user + "', '" + input_footwearid + "', '" + out_UL + "', '" + is_auto + "', '" + out_UL + "', '" + out_bidincr + "' )";
-	  			PreparedStatement ps = con.prepareStatement(insert4);
-				ps = con.prepareStatement(insert4); 
-				ps.executeUpdate();
 			}
 		
 		}

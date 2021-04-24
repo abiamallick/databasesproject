@@ -218,7 +218,7 @@ try {
 	//Create a SQL statement
 	Statement stmt = con.createStatement();
 	String entity = request.getParameter("footwear_item_id");
-	String str2 = "SELECT * FROM bids WHERE bid_footwear_item_id = " + "'" + entity + "'";
+	String str2 = "SELECT * FROM bids WHERE bid_footwear_item_id = " + "'" + entity + "' order by bid_amount";
 	
 	int hi = Integer.parseInt(entity);
 	
@@ -236,9 +236,9 @@ try {
 
 			<div>
 			  <tr>
-			  	<th><b>Title&emsp;&ensp;</b></th>
+			  	<th><b>Username&emsp;&ensp;</b></th>
 			 
-			    <th><b>Brand</b></th> 
+			    <th><b>Amount</b></th> 
 			  
 			  	</tr>
 			  </div>
