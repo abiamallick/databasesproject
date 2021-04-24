@@ -15,7 +15,7 @@
 <body>
 	<%
 	
-		try {
+		try { 
 	
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	

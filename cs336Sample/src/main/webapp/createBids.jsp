@@ -390,7 +390,7 @@
 			double out_bidincr = result.getDouble("bid_increment");
 			double newVal = secondToLast + out_bidincr;
 			
-			if(willExec== true ){
+			if(willExec== true ){ 
 			
 				String insert3 = "INSERT IGNORE INTO BIDS(bid_username, bid_footwear_item_id, bid_amount, isAutomatic, upper_limit, bid_increment)"
 	  					+ " VALUES ('" + out_user + "', '" + input_footwearid + "', '" + newVal + "', '" + is_auto + "', '" + out_UL + "', '" + out_bidincr + "' )";
