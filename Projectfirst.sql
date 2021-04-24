@@ -340,7 +340,7 @@ create table wishlist(
     brand 				VARCHAR(30)		 NOT NULL,
     primary key(wishlist_id),
     foreign key(wishlistUser) references Users(username));
-ALTER TABLE WINNER
+ALTER TABLE WISHLIST
 ADD CONSTRAINT wishlistUser
     FOREIGN KEY (wishlistUser)
     REFERENCES USERS(username)
