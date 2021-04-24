@@ -91,7 +91,7 @@
 	%>
 	<%
 	boolean hasEnded = false;
-	boolean hasReserve= false;
+	boolean isGreater= false;
 	int auc = 0;
 	%>
 
@@ -111,7 +111,7 @@ try {
 		String formattedDate = myDateObj.format(myFormatObj);
 		String entity = request.getParameter("footwear_item_id");
 		String auctionDate="";
-		Double auctionReserve=0.0;
+		Double auctionInitial=0.0;
 		Double auctionAmount = 0.0;
 		
 		
@@ -123,7 +123,7 @@ try {
 		while (result2.next()) {
 			
 			auctionDate = (result2.getString("closing_date"));
-			auctionReserve = (result2.getDouble("initial_price_sells"));
+			auctionInitial = (result2.getDouble("initial_price_sells"));
 			auctionAmount = (result2.getDouble("bid_amount"));
 			auc = (result2.getInt("auction_id"));
 			
@@ -143,17 +143,17 @@ try {
 		}
 		
 		
-		if(auctionReserve==auctionAmount)
+		if(auctionInitial==auctionAmount)
 		{
-			hasReserve=true;
+			isGreater=true;
 		}
-		else if(auctionReserve>auctionAmount)
+		else if(auctionInitial>auctionAmount)
 		{
-			hasEnded=true;
+			isGreater=false;
 		}
-		else if(auctionReserve<auctionAmount)
+		else if(auctionInitial<auctionAmount)
 		{
-			hasEnded=false;
+			isGreater=true;
 		}
 		
 } catch (Exception e) {
@@ -187,29 +187,32 @@ try {
 		
 		while (result2.next()) {
 			
-			String theItem = request.getParameter("footwear_item_id");
-			
-			
-
+		
 			String winner_username = (result2.getString("bid_username"));
 			
 			double winner_amount = (result2.getDouble("bid_amount"));
 			
-			//String auc_num = request.getParameter("auction_id");
+				
+			out.println(hasEnded);
+			out.println(isGreater);
 			
+			out.println(winner_username);
+			out.println(winner_amount);
 			
-			
-			
-			
-			if(hasEnded==true && hasReserve==true)
+			if(hasEnded==true && isGreater==true)
 			{
+				out.println("hiii");
 				status = 1;
-				String insert3 = "INSERT INTO WINNER(w_username,w_amount,w_auction_id,w_footwear_id,status_winner)"
-	  					+ " VALUES ('" + winner_username + "', '" + winner_amount + "','" + auc + "', '" + theItem + "', '" + status + "')";
-				String update1 = "UPDATE footwear_items  SET sold=1 WHERE footwear_item_id = " + "'" + theItem + "'";
+				String insert3 = "INSERT IGNORE INTO WINNER(w_username,w_amount,w_auction_id,w_footwear_id,status_winner)"
+	  					+ " VALUES ('" + winner_username + "', '" + winner_amount + "','" + auc + "', '" + entity + "', '" + status + "')";
+				String update1 = "UPDATE footwear_items  SET sold=1 WHERE footwear_item_id = " + "'" + entity + "'";
 	  			PreparedStatement ps = con.prepareStatement(insert3);
 				ps = con.prepareStatement(insert3); 
 				ps.executeUpdate();
+				
+				/* PreparedStatement ps1 = con.prepareStatement(update1);
+				ps1 = con.prepareStatement(update1); 
+				ps1.executeUpdate(); */
 			}
 			//out.print(auc);
 			
@@ -220,7 +223,6 @@ try {
 	out.print(e);
 }%>
 
-<%Integer max_id=1; %>
 
 <% 
 try {
@@ -244,12 +246,12 @@ try {
 	while (result.next()) {
 		
 		String win_username = result.getString("w_username");
-		out.println("win"+win_username);
+	
 
 			String alertmessageInsert = "You are a winner! Congrats!";
 			
-			String insert3 = "INSERT into Alerts(alert_message,footwear_item_id, alert_username )"
-  					+ " VALUES ('" + alertmessageInsert + "', '" + max_id + "', '" + win_username + "')";
+			String insert3 = "INSERT IGNORE into Alerts(alert_message,footwear_item_id, alert_username )"
+  					+ " VALUES ('" + alertmessageInsert + "', '" + entity + "', '" + win_username + "')";
   			PreparedStatement ps = con.prepareStatement(insert3);
 			ps = con.prepareStatement(insert3); 
 			ps.executeUpdate(); 	
@@ -292,9 +294,9 @@ try {
 
 			<div>
 			  <tr>
-			  	<th><b>Title&emsp;&ensp;</b></th>
+			  	<th><b>Username&emsp;&ensp;</b></th>
 			 
-			    <th><b>Brand</b></th> 
+			    <th><b>Amount</b></th> 
 			  
 			  	</tr>
 			  </div>

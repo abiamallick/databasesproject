@@ -269,7 +269,7 @@
 		
 		while (result.next()) {
 			countChecker = (result.getInt("COUNT(distinct bid_username)"));	
-			out.println(countChecker);
+			
 		}
 		if( countChecker >=2){
 			willExec = true;
@@ -278,7 +278,7 @@
 			willExec = false;
 		}
 		
-		out.println(willExec);
+	
 		con.close();
 	} catch (Exception ex) {
 		out.print(ex);
