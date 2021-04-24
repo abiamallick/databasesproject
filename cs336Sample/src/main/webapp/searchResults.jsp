@@ -251,9 +251,9 @@ try {
 
 			<div>
 			  <tr>
-			  	<th><b>Title&emsp;&ensp;</b></th>
+			  	<th><b>Username&emsp;&ensp;</b></th>
 			 
-			    <th><b>Brand</b></th> 
+			    <th><b>Amount</b></th> 
 			  
 			  	</tr>
 			  </div>
@@ -276,6 +276,8 @@ try {
 	<% }
 	//close the connection.
 	%>
+	
+<% if(hasEnded == true) {%>
 
 </table>
 
