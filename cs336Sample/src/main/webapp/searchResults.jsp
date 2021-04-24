@@ -15,7 +15,7 @@
 <body>
 	<%
 	
-		try { 
+		try {
 	
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
@@ -92,6 +92,7 @@
 	<%
 	boolean hasEnded = false;
 	boolean hasReserve= false;
+	int auc = 0;
 	%>
 
 <%
@@ -115,7 +116,7 @@ try {
 		
 		
 		//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-		String str = "SELECT b.bid_username, au.closing_date, au.initial_price_sells, b.bid_amount FROM Auctions au, BIDS b WHERE b.bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id = '" + entity + "') and au.initial_price_sells = (SELECT Min(initial_price_sells) FROM Auctions WHERE bid_footwear_item_id = '" + entity + "')";
+		String str = "SELECT b.bid_username, au.auction_id, au.closing_date, au.initial_price_sells, b.bid_amount FROM Auctions au, BIDS b WHERE b.bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id = '" + entity + "') and au.initial_price_sells = (SELECT Min(initial_price_sells) FROM Auctions WHERE bid_footwear_item_id = '" + entity + "')";
 		
 		ResultSet result2 = stmt.executeQuery(str);
 		
@@ -124,6 +125,7 @@ try {
 			auctionDate = (result2.getString("closing_date"));
 			auctionReserve = (result2.getDouble("initial_price_sells"));
 			auctionAmount = (result2.getDouble("bid_amount"));
+			auc = (result2.getInt("auction_id"));
 			
 		}
 		
@@ -173,7 +175,7 @@ try {
 		String formattedDate = myDateObj.format(myFormatObj);
 		String entity = request.getParameter("footwear_item_id");
 		String auctionDate="";
-		
+		int status = 0;
 		
 		//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
 		String str = "SELECT bid_username, bid_amount FROM bids WHERE bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id = '" + entity + "')";
@@ -185,22 +187,31 @@ try {
 		
 		while (result2.next()) {
 			
+			String theItem = request.getParameter("footwear_item_id");
 			
+			
+
 			String winner_username = (result2.getString("bid_username"));
 			
-			Double winner_amount = (result2.getDouble("bid_amount"));
+			double winner_amount = (result2.getDouble("bid_amount"));
+			
+			//String auc_num = request.getParameter("auction_id");
+			
 			
 			
 			
 			
 			if(hasEnded==true && hasReserve==true)
 			{
-				String insert3 = "INSERT INTO WINNER(w_username,w_amount)"
-	  					+ " VALUES ('" + winner_username + "', '" + winner_amount + "')";
+				status = 1;
+				String insert3 = "INSERT INTO WINNER(w_username,w_amount,w_auction_id,w_footwear_id,status_winner)"
+	  					+ " VALUES ('" + winner_username + "', '" + winner_amount + "','" + auc + "', '" + theItem + "', '" + status + "')";
+				String update1 = "UPDATE footwear_items  SET sold=1 WHERE footwear_item_id = " + "'" + theItem + "'";
 	  			PreparedStatement ps = con.prepareStatement(insert3);
 				ps = con.prepareStatement(insert3); 
 				ps.executeUpdate();
 			}
+			//out.print(auc);
 			
 		}
 		
@@ -208,6 +219,10 @@ try {
 } catch (Exception e) {
 	out.print(e);
 }%>
+
+
+
+
 <%
 try {
 
@@ -218,7 +233,7 @@ try {
 	//Create a SQL statement
 	Statement stmt = con.createStatement();
 	String entity = request.getParameter("footwear_item_id");
-	String str2 = "SELECT * FROM bids WHERE bid_footwear_item_id = " + "'" + entity + "' order by bid_amount";
+	String str2 = "SELECT * FROM bids WHERE bid_footwear_item_id = " + "'" + entity + "'";
 	
 	int hi = Integer.parseInt(entity);
 	
@@ -236,9 +251,9 @@ try {
 
 			<div>
 			  <tr>
-			  	<th><b>Username&emsp;&ensp;</b></th>
+			  	<th><b>Title&emsp;&ensp;</b></th>
 			 
-			    <th><b>Amount</b></th> 
+			    <th><b>Brand</b></th> 
 			  
 			  	</tr>
 			  </div>
