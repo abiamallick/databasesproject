@@ -199,35 +199,32 @@ try {
 			
 		}
 		
-		out.println("today: " + formattedDate);
-		out.println("auction: " +auctionDate);
 		
 		
 		
 		
-/* 			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+ 			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date today = sdf.parse(formattedDate);
 			Date auction = sdf.parse(auctionDate);
-			out.println(today);
-			out.println(auction);
+
 
 			
 			  boolean before = (today.before(auction));
-			  boolean after = (today.after(auction)); */
+			  boolean after = (today.after(auction)); 
 	
 		
 		//out.println("as a date" + a_date);
 		
-		//if(today.before(auction)) //first = todays && second = auctiondate
-		//{
+		if(today.before(auction)) //first = todays && second = auctiondate
+		{
 			hasEnded=false;
 			//out.println("donut");
-		//}
-		//else if(today.after(auction))
-		//{
+		}
+		else if(today.after(auction))
+		{
 			hasEnded=true;
 			//out.println("hi");
-		//}
+		}
 		
 		
 		if(auctionInitial==auctionAmount)
