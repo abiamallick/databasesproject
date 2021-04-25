@@ -44,7 +44,7 @@ try{
     	
 	<div>
 			  <tr>
-			  	<th><b>Seller&emsp;&emsp;&emsp;&ensp;&emsp;</b></th>
+			  	<th><b>End User&emsp;&emsp;&emsp;&ensp;&emsp;</b></th>
 			 
 			    <th><b>Earnings&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</b></th> 	    
 			</tr>	
