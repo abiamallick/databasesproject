@@ -71,6 +71,9 @@
 		<tr> 
 		<td>Initial Price</td><td><input type="text" name="initialprice"placeholder="Optional"></td>
 		</tr>
+		<tr> 
+		<td>Minimum Increment</td><td><input type="text" name="initialprice"></td>
+		</tr>
 		<tr>
 				<td>Brand</td><td><select name="brand" size=1>
 				<option value="nike">Nike</option>
