@@ -79,16 +79,21 @@ SELECT * FROM FOOTWEAR_ITEMS;
 
 INSERT INTO FOOTWEAR_ITEMS (shoe_type,size,item_condition,style,initial_price,brand,title,sold)
 VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Adidas Men Sneakers',false),
-			('sandals',8.5,'Slightly Used','casual',35.90,'Converse','Comfortable Running Sneakers',true),
-            ('boots',6,'Slightly Used','casual',50.00,'Sperry','Funky Boots Perfect For Sledding',true),
+			('sandals',8.5,'Slightly Used','casual',35.97,'Converse','Comfortable Running Sneakers',true),
+            ('boots',6,'Slightly Used','casual',50.55,'Sperry','Funky Boots Perfect For Sledding',true),
 			('boots',10.5,'New','fancy',51.35,'Doc Martens','Unique Vintage Tall Boots',false),
-            ('sandals',5,'New','fancy',35.10,'Uggs','Colorful and Comfy Blue Sandals',true),
-			('sneakers',6,'Very Used','athletic',100.00,'Reebok','Super Comfortable Sneakers for Everyday',false),
-			('sneakers',6,'New','athletic',88.70,'Vans','Perfect Running Shoes for Women',false),
-            ('boots',8,'New','fancy',60.00,'Hunter','Trendy Boots Perfect For Any Occasion',false),
-            ('sandals',9,'Slightly Used','casual',50.50,'Converse','Barely Worn Beach Sandals For Teen Boys',false),
+            ('sandals',5,'New','fancy',35.12,'Uggs','Colorful and Comfy Blue Sandals',true),
+			('sneakers',6,'Very Used','athletic',100.88,'Reebok','Super Comfortable Sneakers for Everyday',false),
+			('sneakers',6,'New','athletic',88.77,'Vans','Perfect Running Shoes for Women',false),
+            ('boots',8,'New','fancy',60.99,'Hunter','Trendy Boots Perfect For Any Occasion',false),
+            ('sandals',9,'Slightly Used','casual',50.52,'Converse','Barely Worn Beach Sandals For Teen Boys',false),
             ('sandals',5,'Very Used','casual',75.79,'Under Armour','Everyday Orange Sandals In Decent Shape',true),
-            ('sneakers',6,'Slightly Used','casual',20.00,'Reebok','Reebok Retro Sneakers For Women',true);
+            ('sneakers',6,'Slightly Used','casual',20.22,'Reebok','Reebok Retro Sneakers For Women',true),
+            ('sneakers',9,'Slightly Used','athletic',17.44,'Nike','Adidas Men Sneakers',false),
+            ('sneakers',9,'Slightly Used','athletic',15.75,'Converse','Converse Athletic Sneakers',false),
+            ('sneakers',9,'Very Used','athletic',19.88,'Adidas','Adidas Used Sneakers',false),
+            ('sneakers',9,'New','athletic',18.73,'Adidas','Women Large Sneakers',false),
+            ('boots',9,'New','fancy',51.35,'Sperry','Ankle Boots',false);
             
 CREATE TABLE ALERTS (
 	alertID					int			NOT NULL AUTO_INCREMENT, 
@@ -126,16 +131,16 @@ select * from auctions;
 
 INSERT INTO Auctions (auction_id, auction_user,starting_date, closing_date, initial_price_sells)
 VALUES      (3844, 'annag', '2021-02-19','2021-04-26 13:10:01',15.75),
-			(9880, 'ylopez','2021-02-03','2021-04-17 21:30:45',35.90),
-            (9683, 'bwilson','2021-01-31','2021-02-28 20:14:08',50.00),
+			(9880, 'ylopez','2021-02-03','2021-04-17 21:30:45',35.99),
+            (9683, 'bwilson','2021-01-31','2021-02-28 20:14:08',50.99),
 			(1606, 'bwilson','2021-03-02','2021-05-20 23:25:10',51.35),
-            (8451, 'annag','2021-03-11','2021-04-07 14:19:18',35.10),
-			(8260, 'smartinez','2021-02-23','2021-05-28 23:22:10',100.00),
-			(0978, 'smartinez', '2021-01-26','2021-05-09 20:34:50',88.70),
-            (3892, 'ylopez','2021-03-05','2021-05-01 18:19:08',60.00),
-            (1010, 'bwilson', '2021-04-15','2021-04-29 14:15:13',50.50),
+            (8451, 'annag','2021-03-11','2021-04-07 14:19:18',35.12),
+			(8260, 'smartinez','2021-02-23','2021-05-28 23:22:10',100.99),
+			(0978, 'smartinez', '2021-01-26','2021-05-09 20:34:50',88.79),
+            (3892, 'ylopez','2021-03-05','2021-05-01 18:19:08',60.78),
+            (1010, 'bwilson', '2021-04-15','2021-04-29 14:15:13',50.55),
             (1005, 'annag','2021-02-20','2021-04-16 12:17:19',75.79),
-            (1004, 'bwilson','2021-04-06','2021-04-21 13:18:05',20.00);
+            (1004, 'bwilson','2021-04-06','2021-04-21 13:18:05',20.22);
 
 
 CREATE TABLE QUESTIONS (
@@ -153,10 +158,10 @@ ALTER TABLE QUESTIONS AUTO_INCREMENT=10;
 INSERT INTO QUESTIONS (q_username, question, answer)
 VALUE ('amallick', 'What is an alert?', 'Customer representative will answer soon'),
 	('jsmith','How to make an alert?','Customer representative will answer soon'), 
-	('wjohnson','How to bid on an item?','Customer representative will answer soon'), 
-	('kbrown','How do automatic bids work?','Customer representative will answer soon'), 
-	('dgarcia','How can I sell an item?','Customer representative will answer soon'), 
-	('tmedina','How can I buy an item?','Customer representative will answer soon');
+	('wjohnson','How to bid on an item?','Log into your account and under a specific item, you can place a manual or automatic bid.'), 
+	('kbrown','How does a automatic bid work?','Customer representative will answer soon'), 
+	('dgarcia','How can I sell an item?','There is a create seller page which allows you to create an item for auction.'), 
+	('tmedina','How can I buy an item?','By placing bids--at the end, if you have the highest bid which is greater than the seller reserve the item will go to you.');
 /* --------------------------------------------------------------------------------------------- */
 
 CREATE TABLE BIDS (

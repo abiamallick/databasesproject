@@ -65,7 +65,7 @@ try {
 			  	<th><b>Title&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</b></th>
 			 
 			    <th><b>Brand&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</b></th> 
-			    <th><b>Size&emsp;&emsp;&ensp;</b></th>
+			    <th><b>Size</b></th>
 			    <th><b>Initial Price&emsp;&emsp;&emsp;</b></th>
 			    <th><b>Item Condition&emsp;&emsp;&emsp;</b></th>
 			  <th><b>Status&emsp;&emsp;&emsp;&emsp;&emsp;</b></th>
