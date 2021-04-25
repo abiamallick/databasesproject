@@ -93,7 +93,8 @@ VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Adidas Men Sneakers',
             ('sneakers',9,'Slightly Used','athletic',15.75,'Converse','Converse Athletic Sneakers',false),
             ('sneakers',9,'Very Used','athletic',19.88,'Adidas','Adidas Used Sneakers',false),
             ('sneakers',9,'New','athletic',18.73,'Adidas','Women Large Sneakers',false),
-            ('boots',9,'New','fancy',51.35,'Sperry','Ankle Boots',false);
+            ('boots',9,'New','fancy',51.35,'Sperry','Ankle Boots',false),
+			('sandals',6,'New','fancy','25.88','Converse','Sandals Perfect for Summer Walks',false);
             
 CREATE TABLE ALERTS (
 	alertID					int			NOT NULL AUTO_INCREMENT, 
@@ -161,7 +162,7 @@ VALUE ('amallick', 'What is an alert?', 'Customer representative will answer soo
 	('wjohnson','How to bid on an item?','Log into your account and under a specific item, you can place a manual or automatic bid.'), 
 	('kbrown','How does a automatic bid work?','Customer representative will answer soon'), 
 	('dgarcia','How can I sell an item?','There is a create seller page which allows you to create an item for auction.'), 
-	('tmedina','How can I buy an item?','By placing bids--at the end, if you have the highest bid which is greater than the seller reserve the item will go to you.');
+	('tmedina','How can I buy an item?','If you have the highest ending bid which is greater than the seller reserve the item will go to you.');
 /* --------------------------------------------------------------------------------------------- */
 
 CREATE TABLE BIDS (
