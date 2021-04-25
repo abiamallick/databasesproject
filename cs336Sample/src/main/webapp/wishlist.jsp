@@ -35,10 +35,10 @@
 		<form method="post" action="createWishlist.jsp">
 		<table>
 		<tr>    
-		<td><b>Shoe Type</b></td><td><select name ="type" size=1>
-				<option value="Sneakers">Sneakers</option>
-				<option value="Boots">Boots</option>
-				<option value="Sandals">Sandals</option>
+		<td>Shoe Type</td><td><select name ="type" size=1>
+				<option value="sneakers">Sneakers</option>
+				<option value="boots">Boots</option>
+				<option value="sandals">Sandals</option>
 			</select>
 		</tr>
 		<tr> 
