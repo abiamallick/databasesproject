@@ -72,7 +72,14 @@ try {
 <tr>
     <td><%= result.getString("f.title") %> </td>
     <td><%= result.getString("au.closing_date") %> </td>
-    <td><%= result.getString("w.w_username") %> </td>
+    
+        <td><%if(deciding!=0){ 
+    	out.println(result.getString("w.w_username"));
+    	}
+    else{
+    	out.println("No Winner");
+    	}%> </td>
+    
     <td><%if(deciding!=0){ 
     	out.println(result.getString("w.w_amount"));
     	}
