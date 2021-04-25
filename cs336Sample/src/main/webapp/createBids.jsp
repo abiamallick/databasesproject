@@ -45,6 +45,9 @@
 			{
 				out.println("Please enter a bid increment. ");
 			}
+			else if(request.getParameter("manualbidamount").equals("51")){
+				out.println("You must enter a higher bid!");
+			}
 			else
 			{
 				input_bidamt = Double.valueOf(request.getParameter("manualbidamount"));

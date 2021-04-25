@@ -194,18 +194,23 @@ try {
 			auc = (result2.getInt("auction_id"));
 			
 		}
+		out.println(formattedDate);
+		//auctionDate= "2021-03-05 08:12:19";
+		out.println(auctionDate);
 		
-		if(auctionDate==formattedDate)
+		if(auctionDate.compareTo(formattedDate)==1)
 		{
 			hasEnded=true;
 		}
-		else if(auctionDate.compareTo(formattedDate)<0)
+		else if(auctionDate.compareTo(formattedDate)<-1)
 		{
 			hasEnded=true;
+			out.println("hi");
 		}
-		else if(auctionDate.compareTo(formattedDate)>0)
+		else if(auctionDate.compareTo(formattedDate)>1)
 		{
 			hasEnded=false;
+			out.println("helloo");
 		}
 		
 		
@@ -221,6 +226,9 @@ try {
 		{
 			isGreater=true;
 		}
+		
+		out.println(hasEnded);
+		out.println(isGreater);
 		
 } catch (Exception e) {
 	out.print(e);
@@ -290,9 +298,9 @@ try {
 				ps = con.prepareStatement(insert3); 
 				ps.executeUpdate();
 				
-				PreparedStatement ps1 = con.prepareStatement(update1);
+/* 				PreparedStatement ps1 = con.prepareStatement(update1);
 				ps1 = con.prepareStatement(update1); 
-				ps1.executeUpdate(); 
+				ps1.executeUpdate();  */
 			}
 			//out.print(auc);
 			
