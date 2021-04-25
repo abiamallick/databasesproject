@@ -450,7 +450,7 @@ String alertUser = " ";%>
 
 <%
 	try {
-		//setting all users equal to their upper limit in case of a collision
+		//inserting into alerts
 		//Get the database connection
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();
@@ -460,7 +460,7 @@ String alertUser = " ";%>
 		Integer input_footwearid = Integer.parseInt(request.getParameter("footwearid"));
 		String alertMessage = alertUser + " has bid higher than you";
 
-		String checker2= "select distinct bid_username from bids where bid_footwear_item_id =1001 And bid_username <>'" + alertUser + "'";
+		String checker2= "select distinct bid_username from bids where bid_footwear_item_id ='" + input_footwearid + "' And bid_username <>'" + alertUser + "'";
 
 		ResultSet result = stmt.executeQuery(checker2);
 		
