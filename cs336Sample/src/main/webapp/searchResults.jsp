@@ -58,10 +58,7 @@
 			out.print(result.getString("size"));				
 			out.print("<br>");
 			//make a column
-			
-			out.print("Initial Price: $");
-			out.print(result.getString("initial_price"));				
-			out.print("<br>");
+	
 			
 			
 			out.print("Brand: ");
@@ -90,6 +87,74 @@
 			out.print(e);
 		}
 	%>
+	
+	
+	<%
+	
+		try {
+	
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();		
+
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+			//Get the selected radio button from the index.jsp
+			String entity = request.getParameter("footwear_item_id");
+			
+			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
+			String str = "SELECT * FROM auctions WHERE footwear_sells_id ='" + entity + "'" ;
+			//Run the query against the database.
+			ResultSet result = stmt.executeQuery(str);
+			
+			//Make an HTML table to show the results in:
+			
+			
+			
+
+			//parse out the results
+			while (result.next()) {
+				//make a row
+				
+				//Print out current bar or beer name:
+				out.print("<table>");
+			//make a row
+			out.print("<tr>");
+			//make a column
+			
+			//print out column header
+			out.print("Opening date: ");
+			out.print(result.getString("starting_date"));
+			out.print("<br>");
+			
+			//make a column
+			
+			out.print("Closing Date and Time: ");
+			String hello = (result.getString("closing_date"));	
+			//out.println(hello);
+			out.println(hello.substring(0,19));
+			out.print("<br>");
+			//make a column
+			
+			}
+			out.print("</table>");
+			
+
+	
+		//close the connection.
+			db.closeConnection(con);
+		} catch (Exception e) {
+			out.print(e);
+		}
+	%>
+	
+	
+	
+	
+	
+	
+	
+	
 	<%
 	boolean hasEnded = false;
 	boolean isGreater= false;
@@ -193,16 +258,17 @@ try {
 			
 			double winner_amount = (result2.getDouble("bid_amount"));
 			
-				
+/* 				
 			out.println(hasEnded);
 			out.println(isGreater);
+			out.println("-----");
 			
 			out.println(winner_username);
-			out.println(winner_amount);
+			out.println(winner_amount); */
 			
 			if(hasEnded==true && isGreater==true)
 			{
-				out.println("hiii");
+				//out.println("hiii");
 				status = 1;
 				String insert3 = "INSERT IGNORE INTO WINNER(w_username,w_amount,w_auction_id,w_footwear_id,status_winner)"
 	  					+ " VALUES ('" + winner_username + "', '" + winner_amount + "','" + auc + "', '" + entity + "', '" + status + "')";
@@ -211,9 +277,22 @@ try {
 				ps = con.prepareStatement(insert3); 
 				ps.executeUpdate();
 				
-				/* PreparedStatement ps1 = con.prepareStatement(update1);
+				PreparedStatement ps1 = con.prepareStatement(update1);
 				ps1 = con.prepareStatement(update1); 
-				ps1.executeUpdate(); */
+				ps1.executeUpdate(); 
+			}
+			else if(hasEnded==true && isGreater==false){
+				status = 0;
+				String insert3 = "INSERT IGNORE INTO WINNER(w_username,w_amount,w_auction_id,w_footwear_id,status_winner)"
+	  					+ " VALUES ('" + winner_username + "', '" + winner_amount + "','" + auc + "', '" + entity + "', '" + status + "')";
+				String update1 = "UPDATE footwear_items  SET sold=1 WHERE footwear_item_id = " + "'" + entity + "'";
+	  			PreparedStatement ps = con.prepareStatement(insert3);
+				ps = con.prepareStatement(insert3); 
+				ps.executeUpdate();
+				
+				PreparedStatement ps1 = con.prepareStatement(update1);
+				ps1 = con.prepareStatement(update1); 
+				ps1.executeUpdate(); 
 			}
 			//out.print(auc);
 			
@@ -237,7 +316,7 @@ try {
 	//Create a SQL statement
 	Statement stmt = con.createStatement();
 	String entity = request.getParameter("footwear_item_id");
-	String str2 = "SELECT w_username FROM winner";
+	String str2 = "SELECT w_username FROM winner where w_footwear_id= '" + entity + "' And status_winner!=0";
 	
 	
 	//out.println(str);
@@ -246,7 +325,7 @@ try {
 	
 	while (result.next()) {
 		
-		String win_username = result.getString("w_username");
+		String win_username = result.getString("w_username"); 
 	
 
 			String alertmessageInsert = "You are a winner! Congrats!";
