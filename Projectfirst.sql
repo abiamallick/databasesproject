@@ -1,6 +1,5 @@
 CREATE DATABASE Projectfirst;
 USE Projectfirst;
-
 CREATE TABLE USERS (
 
 	username           VARCHAR(20)   NOT NULL,
@@ -79,7 +78,7 @@ SELECT * FROM FOOTWEAR_ITEMS;
 
 INSERT INTO FOOTWEAR_ITEMS (shoe_type,size,item_condition,style,initial_price,brand,title,sold)
 VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Adidas Men Sneakers',false),
-			('sandals',8.5,'Slightly Used','casual',35.97,'Converse','Comfortable Running Sneakers',true),
+			('sandals',8.5,'Slightly Used','casual',35.97,'Converse','Comfortable Sandals for Boys',true),
             ('boots',6,'Slightly Used','casual',50.55,'Sperry','Funky Boots Perfect For Sledding',true),
 			('boots',10.5,'New','fancy',51.35,'Doc Martens','Unique Vintage Tall Boots',false),
             ('sandals',5,'New','fancy',35.12,'Uggs','Colorful and Comfy Blue Sandals',true),
@@ -94,7 +93,13 @@ VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Adidas Men Sneakers',
             ('sneakers',9,'Very Used','athletic',19.88,'Adidas','Adidas Used Sneakers',false),
             ('sneakers',9,'New','athletic',18.73,'Adidas','Women Large Sneakers',false),
             ('boots',9,'New','fancy',51.35,'Sperry','Ankle Boots',false),
-			('sandals',6,'New','fancy','25.88','Converse','Sandals Perfect for Summer Walks',false);
+             ('boots',6,'New','fancy',40.35,'Uggs','Soft and Comfy Winter Boots',false),
+              ('boots',6,'New','casual',60.71,'Sperry','Rain boots for All Weather',false),
+			('sandals',8,'New','fancy','25.88','Converse','Sandals Perfect for Summer Walks',false),
+			('sandals',7,'Slightly Used','casual','55.08','Sperry','Sandals For Young Girls',false),
+			('sandals',6,'Very Used','fancy','40.88','Uggs','Vibrant Summer Sandals',false),
+			('sandals',9,'New','athletic','21.88','Converse','Cute and Trendy Pink Sandals',false);
+;
             
 CREATE TABLE ALERTS (
 	alertID					int			NOT NULL AUTO_INCREMENT, 
@@ -114,6 +119,18 @@ INSERT INTO ALERTS(alert_message, footwear_item_id, alert_username)
 VALUES      ('Sorry, unfortunately another user has won the auction',1001,'kbrown');
 
 Select * from alerts;
+
+ALTER TABLE Alerts
+ADD CONSTRAINT alert_username
+    FOREIGN KEY (alert_username)
+    REFERENCES Users (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+    
+    
+    
+
+
 
 CREATE TABLE Auctions (
 	footwear_sells_id		int				Not Null	AUTO_INCREMENT,
@@ -143,7 +160,14 @@ VALUES      (3844, 'annag', '2021-02-19','2021-04-26 13:10:01',15.75),
             (1005, 'annag','2021-02-20','2021-04-16 12:17:19',75.79),
             (1004, 'bwilson','2021-04-06','2021-04-21 13:18:05',20.22);
 
-
+ALTER TABLE Auctions
+ADD CONSTRAINT auction_user
+    FOREIGN KEY (auction_user)
+    REFERENCES Users (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+    
+    
 CREATE TABLE QUESTIONS (
 
     question_id 		 int     NOT NULL auto_increment,
@@ -163,6 +187,13 @@ VALUE ('amallick', 'What is an alert?', 'Customer representative will answer soo
 	('kbrown','How does a automatic bid work?','Customer representative will answer soon'), 
 	('dgarcia','How can I sell an item?','There is a create seller page which allows you to create an item for auction.'), 
 	('tmedina','How can I buy an item?','If you have the highest ending bid which is greater than the seller reserve the item will go to you.');
+    
+    ALTER TABLE Questions
+ADD CONSTRAINT q_username
+    FOREIGN KEY (q_username)
+    REFERENCES Users (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 /* --------------------------------------------------------------------------------------------- */
 
 CREATE TABLE BIDS (
@@ -186,10 +217,21 @@ VALUES      ('amallick', 1001, 37.00,0),
 			('amallick', 1004,40.50,0),
             ('twilliams', 1002,75.00, 0),
             ('dgarcia', 1009,83.20 ,0),
-            ('dgarcia', 1001, 60.50,0);
+            ('dgarcia', 1001, 60.50,0),
+            ('dgarcia', 1005, 75.00,0),
+            ('dgarcia', 1005, 90.10,0),
+            ('amallick',1005,100.50,0),
+            ('annag',1005,95.80,0);
             
 select * from bids;
 
+ALTER TABLE Bids
+ADD CONSTRAINT bid_username
+    FOREIGN KEY (bid_username)
+    REFERENCES Users (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+SELECT bid_username, bid_amount FROM bids WHERE bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id =1005) ORDER BY bid_amount ASC;
 
 create table wishlist(
 	wishlist_id 		 int     NOT NULL auto_increment,
@@ -200,7 +242,14 @@ create table wishlist(
     primary key(wishlist_id),
     foreign key(wishlistUser) references Users(username));
 
-
+ALTER TABLE WISHLIST
+ADD CONSTRAINT wishlistUser
+    FOREIGN KEY (wishlistUser)
+    REFERENCES USERS(username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+    
+    
 CREATE TABLE WINNER (
 
     w_username 		    VARCHAR(20)   NOT NULL,
@@ -221,3 +270,17 @@ VALUES ('dgarcia','60.5','9880','1001','1'),
         ('twilliams','75','9683','1002','1');
 
 select * from winner;
+
+ALTER TABLE WINNER
+ADD CONSTRAINT w_username
+    FOREIGN KEY (w_username)
+    REFERENCES Users (username)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+ALTER TABLE WINNER
+ADD CONSTRAINT w_auction_id
+    FOREIGN KEY (w_auction_id)
+    REFERENCES AUCTIONS(auction_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
