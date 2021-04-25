@@ -5,6 +5,8 @@
 
 
 
+
+
 	<head>
 	<body bgcolor="#CFF0CC"></body>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -18,6 +20,7 @@ You are not logged in<br/>
 <a href="login.jsp">Please Login</a>
 <%} 
     
+
     else {
 %>
 Welcome <%=session.getAttribute("user")%>  
@@ -48,7 +51,11 @@ Welcome <%=session.getAttribute("user")%>
 </div>
 
 <div style='text-align:right'>
-<a href='seeWishlist.jsp'>Want to see your wishlist?</a>
+<a href='seeWishlist.jsp'>View Wishlist</a>
+</div>
+
+<div style='text-align:right'>
+<a href='pastAuctions.jsp'>View Past Auctions</a>
 </div>
 
 <div id="searchbar">
@@ -94,10 +101,12 @@ Welcome <%=session.getAttribute("user")%>
 				<option value="12.0">12.0</option>
 			</select> 		
 									
+
 				<input type="submit" value="Search">
 		</form>
 	</div>
 	
+
 
 <br>
 
@@ -105,16 +114,3 @@ Welcome <%=session.getAttribute("user")%>
 <%
     }
 %>
-
-
-
-
-
-
-
-
-
-
-
-
-
