@@ -36,7 +36,7 @@ try{
 	//Create a SQL statement
 	Statement st2 = con.createStatement();
     ResultSet rs2;
-    rs2 = st2.executeQuery("SELECT f.style, SUM(w.w_amount) FROM winner w JOIN footwear_items f WHERE f.sold=1 AND w.w_footwear_id=f.footwear_item_id GROUP BY f.style");
+    rs2 = st2.executeQuery("SELECT f.shoe_type, SUM(w.w_amount) FROM winner w JOIN footwear_items f WHERE f.sold=1 AND w.w_footwear_id=f.footwear_item_id GROUP BY f.shoe_type");
     if (rs2.next()) { %>
     	<h2>Sales Report: Earnings Per Item Type</h2>
     	
@@ -44,7 +44,7 @@ try{
     	
 	<div>
 			  <tr>
-			  	<th><b>Style&emsp;&emsp;&emsp;&ensp;&emsp;</b></th>
+			  	<th><b>Item Type&emsp;&emsp;&emsp;&ensp;&emsp;</b></th>
 			 
 			    <th><b>Earnings&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</b></th> 	    
 			</tr>	
@@ -54,11 +54,14 @@ try{
     	
 	<%	do { %>
 			<tr>
-				<td><%= rs2.getString("f.style")%></td>
+				<td><%= rs2.getString("f.shoe_type")%></td>
+				
 				
 				<td>$<%= rs2.getFloat("SUM(w.w_amount)")%></td>
 			</tr>
+			
     <%	} while (rs2.next()); %>
+    	
 		    			</table>
 		    			<br><a href="salesReports.jsp">Click here to generate more sales reports.</a>
 		    	<%	
