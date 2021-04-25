@@ -167,6 +167,9 @@ try {
 		Double wishlist_shoeSize = (result.getDouble("size"));
 		String wishlist_shoeBrand= result.getString("brand");
 		
+/* 		out.println((wishlist_shoeType.compareTo(input_ShoeType)==0));
+		out.println((wishlist_shoeSize.compareTo(input_Size)==0));
+		out.println((wishlist_shoeBrand.compareTo(input_Brand)==0)); */
 
 		
 		
@@ -174,13 +177,14 @@ try {
 		if((wishlist_shoeType.compareTo(input_ShoeType)==0) && (wishlist_shoeSize.compareTo(input_Size)==0) && (wishlist_shoeBrand.compareTo(input_Brand)==0) ){
 			
 			String alertmessageInsert = "Your item is now available to accept bids";
+			//out.println("helloooo");
 			
 			String insert3 = "INSERT into Alerts(alert_message,footwear_item_id, alert_username )"
   					+ " VALUES ('" + alertmessageInsert + "', '" + max_id + "', '" + wishlist_username + "')";
   			PreparedStatement ps = con.prepareStatement(insert3);
 			ps = con.prepareStatement(insert3); 
 			ps.executeUpdate(); 
-			out.println("yay hello");
+			//out.println("yay hello");
 			
 		}
 		
