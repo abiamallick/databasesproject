@@ -354,6 +354,14 @@ PRIMARY KEY (w_auction_id),
 FOREIGN KEY(w_auction_id) REFERENCES AUCTIONS(auction_id),
 FOREIGN KEY(w_footwear_id) REFERENCES footwear_items(footwear_item_id),
 FOREIGN KEY(w_username) REFERENCES USERS(username) );
+					       
+
+INSERT INTO WINNER(w_username,w_amount,w_auction_id,w_footwear_id,status_winner)
+VALUES ('dgarcia','60.5','1606','1001','1'),
+		('dgarcia','39.5','3844','1009','1'),
+        ('twilliams','75','8451','1002','1');					       
+					       
+					       
 ALTER TABLE WINNER
 ADD CONSTRAINT w_username
     FOREIGN KEY (w_username)
