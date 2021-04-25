@@ -193,15 +193,11 @@ try {
 			double winner_amount = (result2.getDouble("bid_amount"));
 			
 				
-			out.println(hasEnded);
-			out.println(isGreater);
 			
-			out.println(winner_username);
-			out.println(winner_amount);
 			
 			if(hasEnded==true && isGreater==true)
 			{
-				out.println("hiii");
+				
 				status = 1;
 				String insert3 = "INSERT IGNORE INTO WINNER(w_username,w_amount,w_auction_id,w_footwear_id,status_winner)"
 	  					+ " VALUES ('" + winner_username + "', '" + winner_amount + "','" + auc + "', '" + entity + "', '" + status + "')";
@@ -276,7 +272,7 @@ try {
 	//Create a SQL statement
 	Statement stmt = con.createStatement();
 	String entity = request.getParameter("footwear_item_id");
-	String str2 = "SELECT * FROM bids WHERE bid_footwear_item_id = " + "'" + entity + "'";
+	String str2 = "SELECT * FROM bids WHERE bid_footwear_item_id = " + "'" + entity + "' ORDER BY bid_amount ASC ";
 	
 	int hi = Integer.parseInt(entity);
 	
@@ -403,7 +399,7 @@ try {
 			    <th><b>&emsp;&ensp;&emsp;&ensp;&emsp;&emsp;&ensp;&emsp;&ensp;&emsp;Size&emsp;&ensp;&emsp;</b></th> 
 			  <th><b>Starting Date&emsp;&ensp;&emsp;&ensp;&emsp;&emsp;</b></th>
 			  <th><b>Closing Date &emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;</b></th>
-			  <th><b>&emsp;&ensp;&emsp;Status</b></th>
+			 
 			  	</tr>
 			  </div>
 <table style= ""width:50%">
@@ -414,15 +410,11 @@ try {
 	<div>
 	<tr>
 	
-		<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>"><%= result.getString("f.title") %></a>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
+		<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>&shoe_type=<%=ftype %>"><%= result.getString("f.title") %></a>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
 		<td> <%= result.getString("f.size") %>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp; </td>
 		<td> <%= result.getString("a.starting_date") %>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp; </td>
 		<td> <%= result.getString("a.closing_date") %> &emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</td>
-		<% if (result.getString("sold").equals("1")){ %>
-			<td>Sold</td>
-		<% }else{ %>
-			<td>Not Sold</td>
-			<% } %>
+		
 	</tr>	
 	</div>
 	<% } %>
@@ -436,6 +428,9 @@ try {
 	out.print(e);
 }
 %>
+
+
+
 
 
 
