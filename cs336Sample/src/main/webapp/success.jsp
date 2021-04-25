@@ -53,7 +53,7 @@ Welcome <%=session.getAttribute("user")%>
 <div id="searchbar">
    <h2>Hi! Select at least one search parameter</h2>
 		<form action="itemSearch.jsp" method="GET">
-		<label for="type">Are you looking for sneakers, boots, or heels?</label>
+		<label for="type">Are you looking for sneakers, boots, or sandals?</label>
 				<input type="text" name="shoe_type" id="shoe_type" placeholder="Enter shoe type"> <br>
 			<label for="brand">Brand</label>
 				<select name="brand" id="brand">
@@ -73,7 +73,7 @@ Welcome <%=session.getAttribute("user")%>
 			</select> 			
 			<label for="size">Size</label>
 				<select name="size" id="size">
-				<option value="" disabled selected hidden="true">Select brand</option>
+				<option value="" disabled selected hidden="true">Select size</option>
 				<option value="4.0">4.0</option>
 				<option value="4.5">4.5</option>
 				<option value="5.0">5.0</option>
@@ -92,13 +92,7 @@ Welcome <%=session.getAttribute("user")%>
 				<option value="11.5">11.5</option>
 				<option value="12.0">12.0</option>
 			</select> 		
-									<label for="sort">Sort by the following:</label>
-				<select name="sorting_options" id="sorting_options">
-				<option value="" disabled selected hidden="true">Select sorting option</option>
-				<option value="by_type">By Type</option>
-				<option value="by_bidding_price">By Bidding Price</option>
-				<option value="by_newly_listed">By Newly Listed</option>
-				<option value="by_ending_soonest">By Ending Soonest</option>
+									
 				<input type="submit" value="Search">
 		</form>
 	</div>

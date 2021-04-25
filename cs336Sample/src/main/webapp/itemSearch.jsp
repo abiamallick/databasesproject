@@ -6,13 +6,9 @@
 <html>
 <body>
 <style>
-
 .tab1{
 tab-size=50;
 }
-
-
-
 table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
@@ -45,7 +41,6 @@ padding: 30px;
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
-
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			StringBuilder query = new StringBuilder("");
@@ -74,7 +69,6 @@ padding: 30px;
 					}
 					//System.out.println(searchQuery);
 				}
-			out.println(query.toString());
 			session.setAttribute("query_result",query.toString());
 			ResultSet result = stmt.executeQuery(query.toString()); %>
 			
@@ -85,10 +79,8 @@ padding: 30px;
 				<select name="sorting_options" id="sorting_options">
 				<option value="" disabled selected hidden="true">Select sorting option</option>
 				<option value="by_type">By Type</option>
-				<option value="by_bidding_price">By Bidding Price</option>
-				<option value="by_newly_listed">By Newly Listed</option>
-				<option value="by_ending_soonest">By Ending Soonest</option>
-				<input type="hidden" name="query" value=<%=query.toString()%>>
+				<option value="by_price">By Price</option>
+				<option value="by_item_condition">By Item Condition</option>
 				<input type="submit" value="Search">
 			</select> 			
 			  		</form>
@@ -104,19 +96,20 @@ padding: 30px;
 			    <th><b>Brand&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;</b></th> 
 			    <th><b>Size&emsp;&emsp;&ensp;</b></th>
 			    <th><b>Initial Price&emsp;&emsp;&emsp;</b></th>
+			    			    <th><b>Item Condition&emsp;&emsp;&emsp;</b></th>
 			  <th><b>Status&emsp;&emsp;&emsp;&emsp;&emsp;</b></th>
 			  	</tr>
 			  </div>
 <table style= ""width:50%">
 			  
 			  <% while (result.next()) { %>
-
 			<div>
 				<tr>    
 					<td><a href="searchResults.jsp?footwear_item_id=<%= result.getInt("footwear_item_id") %>&shoe_type=<%=result.getString("shoe_type")%>"><%= result.getString("title") %></a></td>
 					<td><%= result.getString("brand") %></td>
 					<td><%= result.getString("size") %></td>
 					<td><%= result.getString("initial_price") %></td>
+										<td><%= result.getString("item_condition") %></td>
 					<% if (result.getString("sold").equals("1")){ %>
 			<td>Sold</td>
 		<% }else{ %>
@@ -129,7 +122,6 @@ padding: 30px;
 			  </table>
 			<%  db.closeConnection(con);
 			
-
 			
 		
 		 }catch (Exception e) {
