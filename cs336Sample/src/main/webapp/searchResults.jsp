@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.LocalDateTime,java.util.Date, java.time.format.DateTimeFormatter"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.LocalDateTime,java.text.ParseException, java.util.Date,java.text.SimpleDateFormat, java.time.LocalDate, java.text.DateFormat, java.time.format.DateTimeFormatter"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
 
 
@@ -133,7 +133,6 @@
 			String hello = (result.getString("closing_date"));	
 			//out.println(hello);
 			out.println(hello.substring(0,19));
-			out.println("xoxox");
 			out.print("<br>");
 			//make a column
 			
@@ -174,14 +173,12 @@ try {
 		//Get the combobox from the index.jsp
 		String practice = (String)session.getAttribute("user");
 		LocalDateTime myDateObj = LocalDateTime.now();
-		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String formattedDate = myDateObj.format(myFormatObj);
 		String entity = request.getParameter("footwear_item_id");
 		String auctionDate="";
-		String realauctionDate = "";
 		Double auctionInitial=0.0;
-		Double auctionAmount = 0.0;
-		java.util.Date a_date = null;
+		Double auctionAmount = 0.0; 
 		
 		
 		
@@ -193,11 +190,7 @@ try {
 		while (result2.next()) {
 		
 			auctionDate = (result2.getString("closing_date"));
-			auctionDate= auctionDate.substring(0,19);
-			Timestamp timestamp = auctionDate.getTimestamp(i);
-			if (timestamp != null){
-			    date = new java.util.Date(timestamp.getTime()));
-			}
+			//auctionDate = auctionDate.substring(0,19);
 			
 			//a_date = result2.getDate("closing_date");
 			auctionInitial = (result2.getDouble("initial_price_sells"));
@@ -206,27 +199,35 @@ try {
 			
 		}
 		
-		out.println("today date: " + formattedDate);
+		out.println("today: " + formattedDate);
+		out.println("auction: " +auctionDate);
 		
-		//auctionDate= "2021-03-05 08:12:19";
-		out.println("auction end : " +auctionDate);
+		
+		
+		
+/* 			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date today = sdf.parse(formattedDate);
+			Date auction = sdf.parse(auctionDate);
+			out.println(today);
+			out.println(auction);
+
+			
+			  boolean before = (today.before(auction));
+			  boolean after = (today.after(auction)); */
+	
 		
 		//out.println("as a date" + a_date);
 		
-		if(auctionDate.compareTo(formattedDate)==0)
-		{
-			hasEnded=true;
-		}
-		else if(auctionDate.compareTo(formattedDate)<0)
-		{
-			hasEnded=true;
-			out.println("hi");
-		}
-		else if(auctionDate.compareTo(formattedDate)>0)
-		{
+		//if(today.before(auction)) //first = todays && second = auctiondate
+		//{
 			hasEnded=false;
-			out.println("helloo");
-		}
+			//out.println("donut");
+		//}
+		//else if(today.after(auction))
+		//{
+			hasEnded=true;
+			//out.println("hi");
+		//}
 		
 		
 		if(auctionInitial==auctionAmount)
@@ -241,9 +242,8 @@ try {
 		{
 			isGreater=true;
 		}
-		
 		out.println(hasEnded);
-		out.println(isGreater);
+		
 		
 } catch (Exception e) {
 	out.print(e);
@@ -313,9 +313,9 @@ try {
 				ps = con.prepareStatement(insert3); 
 				ps.executeUpdate();
 				
-/* 				PreparedStatement ps1 = con.prepareStatement(update1);
+ 				PreparedStatement ps1 = con.prepareStatement(update1);
 				ps1 = con.prepareStatement(update1); 
-				ps1.executeUpdate();  */
+				ps1.executeUpdate();  
 			}
 			//out.print(auc);
 			
@@ -348,7 +348,9 @@ try {
 	
 	while (result.next()) {
 		
-		String win_username = result.getString("w_username"); 
+		if(hasEnded==true){
+		
+			String win_username = result.getString("w_username"); 
 	
 
 			String alertmessageInsert = "You are a winner! Congrats!";
@@ -358,6 +360,7 @@ try {
   			PreparedStatement ps = con.prepareStatement(insert3);
 			ps = con.prepareStatement(insert3); 
 			ps.executeUpdate(); 	
+		}
 		
 	}
 
