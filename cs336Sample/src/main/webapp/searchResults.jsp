@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.LocalDateTime,java.time.format.DateTimeFormatter"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.LocalDateTime,java.util.Date, java.time.format.DateTimeFormatter"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
 
 
@@ -133,6 +133,7 @@
 			String hello = (result.getString("closing_date"));	
 			//out.println(hello);
 			out.println(hello.substring(0,19));
+			out.println("xoxox");
 			out.print("<br>");
 			//make a column
 			
@@ -177,37 +178,51 @@ try {
 		String formattedDate = myDateObj.format(myFormatObj);
 		String entity = request.getParameter("footwear_item_id");
 		String auctionDate="";
+		String realauctionDate = "";
 		Double auctionInitial=0.0;
 		Double auctionAmount = 0.0;
+		java.util.Date a_date = null;
+		
 		
 		
 		//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-		String str = "SELECT b.bid_username, au.auction_id, au.closing_date, au.initial_price_sells, b.bid_amount FROM Auctions au, BIDS b WHERE b.bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id = '" + entity + "') and au.initial_price_sells = (SELECT Min(initial_price_sells) FROM Auctions WHERE bid_footwear_item_id = '" + entity + "')";
+		String str = "SELECT b.bid_username, au.auction_id, au.closing_date, au.initial_price_sells, b.bid_amount FROM Auctions au, BIDS b WHERE b.bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id = '" + entity + "') and au.initial_price_sells = (SELECT Min(initial_price_sells) FROM Auctions WHERE footwear_sells_id = '" + entity + "') And au.footwear_sells_id = b.bid_footwear_item_id";     
 		
 		ResultSet result2 = stmt.executeQuery(str);
 		
 		while (result2.next()) {
-			
+		
 			auctionDate = (result2.getString("closing_date"));
+			auctionDate= auctionDate.substring(0,19);
+			Timestamp timestamp = auctionDate.getTimestamp(i);
+			if (timestamp != null){
+			    date = new java.util.Date(timestamp.getTime()));
+			}
+			
+			//a_date = result2.getDate("closing_date");
 			auctionInitial = (result2.getDouble("initial_price_sells"));
 			auctionAmount = (result2.getDouble("bid_amount"));
 			auc = (result2.getInt("auction_id"));
 			
 		}
-		out.println(formattedDate);
-		//auctionDate= "2021-03-05 08:12:19";
-		out.println(auctionDate);
 		
-		if(auctionDate.compareTo(formattedDate)==1)
+		out.println("today date: " + formattedDate);
+		
+		//auctionDate= "2021-03-05 08:12:19";
+		out.println("auction end : " +auctionDate);
+		
+		//out.println("as a date" + a_date);
+		
+		if(auctionDate.compareTo(formattedDate)==0)
 		{
 			hasEnded=true;
 		}
-		else if(auctionDate.compareTo(formattedDate)<-1)
+		else if(auctionDate.compareTo(formattedDate)<0)
 		{
 			hasEnded=true;
 			out.println("hi");
 		}
-		else if(auctionDate.compareTo(formattedDate)>1)
+		else if(auctionDate.compareTo(formattedDate)>0)
 		{
 			hasEnded=false;
 			out.println("helloo");
