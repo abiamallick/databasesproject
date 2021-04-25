@@ -11,6 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Alerts Page</title>
 </head>
+<body bgcolor="#DC79AC"></body>
 <body>
 
 
@@ -41,7 +42,7 @@ try {
 <br>
 
 
-<table>
+<table style="font-family:'Courier New'">
 	<%
 	//parse out the results
 	while (result.next()) { %>

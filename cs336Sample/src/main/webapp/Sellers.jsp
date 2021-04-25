@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.LocalDate"%>
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
 
 
@@ -8,7 +8,7 @@
 
 <!DOCTYPE html>
 <html>
-
+	<body bgcolor="#A4E5DC"></body>
    <head>
       <title>Sellers Form</title>
    </head>
@@ -25,6 +25,7 @@
    	<br>
 		<form method="post" action="createSellerItem.jsp">
 		<table>
+		
 		<tr>    
 		<td>Shoe Type</td><td><select name ="type" size=1>
 				<option value="sneakers">Sneakers</option>
@@ -92,7 +93,7 @@
 		</tr> 				
 		<tr> 
 		<td>Starting Date 
-			<td><p><input type="text" name="startingDate"placeholder="Enter as YYYY-MM-DD"></p></td>
+			<td><p><input type="date" value="<?php echo date('Y-m-d'); ?>" min="2021-04-25" name="startingDate"placeholder="Enter as YYYY-MM-DD"></p></td>
 		</tr>
 		<tr>
 		<tr> 
@@ -101,7 +102,7 @@
 		</tr>
 		<tr>
 		<td>Closing Date 
-		<td><p><input type="text" name="endingDate"placeholder="Enter as YYYY-MM-DD"></p></td>
+		<td><p><input type="date" value="<?php echo date('Y-m-d'); ?>" min="2021-04-25" name="endingDate"placeholder="Enter as YYYY-MM-DD"></p></td>
 		</tr> 
 		</table>
 		<input type="submit" value="Submit!">

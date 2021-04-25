@@ -12,6 +12,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Auction Page</title>
 </head>
+<body bgcolor="#D9EE91"></body>
 <body>
 	<%
 	
@@ -193,11 +194,15 @@ try {
 			double winner_amount = (result2.getDouble("bid_amount"));
 			
 				
+			out.println(hasEnded);
+			out.println(isGreater);
 			
+			out.println(winner_username);
+			out.println(winner_amount);
 			
 			if(hasEnded==true && isGreater==true)
 			{
-				
+				out.println("hiii");
 				status = 1;
 				String insert3 = "INSERT IGNORE INTO WINNER(w_username,w_amount,w_auction_id,w_footwear_id,status_winner)"
 	  					+ " VALUES ('" + winner_username + "', '" + winner_amount + "','" + auc + "', '" + entity + "', '" + status + "')";

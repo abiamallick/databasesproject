@@ -10,9 +10,9 @@
 <html>
 
    <head>
-      <title>Sellers Form</title>
+      <title>Wishlist Form</title>
    </head>
-   
+   <body bgcolor="#62ADBA"></body>
    <body>
     <br>
    <br>
@@ -24,25 +24,25 @@
    <br>
    
    
-   Hi! What kind of shoes would you like in your Wishlist
+   <h2>Hi! What kind of footwear items would you like in your Wishlist</h2>
    
    <br>
    <br>
-   Please input the following details: 
+   <b>Please input the following details: </b>
    
    
    	<br>
 		<form method="post" action="createWishlist.jsp">
 		<table>
 		<tr>    
-		<td>Shoe Type</td><td><select name ="type" size=1>
+		<td><b>Shoe Type</b></td><td><select name ="type" size=1>
 				<option value="Sneakers">Sneakers</option>
 				<option value="Boots">Boots</option>
 				<option value="Sandals">Sandals</option>
 			</select>
 		</tr>
 		<tr> 
-		<td>Size</td><td><select name ="size" size=1>
+		<td><b>Size</b></td><td><select name ="size" size=1>
 				<option value="4.0">4.0</option>
 				<option value="4.5">4.5</option>
 				<option value="5.0">5.0</option>
@@ -63,7 +63,7 @@
 			</select>
 		</tr>
 		<tr>
-				<td>Brand</td><td><select name="brand" size=1>
+				<td><b>Brand</b></td><td><select name="brand" size=1>
 				<option value="nike">Nike</option>
 				<option value="adidas">Adidas</option>
 				<option value="reebok">Reebok</option>

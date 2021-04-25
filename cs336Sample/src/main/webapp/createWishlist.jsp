@@ -4,6 +4,7 @@
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
 
 <html>
+ <body bgcolor="#BA626A"></body>
 <body>
 <style>
 .tab1{
@@ -44,17 +45,22 @@ padding: 30px;
 			
 			
 			con.close();
-			out.print("Your new item has been added to your wishlist");
+			out.print("Your new item has been added to your wishlist!");
 			
-
+			
 		 }catch (Exception e) {
 			out.print(e);
 		}
 			
 			%>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>		
 			
-			
-			
+	<a href="success.jsp"><%= "Click to return back to the home page."%></a>	
 	</body>
 </html>
 			

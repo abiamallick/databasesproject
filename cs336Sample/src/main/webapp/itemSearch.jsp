@@ -4,6 +4,7 @@
 <%@ page import="jakarta.servlet.http.*,jakarta.servlet.*"%>
 
 <html>
+<body bgcolor="#D3E1EE"></body>
 <body>
 <style>
 .tab1{
