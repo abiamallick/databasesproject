@@ -1,5 +1,9 @@
 CREATE DATABASE Projectfirst;
 USE Projectfirst;
+
+
+
+
 CREATE TABLE USERS (
 
 	username           VARCHAR(20)   NOT NULL,
@@ -74,7 +78,9 @@ CREATE TABLE FOOTWEAR_ITEMS (
 PRIMARY KEY (footwear_item_id));
 ALTER TABLE FOOTWEAR_ITEMS AUTO_INCREMENT=1000;
 
-SELECT * FROM FOOTWEAR_ITEMS;
+select * from footwear_items;
+
+SELECT footwear_item_id,initial_price  FROM FOOTWEAR_ITEMS;
 
 INSERT INTO FOOTWEAR_ITEMS (shoe_type,size,item_condition,style,initial_price,brand,title,sold)
 VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Adidas Men Sneakers',false),
@@ -88,6 +94,7 @@ VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Adidas Men Sneakers',
             ('sandals',9,'Slightly Used','casual',50.52,'Converse','Barely Worn Beach Sandals For Teen Boys',false),
             ('sandals',5,'Very Used','casual',75.79,'Under Armour','Everyday Orange Sandals In Decent Shape',true),
             ('sneakers',6,'Slightly Used','casual',20.22,'Reebok','Reebok Retro Sneakers For Women',true),
+            /* ---------------- */
             ('sneakers',9,'Slightly Used','athletic',17.44,'Nike','Adidas Men Sneakers',false),
             ('sneakers',9,'Slightly Used','athletic',15.75,'Converse','Converse Athletic Sneakers',false),
             ('sneakers',9,'Very Used','athletic',19.88,'Adidas','Adidas Used Sneakers',false),
@@ -99,7 +106,7 @@ VALUES      ('sneakers',9,'New','athletic',15.75,'Adidas','Adidas Men Sneakers',
 			('sandals',7,'Slightly Used','casual','55.08','Sperry','Sandals For Young Girls',false),
 			('sandals',6,'Very Used','fancy','40.88','Uggs','Vibrant Summer Sandals',false),
 			('sandals',9,'New','athletic','21.88','Converse','Cute and Trendy Pink Sandals',false);
-;
+/* --------------------------------------------------------------------------------------------- */
             
 CREATE TABLE ALERTS (
 	alertID					int			NOT NULL AUTO_INCREMENT, 
@@ -112,11 +119,6 @@ PRIMARY KEY (alertID),
 FOREIGN KEY (footwear_item_id) REFERENCES FOOTWEAR_ITEMS(footwear_item_id),
 FOREIGN KEY (alert_username) REFERENCES USERS(username) );
 
-INSERT INTO ALERTS
-VALUES      (10,'You have won the auction!',1001,'amallick');
-
-INSERT INTO ALERTS(alert_message, footwear_item_id, alert_username)
-VALUES      ('Sorry, unfortunately another user has won the auction',1001,'kbrown');
 
 Select * from alerts;
 
@@ -127,10 +129,23 @@ ADD CONSTRAINT alert_username
     ON DELETE CASCADE
     ON UPDATE CASCADE;
     
-    
-    
+select * from auctions;
+
+ SELECT * FROM footwear_items WHERE footwear_item_id =1018;
+ 
+ SELECT * FROM auctions WHERE footwear_sells_id =1018;
+ 
+ SELECT b.bid_username, au.auction_id, au.closing_date, au.initial_price_sells, b.bid_amount 
+ FROM Auctions au, BIDS b 
+ WHERE b.bid_amount = (SELECT Max(bid_amount) FROM bids WHERE bid_footwear_item_id = 1018)  and au.initial_price_sells = 
+ (SELECT Min(initial_price_sells) FROM Auctions WHERE footwear_sells_id = 1018)
+ And au.footwear_sells_id = b.bid_footwear_item_id;
+ 
 
 
+    
+
+/* --------------------------------------------------------------------------------------------- */
 
 CREATE TABLE Auctions (
 	footwear_sells_id		int				Not Null	AUTO_INCREMENT,
@@ -147,18 +162,35 @@ ALTER TABLE Auctions AUTO_INCREMENT=1000;
 
 select * from auctions;
 
+
 INSERT INTO Auctions (auction_id, auction_user,starting_date, closing_date, initial_price_sells)
 VALUES      (3844, 'annag', '2021-02-19','2021-04-26 13:10:01',15.75),
-			(9880, 'ylopez','2021-02-03','2021-04-17 21:30:45',35.99),
-            (9683, 'bwilson','2021-01-31','2021-02-28 20:14:08',50.99),
+			(9880, 'ylopez','2021-02-03','2021-04-17 21:30:45',35.97),
+            (9683, 'bwilson','2021-01-31','2021-02-28 20:14:08',50.55),
 			(1606, 'bwilson','2021-03-02','2021-05-20 23:25:10',51.35),
             (8451, 'annag','2021-03-11','2021-04-07 14:19:18',35.12),
-			(8260, 'smartinez','2021-02-23','2021-05-28 23:22:10',100.99),
-			(0978, 'smartinez', '2021-01-26','2021-05-09 20:34:50',88.79),
-            (3892, 'ylopez','2021-03-05','2021-05-01 18:19:08',60.78),
-            (1010, 'bwilson', '2021-04-15','2021-04-29 14:15:13',50.55),
+			(8260, 'smartinez','2021-02-23','2021-05-28 23:22:10',100.88),
+			(0978, 'smartinez', '2021-01-26','2021-05-09 20:34:50',88.77),
+            (3892, 'ylopez','2021-03-05','2021-05-01 18:19:08',60.99),
+            (1010, 'bwilson', '2021-04-15','2021-04-29 14:15:13',50.52),
             (1005, 'annag','2021-02-20','2021-04-16 12:17:19',75.79),
-            (1004, 'bwilson','2021-04-06','2021-04-21 13:18:05',20.22);
+            (1004, 'bwilson','2021-04-06','2021-04-21 13:18:05',20.22),
+            (9479, 'bwilson','2021-04-29','2021-05-28 10:14:08',17.44),
+            (1738, 'bwilson','2021-03-02','2021-05-20 23:25:10',15.90),
+            (5684, 'annag','2021-03-11','2021-06-07 14:19:18',19.88),
+            (1678, 'smartinez','2021-02-23','2021-05-28 22:22:10',18.73),
+            (8293, 'smartinez','2021-03-26','2021-05-20 20:39:50',51.35),
+            (5784, 'ylopez','2021-03-17','2021-05-21 12:19:18',40.35),
+            (3782, 'bwilson','2021-04-19','2021-04-29 07:15:13',60.71),
+            (2903, 'bwilson','2021-04-03','2021-05-05 08:12:19',25.88),
+            (9876, 'annag','2021-03-20','2021-07-16 16:14:19',55.08),
+            (6495, 'annag','2021-04-07','2021-05-16 18:10:12',40.88),
+            (4792, 'annag','2021-04-09','2021-05-26 19:20:18',21.88);
+            
+
+
+       
+          
 
 ALTER TABLE Auctions
 ADD CONSTRAINT auction_user
@@ -167,7 +199,7 @@ ADD CONSTRAINT auction_user
     ON DELETE CASCADE
     ON UPDATE CASCADE;
     
-    
+/* --------------------------------------------------------------------------------------------- */
 CREATE TABLE QUESTIONS (
 
     question_id 		 int     NOT NULL auto_increment,
@@ -178,7 +210,7 @@ CREATE TABLE QUESTIONS (
 PRIMARY KEY (question_id),
 FOREIGN KEY (q_username) REFERENCES USERS(username) );
 ALTER TABLE QUESTIONS AUTO_INCREMENT=10;
-
+/* --------------------------------------------------------------------------------------------- */
 
 INSERT INTO QUESTIONS (q_username, question, answer)
 VALUE ('amallick', 'What is an alert?', 'Customer representative will answer soon'),
@@ -241,6 +273,10 @@ create table wishlist(
     brand 				VARCHAR(30)		 NOT NULL,
     primary key(wishlist_id),
     foreign key(wishlistUser) references Users(username));
+    
+    select * from wishlist;
+    
+
 
 ALTER TABLE WISHLIST
 ADD CONSTRAINT wishlistUser
@@ -248,6 +284,8 @@ ADD CONSTRAINT wishlistUser
     REFERENCES USERS(username)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
+
+   
     
     
 CREATE TABLE WINNER (
@@ -284,3 +322,19 @@ ADD CONSTRAINT w_auction_id
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
+select * from winner;
+
+SELECT w_username FROM winner where w_footwear_id= 1011 And status_winner!=0;
+
+
+Select distinct f.title, au.closing_date, w.w_username, w.w_amount, w.status_winner 
+FROM footwear_items f, auctions au, winner w 
+where f.footwear_item_id = au.footwear_sells_id 
+And w.w_footwear_id = f.footwear_item_id 
+And au.footwear_sells_id= w.w_footwear_id 
+order by au.closing_date
+
+    
+
+    
+    
