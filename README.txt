@@ -8,6 +8,8 @@ All of us worked equally to complete this project. More specifically, we all wor
 VIDEO:
 https://www.youtube.com/watch?v=n8GPUOizWIo
 
+Please change password in APPLICATIONDB.java
+
 
 LOGIN INFO
 
